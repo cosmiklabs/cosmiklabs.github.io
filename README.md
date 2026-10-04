@@ -24,11 +24,11 @@ Rebuild after edits. Set `PORT` to change the preview port. The preview server b
 - `tests/site.test.mjs`: static structure, local-link, catalog, escaping, and asset checks.
 - `site/`: generated output, ignored by Git.
 
-Pages: home, project index, HPLX, The Dark Descent, About, and a 404 page. Catalog entries have standalone routes regardless of their relationships. The current two projects are shown directly, without unused category filters. No external fonts, trackers, cookies, forms, or client-side dependencies are used.
+Pages: home, project index, HPLX, Amnesia: The Dark Descent Redux, Amnesia: A Machine for Pigs Redux, About, and a 404 page. Catalog entries have standalone routes regardless of their relationships. The current three projects are shown directly, without unused category filters. No external fonts, trackers, cookies, forms, or client-side dependencies are used.
 
 ## Content boundaries
 
-Both projects are marked **In development**. No release version, playable demo, download, compatibility promise, roadmap date, or completed feature is claimed. Repository links for individual projects remain absent until public URLs are confirmed. `source: null` is intentional. Game artwork and assets are not included. AMFP is not presented as a committed project.
+HPLX and Amnesia: The Dark Descent Redux are marked **In development**. Amnesia: A Machine for Pigs Redux is a stub explicitly marked **Not started**, with no game artwork or feature claims. No release version, playable demo, download, compatibility promise, roadmap date, or completed feature is claimed. Repository links for individual projects remain absent until public URLs are confirmed. `source: null` is intentional. Game artwork and assets are not included. Both Redux projects are HPLX children. The TDD route remains `/projects/tdd/`; the new AMFP stub is `/projects/amfp/`.
 
 The header, footer, and About page link only to the public Cosmik organization and brand repository. Game names remain the property of their respective owners; the TDD page identifies this as an independent, unaffiliated reimplementation.
 
@@ -40,7 +40,7 @@ Inter and IBM Plex Mono are self-hosted. Their SIL Open Font License notices are
 
 ## Validation and publication
 
-`npm run check` verifies the generated HTML structure, local links and fragments, all six routes, parent relationships, font licensing files, and basic safety/accessibility hooks. It does not replace an interactive browser accessibility or responsive-layout review.
+`npm run check` verifies the generated HTML structure, local links and fragments, all seven routes, parent relationships, font licensing files, and basic safety/accessibility hooks. It does not replace an interactive browser accessibility or responsive-layout review.
 
 During the initial implementation, Chromium launch was blocked by the execution environment's socket permissions. Browser layout and interaction tests therefore remain to be run locally at desktop and phone widths before publication. Static design review images, if provided separately, are composition previews rather than browser screenshots.
 

@@ -54,3 +54,39 @@ test('projects with both a parent and children expose both relationships',()=>{
  const child={...projects[1],id:'child',parent:'middle'};
  const html=projectPage(middle,[projects[0],middle,child]);assert.ok(html.includes('projects/hplx/'));assert.ok(html.includes('projects/child/'));assert.equal((html.match(/class="diagram-connector"/g)||[]).length,2);
 });
+
+test('Redux titles, stable routes, and development states are accurate',async()=>{
+ assert.equal(projects.length,3);
+ assert.equal(projectById.get('tdd').name,'Amnesia: The Dark Descent Redux');
+ assert.equal(projectById.get('tdd').status,'In development');
+ assert.equal(projectById.get('amfp').name,'Amnesia: A Machine for Pigs Redux');
+ assert.equal(projectById.get('amfp').status,'Not started');
+ assert.equal(projectById.get('amfp').parent,'hplx');
+ for(const id of ['tdd','amfp']){
+  const html=await readFile(path.join(root,`projects/${id}/index.html`),'utf8');
+  assert.ok(html.includes(`<h1>${projectById.get(id).name}</h1>`));
+  assert.ok(html.includes(`<title>${projectById.get(id).name} — Cosmik</title>`));
+  assert.ok(html.includes('has-long-title'));
+ }
+ const stub=await readFile(path.join(root,'projects/amfp/index.html'),'utf8');
+ assert.match(stub,/work has not started/);assert.match(stub,/Not started/);assert.doesNotMatch(stub.slice(stub.indexOf('<header class="project-heading'),stub.indexOf('</header>',stub.indexOf('<header class="project-heading'))),/In development/);assert.doesNotMatch(stub,/class="project-art"|View source|assets\/art\/null/);
+});
+
+test('both Redux games are independently discoverable and HPLX siblings',async()=>{
+ for(const route of ['index.html','projects/index.html','projects/hplx/index.html']){
+  const html=await readFile(path.join(root,route),'utf8');
+  for(const id of ['tdd','amfp']) {assert.ok(html.includes(`projects/${id}/`));assert.ok(html.includes(projectById.get(id).name));}
+  assert.match(html,/Not started|not started/);
+ }
+ const engine=await readFile(path.join(root,'projects/hplx/index.html'),'utf8');
+ const diagram=engine.slice(engine.indexOf('class="relationship-diagram"'));
+ assert.equal((diagram.match(/class="diagram-connector"/g)||[]).length,1);
+ assert.match(diagram,/class="diagram-children"/);
+ assert.match(engine,/work on it has not started/);
+});
+
+test('long-title and stub styles retain responsive content without clipping',async()=>{
+ const css=await readFile(path.join(root,'assets/site.css'),'utf8');
+ assert.match(css,/\.project-heading\.has-long-title h1/);assert.match(css,/overflow-wrap:anywhere/);assert.match(css,/grid-template-columns:minmax\(0,1fr\) auto/);
+ for(const htmlFile of htmlFiles){const html=await readFile(htmlFile,'utf8');assert.doesNotMatch(html,/<h[13]>The Dark Descent<\/h[13]>|two connected projects|Both in development/);}
+});
