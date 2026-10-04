@@ -1,7 +1,7 @@
 /** Catalog entries are independent pages. parent identifies a relationship, not a route. */
 export const projects = [
   {
-    id: 'hplx', name: 'HPLX', type: 'Engine', status: 'In development', parent: null,
+    id: 'hplx', featured: true, name: 'HPLX', type: 'Engine', status: 'In development', parent: null,
     summary: 'An independent engine reimplementation focused on HPL2. A foundation for bringing familiar worlds forward.',
     lead: 'Rebuilding the foundation.',
     overviewHeading: 'The engine behind the world.', connectionHeading: 'One foundation. Connected worlds.',

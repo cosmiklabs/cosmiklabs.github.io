@@ -17,14 +17,16 @@ Rebuild after edits. Set `PORT` to change the preview port. The preview server b
 
 - `src/projects.mjs`: catalog data. A project has its own permanent route and may name another project's ID as its `parent`.
 - `src/templates.mjs`: shared layout and semantic page templates.
-- `assets/site.css`: responsive website styles; no client-side JavaScript is required.
+- `assets/site.css`: responsive website styles; no client-side JavaScript is required for content or navigation.
 - `assets/brand-tokens.css`: semantic tokens from the published Cosmik brand kit v0.2.
 - `assets/art/`: original abstract visual studies, explicitly not screenshots.
 - `scripts/build.mjs`: dependency-free static generator.
 - `tests/site.test.mjs`: static structure, local-link, catalog, escaping, and asset checks.
 - `site/`: generated output, ignored by Git.
 
-Pages: home, project index, HPLX, Amnesia: The Dark Descent Redux, Amnesia: A Machine for Pigs Redux, HPLX Editor, About, and a 404 page. Catalog entries have standalone routes regardless of their relationships. The current four projects are shown directly, without unused category filters. No external fonts, trackers, cookies, forms, or client-side dependencies are used.
+Pages: home, project index, HPLX, Amnesia: The Dark Descent Redux, Amnesia: A Machine for Pigs Redux, HPLX Editor, About, and a 404 page. Catalog entries have standalone routes regardless of their relationships. The homepage presents explicitly curated `featured: true` entries; it does not duplicate the full catalog. The project index is an image-free directory with shared name/type/status/parent columns and compact stacked mobile rows. Entries are grouped beneath their parent by default. Optional local search and type/status filters match projects independently, so a child remains discoverable when its parent is filtered out.
+
+`assets/catalog-model.mjs` contains pure grouping and matching helpers shared by the build and browser. `assets/catalog.mjs` progressively enhances the pre-rendered directory. Controls stay hidden until initialization succeeds; every project remains available without JavaScript. Search is limited to this project directory, runs locally, and makes no network request. No external fonts, trackers, cookies, data-submitting forms, or third-party client dependencies are used.
 
 ## Content boundaries
 
@@ -40,7 +42,7 @@ Inter and IBM Plex Mono are self-hosted. Their SIL Open Font License notices are
 
 ## Validation and publication
 
-`npm run check` verifies the generated HTML structure, local links and fragments, all eight routes, parent relationships, font licensing files, and basic safety/accessibility hooks. It does not replace an interactive browser accessibility or responsive-layout review.
+`npm run check` verifies the generated HTML structure, local links and fragments, all eight routes, parent relationships, font licensing files, grouping/filtering/reset behavior, curated-home structure, and basic safety/accessibility hooks. It does not replace an interactive browser accessibility or responsive-layout review.
 
 During the initial implementation, Chromium launch was blocked by the execution environment's socket permissions. Browser layout and interaction tests therefore remain to be run locally at desktop and phone widths before publication. Static design review images, if provided separately, are composition previews rather than browser screenshots.
 

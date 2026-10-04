@@ -4,7 +4,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {projects, projectById} from '../src/projects.mjs';
-import {escape, projectPage, card} from '../src/templates.mjs';
+import {escape, projectPage, directoryRow, featuredProject} from '../src/templates.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../site');
 async function walk(dir) {const result=[];for (const entry of await readdir(dir,{withFileTypes:true})) {const name=path.join(dir,entry.name);result.push(...entry.isDirectory()?await walk(name):[name]);}return result;}
 const files=await walk(root);
@@ -27,7 +27,7 @@ test('all local HTML links, assets, and fragments resolve',async()=>{
 });
 test('every page has semantic landmarks and one descriptive h1',async()=>{
  const titles=[];
- for(const file of htmlFiles){const html=await readFile(file,'utf8');assert.match(html,/<html lang="en"/);assert.equal((html.match(/<h1[> ]/g)||[]).length,1);assert.match(html,/<main id="main"/);assert.match(html,/class="skip-link"/);assert.match(html,/<nav aria-label="Main navigation"/);assert.match(html,/<meta name="description"/);titles.push(html.match(/<title>(.*?)<\/title>/)[1]);for(const [,tag] of html.matchAll(/(<img\b[^>]*>)/g))assert.match(tag,/alt="[^"]*"/);assert.doesNotMatch(html,/<script|onclick=|javascript:/i);}
+ for(const file of htmlFiles){const html=await readFile(file,'utf8');assert.match(html,/<html lang="en"/);assert.equal((html.match(/<h1[> ]/g)||[]).length,1);assert.match(html,/<main id="main"/);assert.match(html,/class="skip-link"/);assert.match(html,/<nav aria-label="Main navigation"/);assert.match(html,/<meta name="description"/);titles.push(html.match(/<title>(.*?)<\/title>/)[1]);for(const [,tag] of html.matchAll(/(<img\b[^>]*>)/g))assert.match(tag,/alt="[^"]*"/);assert.doesNotMatch(html,/onclick=|javascript:/i);const scripts=[...html.matchAll(/<script[^>]*>/g)].map(m=>m[0]);if(file===path.join(root,'projects/index.html'))assert.deepEqual(scripts,['<script type="module" src="../assets/catalog.mjs">']);else assert.equal(scripts.length,0);}
  assert.equal(new Set(titles).size,titles.length);
 });
 test('no private-source links, fake downloads, trackers, or deployment data',async()=>{
@@ -44,7 +44,7 @@ test('data escape prevents HTML injection',()=>assert.equal(escape('<b title="x"
 test('standalone and multiple-child projects render without invented relationships',()=>{
  const standalone={id:'sample',name:'Sample',type:'Tool',status:'In development',parent:null,summary:'Sample tool.',lead:'A useful tool.',description:'Independent project.',art:'engine.svg',artLabel:'Abstract artwork',focus:'Tools',note:'In progress.',source:null};
  const html=projectPage(standalone,[standalone]);assert.doesNotMatch(html,/relationship-diagram|The Dark Descent|Built on HPLX/);assert.match(html,/<h1>Sample<\/h1>/);
- assert.doesNotMatch(card(standalone,'./',0,[standalone]),/Foundation for/);
+ assert.match(directoryRow(standalone,'./',[standalone]),/Independent/);
  const children=['child-a','child-b'].map(id=>({...standalone,id,name:id,parent:'sample'}));
  const parentHtml=projectPage(standalone,[standalone,...children]);assert.equal((parentHtml.match(/class="diagram-connector"/g)||[]).length,1);for(const child of children)assert.ok(parentHtml.includes(`projects/${child.id}/`));
 });
@@ -73,7 +73,7 @@ test('Redux titles, stable routes, and development states are accurate',async()=
 });
 
 test('both Redux games are independently discoverable and HPLX siblings',async()=>{
- for(const route of ['index.html','projects/index.html','projects/hplx/index.html']){
+ for(const route of ['projects/index.html','projects/hplx/index.html']){
   const html=await readFile(path.join(root,route),'utf8');
   for(const id of ['tdd','amfp']) {assert.ok(html.includes(`projects/${id}/`));assert.ok(html.includes(projectById.get(id).name));}
   assert.match(html,/Not started|not started/);
@@ -96,14 +96,22 @@ test('HPLX Editor is a planned HPL2-scoped child with its own page',async()=>{
  const editor=projectById.get('hplx-editor');assert.equal(editor.name,'HPLX Editor');assert.equal(editor.type,'Editor');assert.equal(editor.status,'Planned');assert.equal(editor.parent,'hplx');assert.equal(editor.source,null);assert.equal(editor.art,null);
  const page=await readFile(path.join(root,'projects/hplx-editor/index.html'),'utf8');
  assert.match(page,/<h1>HPLX Editor<\/h1>/);assert.match(page,/<title>HPLX Editor — Cosmik<\/title>/);assert.match(page,/HPL2-compatible custom stories/);assert.match(page,/not an available release/);assert.match(page,/No editor build/);assert.match(page,/Part of/);assert.doesNotMatch(page,/class="project-art"|View source|HPL3|SOMA|Rebirth|Bunker/);
- for(const route of ['index.html','projects/index.html','projects/hplx/index.html']){
+ for(const route of ['projects/index.html','projects/hplx/index.html']){
   const html=await readFile(path.join(root,route),'utf8');assert.ok(html.includes('projects/hplx-editor/'));assert.match(html,/HPLX Editor/);assert.match(html,/Planned|planned/);
  }
- const cardHtml=card(editor,'./',3);assert.match(cardHtml,/HPL2 custom stories \/ Planned/);assert.doesNotMatch(cardHtml,/REDUX|NOT STARTED/);
+ const rowHtml=directoryRow(editor,'./');assert.match(rowHtml,/Planned/);assert.match(rowHtml,/>Editor<\/td>/);assert.doesNotMatch(rowHtml,/REDUX|NOT STARTED/);
 });
 
 test('HPLX has three correctly typed sibling projects and clear current scope',async()=>{
  assert.deepEqual(projects.filter(p=>p.parent==='hplx').map(p=>p.id),['tdd','amfp','hplx-editor']);
  const engine=await readFile(path.join(root,'projects/hplx/index.html'),'utf8');assert.match(engine,/current focus on HPL2/);assert.match(engine,/HPLX Editor is planned/);
  const diagram=engine.slice(engine.indexOf('class="relationship-diagram"'));assert.equal((diagram.match(/class="diagram-connector"/g)||[]).length,1);assert.match(diagram,/>Editor<\/span>/);assert.match(diagram,/>Game reimplementation<\/span>/);assert.match(diagram,/>Planned<\/span>/);
+});
+
+
+test('home is curated while the directory lists every project without image cards',async()=>{
+ const home=await readFile(path.join(root,'index.html'),'utf8');const index=await readFile(path.join(root,'projects/index.html'),'utf8');
+ assert.equal((home.match(/class="featured-project"/g)||[]).length,projects.filter(p=>p.featured).length);
+ assert.match(home,/Browse all projects/);assert.doesNotMatch(home,/directory-table|project-grid|project-card|projects\/amfp\//);
+ assert.equal((index.match(/data-project-row /g)||[]).length,projects.length);assert.match(index,/role="table"/);assert.match(index,/scope="col"/);assert.match(index,/data-directory-form hidden/);assert.match(index,/<noscript>/);assert.match(index,/data-empty hidden/);assert.match(index,/aria-live="polite"/);assert.doesNotMatch(index,/card-image|project-card|assets\/art\//);
 });
