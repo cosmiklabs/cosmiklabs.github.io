@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" fill="none">
+<title>Engine study</title>
+<desc>Original geometric wireframe illustration of three interlocking volumes on a perspective grid. Not an engine screenshot.</desc>
+<defs><radialGradient id="glow"><stop stop-color="#303030"/><stop offset="1" stop-color="#101010"/></radialGradient><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#373737"/></pattern></defs>
+<path fill="url(#glow)" d="M0 0h900v560H0z"/><path fill="url(#dots)" d="M0 0h900v560H0z"/>
+<g stroke="#343434" stroke-width="1"><path d="M-100 470 450 180 1000 470M-100 530 450 240 1000 530M-100 590 450 300 1000 590M-100 650 450 360 1000 650M-100 710 450 420 1000 710"/><path d="M-100 470 450 760 1000 470M-100 410 450 700 1000 410M-100 350 450 640 1000 350M-100 290 450 580 1000 290M-100 230 450 520 1000 230"/></g>
+<g stroke="#F6F5F0" stroke-width="1.5" stroke-linejoin="round">
+<path fill="#171717" d="m260 226 154-81 154 81v178l-154 81-154-81Z"/><path fill="#222" d="m260 226 154-81 154 81-154 81Z"/><path d="m260 226 154 81 154-81M414 307v178"/>
+<path fill="#0C0C0C" d="m414 145 134-70 154 81v178l-134 70V226Z"/><path fill="#282828" d="m414 145 134-70 154 81-134 70Z"/><path d="m568 226 134-70M548 75v151" stroke="#777"/>
+<path fill="#101010" d="m126 296 134-70v178l154 81-134 70-154-81Z"/><path fill="#242424" d="m126 296 134-70 154 81-134 70Z"/><path d="m280 377 134-70v178M280 377v178"/>
+</g><g stroke="#888" stroke-width="1"><path d="m304 248 110-58 109 58-109 58Z"/><path d="m442 145 106-56 108 57-106 56Z"/></g>
+<g stroke="#777"><path d="M48 48h24m-12-12v24M828 48h24m-12-12v24M48 512h24m-12-12v24M828 512h24m-12-12v24"/></g>
+</svg>
