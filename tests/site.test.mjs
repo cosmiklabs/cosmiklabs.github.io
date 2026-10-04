@@ -56,7 +56,7 @@ test('projects with both a parent and children expose both relationships',()=>{
 });
 
 test('Redux titles, stable routes, and development states are accurate',async()=>{
- assert.equal(projects.length,3);
+ assert.equal(projects.length,4);
  assert.equal(projectById.get('tdd').name,'Amnesia: The Dark Descent Redux');
  assert.equal(projectById.get('tdd').status,'In development');
  assert.equal(projectById.get('amfp').name,'Amnesia: A Machine for Pigs Redux');
@@ -89,4 +89,21 @@ test('long-title and stub styles retain responsive content without clipping',asy
  const css=await readFile(path.join(root,'assets/site.css'),'utf8');
  assert.match(css,/\.project-heading\.has-long-title h1/);assert.match(css,/overflow-wrap:anywhere/);assert.match(css,/grid-template-columns:minmax\(0,1fr\) auto/);
  for(const htmlFile of htmlFiles){const html=await readFile(htmlFile,'utf8');assert.doesNotMatch(html,/<h[13]>The Dark Descent<\/h[13]>|two connected projects|Both in development/);}
+});
+
+
+test('HPLX Editor is a planned HPL2-scoped child with its own page',async()=>{
+ const editor=projectById.get('hplx-editor');assert.equal(editor.name,'HPLX Editor');assert.equal(editor.type,'Editor');assert.equal(editor.status,'Planned');assert.equal(editor.parent,'hplx');assert.equal(editor.source,null);assert.equal(editor.art,null);
+ const page=await readFile(path.join(root,'projects/hplx-editor/index.html'),'utf8');
+ assert.match(page,/<h1>HPLX Editor<\/h1>/);assert.match(page,/<title>HPLX Editor — Cosmik<\/title>/);assert.match(page,/HPL2-compatible custom stories/);assert.match(page,/not an available release/);assert.match(page,/No editor build/);assert.match(page,/Part of/);assert.doesNotMatch(page,/class="project-art"|View source|HPL3|SOMA|Rebirth|Bunker/);
+ for(const route of ['index.html','projects/index.html','projects/hplx/index.html']){
+  const html=await readFile(path.join(root,route),'utf8');assert.ok(html.includes('projects/hplx-editor/'));assert.match(html,/HPLX Editor/);assert.match(html,/Planned|planned/);
+ }
+ const cardHtml=card(editor,'./',3);assert.match(cardHtml,/HPL2 custom stories \/ Planned/);assert.doesNotMatch(cardHtml,/REDUX|NOT STARTED/);
+});
+
+test('HPLX has three correctly typed sibling projects and clear current scope',async()=>{
+ assert.deepEqual(projects.filter(p=>p.parent==='hplx').map(p=>p.id),['tdd','amfp','hplx-editor']);
+ const engine=await readFile(path.join(root,'projects/hplx/index.html'),'utf8');assert.match(engine,/current focus on HPL2/);assert.match(engine,/HPLX Editor is planned/);
+ const diagram=engine.slice(engine.indexOf('class="relationship-diagram"'));assert.equal((diagram.match(/class="diagram-connector"/g)||[]).length,1);assert.match(diagram,/>Editor<\/span>/);assert.match(diagram,/>Game reimplementation<\/span>/);assert.match(diagram,/>Planned<\/span>/);
 });
