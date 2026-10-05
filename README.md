@@ -36,7 +36,7 @@ The header, footer, and About page link only to the public Cosmik organization a
 
 ## Brand assets and rights
 
-Emblems, semantic tokens, and type come from [cosmik-labs/brand](https://github.com/cosmik-labs/brand), v0.2 baseline commit `d71904ab02b551a1e6e975ac0d5f10d59bb5bfb2`. The approved emblem is used as a static identity; this site does not modify or finalize the separate logo animation work.
+Emblems, semantic tokens, and type come from [cosmiklabs/brand](https://github.com/cosmiklabs/brand), v0.2 baseline commit `d71904ab02b551a1e6e975ac0d5f10d59bb5bfb2`. The approved emblem is used as a static identity; this site does not modify or finalize the separate logo animation work.
 
 Inter and IBM Plex Mono are self-hosted. Their SIL Open Font License notices are retained in `assets/fonts/`. No blanket code, brand, or artwork license has been selected for this website repository.
 
