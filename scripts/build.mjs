@@ -1,13 +1,15 @@
 import { mkdir, writeFile, cp, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { home, catalog, projectPage, about, notFound } from '../src/templates.mjs';
-import { projects } from '../src/projects.mjs';
+import { home, catalog, familyPage, legacyPage, about, notFound } from '../src/templates.mjs';
+import { families, legacyRoutes, validateContent } from '../src/projects.mjs';
+validateContent();
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'site');
 const pages = new Map([
   ['index.html', home()], ['projects/index.html', catalog()],
-  ...projects.map(project => [`projects/${project.id}/index.html`, projectPage(project)]),
+  ...families.map(family => [`projects/${family.id}/index.html`, familyPage(family)]),
+  ...legacyRoutes.map(route => [`projects/${route.id}/index.html`, legacyPage(route)]),
   ['about/index.html', about()], ['404.html', notFound()],
 ]);
 await rm(output, { recursive: true, force: true });

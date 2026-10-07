@@ -1,0 +1,11 @@
+/*
+ * Family content has its own theme boundary. Site navigation and the footer
+ * remain outside it. Until a family identity is approved, the exact Cosmik
+ * baseline is inherited without any proposed palette or type treatment.
+ *
+ * Approved family files are registered in src/themes.mjs and must scope every
+ * override to [data-family="<id>"], including [data-theme="light"] descendants.
+ * Only color and heading-type roles may change. Interface type, layout,
+ * controls, focus behavior, spacing and motion remain in the shared site CSS.
+ */
+.family-content{background:var(--c-bg);color:var(--c-text)}

@@ -1,56 +1,56 @@
-/** Catalog entries are independent pages. parent identifies a relationship, not a route. */
-export const projects = [
+/** Family destinations are stable. Featured work is an independent editorial choice. */
+export const families = [
   {
-    id: 'hplx', featured: true, name: 'HPLX', type: 'Engine', status: 'In development', parent: null,
-    summary: 'An independent engine reimplementation focused on HPL2. A foundation for bringing familiar worlds forward.',
-    lead: 'Rebuilding the foundation.',
-    overviewHeading: 'The engine behind the world.', connectionHeading: 'One foundation. Connected worlds.',
-    connectionDescription: 'HPLX and Amnesia: The Dark Descent Redux are being developed together. Amnesia: A Machine for Pigs Redux is a second connected project; work on it has not started. HPLX Editor is planned for HPL2-compatible custom stories.',
-    description: 'HPLX is an independent engine reimplementation project with a current focus on HPL2, starting with the foundations needed for Amnesia: The Dark Descent Redux.',
-    art: 'engine.svg', artLabel: 'Original wireframe engine illustration',
-    focus: 'Engine reimplementation',
-    note: 'Work is in progress. There is no public release or download available here yet.',
-    source: null,
-  },
-  {
-    id: 'tdd', name: 'Amnesia: The Dark Descent Redux', shortName: 'TDD', type: 'Game reimplementation', status: 'In development', parent: 'hplx',
-    summary: 'An independent reimplementation of Amnesia: The Dark Descent, built on HPLX.',
-    lead: 'A familiar world. A new foundation.',
-    overviewHeading: 'The world above the engine.', connectionHeading: 'Built on HPLX.',
-    connectionDescription: 'The game and the engine are connected, with separate project pages so each can develop in its own direction.',
-    legalNote: 'Independent reimplementation. Not an official release and not affiliated with or endorsed by the original game’s creators. Original names and assets belong to their respective owners.',
-    description: 'Amnesia: The Dark Descent Redux is the first game reimplementation being developed alongside HPLX. It has its own project identity, with the engine underneath.',
-    art: 'descent.svg', artLabel: 'Original abstract doorway illustration',
-    focus: 'Game reimplementation',
-    note: 'This project is in development. It is not a playable release, and no game assets or downloads are distributed here.',
-    source: null,
-  },
-  {
-    id: 'amfp', name: 'Amnesia: A Machine for Pigs Redux', shortName: 'AMFP', type: 'Game reimplementation', status: 'Not started', parent: 'hplx',
-    parentRelationship: 'Planned on',
-    summary: 'A planned independent reimplementation of Amnesia: A Machine for Pigs. Work has not started.',
-    lead: 'A place for what comes later.',
-    overviewHeading: 'Not started.', connectionHeading: 'Planned on HPLX.',
-    connectionDescription: 'This project is listed alongside Amnesia: The Dark Descent Redux as a planned HPLX game reimplementation. Development has not begun.',
-    legalNote: 'Planned independent reimplementation. Not an official release and not affiliated with or endorsed by the original game’s creators. Original names and assets belong to their respective owners.',
-    description: 'Amnesia: A Machine for Pigs Redux is a planned project. This page records its place in the Cosmik catalog; work has not started.',
-    art: null, stubLabel: 'Redux',
-    focus: 'Game reimplementation',
-    note: 'There are no implemented features, playable builds, downloads, or release dates announced here.',
-    source: null,
-  },
-  {
-    id: 'hplx-editor', name: 'HPLX Editor', shortName: 'EDITOR', type: 'Editor', status: 'Planned', parent: 'hplx',
-    parentRelationship: 'Part of',
-    summary: 'A planned editor for modders to create HPL2-compatible custom stories.',
-    lead: 'A place to make your own stories.',
-    overviewHeading: 'An editor for custom stories.', connectionHeading: 'Part of HPLX.',
-    connectionDescription: 'HPLX Editor is a planned companion to the engine, alongside the Redux game projects. Its initial scope is HPL2-compatible custom stories, matching the engine’s current HPL2 focus.',
-    description: 'HPLX Editor is planned as a tool for modders to create custom stories. The initial scope is HPL2 compatibility; this describes the intended product, not an available release.',
-    art: null, stubLabel: 'HPL2 custom stories',
-    focus: 'Custom story editor',
-    note: 'This is a planned project. No editor build, completed feature set, download, or release date is available here.',
-    source: null,
+    id: 'hplx', name: 'HPLX', status: 'In development',
+    summary: 'Classic games, rebuilt with a shared engine and tools.',
+    scope: 'Engine, Redux games, launcher and editor',
+    description: 'HPLX brings a modern engine, Redux game reimplementations, a launcher and a planned editor into one family. Work starts with HPL2 and Amnesia: The Dark Descent.',
+    groups: [
+      { title: 'Play', items: 'Redux games' },
+      { title: 'Build', items: 'Engine & planned editor' },
+      { title: 'Manage', items: 'Launcher' },
+    ],
+    games: [
+      {
+        id: 'tdd', name: 'Amnesia: The Dark Descent Redux', shortName: 'The Dark Descent Redux', status: 'In development',
+        description: 'The first game reimplementation in the HPLX family. It uses your existing game content with a new runtime built on the HPLX engine.',
+        progress: 'Menus, saves and custom-story launching are implemented. The opening campaign sections have been playtested; later campaign checks, menu validation and lighting comparisons are still in progress.',
+      },
+    ],
+    tools: [
+      { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The shared foundation for Redux games. Current work focuses on HPL2 formats and the runtime systems needed by The Dark Descent.' },
+      { id: 'launcher', name: 'HPLX Launcher', status: 'In development', description: 'A desktop home for HPLX games. Game-copy discovery, saves, installed custom stories and package management are implemented. End-to-end desktop validation is still in progress.' },
+      { id: 'editor', name: 'Editor', status: 'Planned', description: 'Editing tools are planned within each Redux game, with in-viewport playtesting. The editor is not built yet.' },
+    ],
+    future: [
+      { id: 'amfp', name: 'Amnesia: A Machine for Pigs Redux', detail: 'A future game reimplementation. Work has not started.' },
+      { id: 'penumbra', name: 'Penumbra & HPL1', detail: 'A future direction for the family, beyond the current HPL2 work.' },
+    ],
   },
 ];
-export const projectById = new Map(projects.map(project => [project.id, project]));
+
+export const featuredWork = {
+  familyId: 'hplx',
+  heading: 'Classic games. New foundations.',
+  description: 'An engine, Redux games and the tools around them. Explore the HPLX family, starting with Amnesia: The Dark Descent.',
+  focusLabel: 'Current focus',
+  focusTitle: 'The Dark Descent Redux',
+  focusDescription: 'Bringing the first game and its engine forward together.',
+};
+
+/** Old individual-project URLs retain a route into their context in the family. */
+export const legacyRoutes = [
+  { id: 'tdd', familyId: 'hplx', fragment: 'tdd', name: 'The Dark Descent Redux' },
+  { id: 'amfp', familyId: 'hplx', fragment: 'future', name: 'A Machine for Pigs Redux' },
+  { id: 'hplx-editor', familyId: 'hplx', fragment: 'editor', name: 'HPLX Editor' },
+];
+
+export function validateContent(catalog = families, feature = featuredWork) {
+  const ids = new Set();
+  for (const family of catalog) {
+    if (!/^[a-z0-9-]+$/.test(family.id) || ids.has(family.id)) throw new Error('Family IDs must be unique URL-safe names.');
+    if (!family.name || !family.summary || !family.status) throw new Error('Each family needs a name, summary and status.');
+    ids.add(family.id);
+  }
+  if (!ids.has(feature.familyId)) throw new Error('Featured work must belong to an existing family.');
+}

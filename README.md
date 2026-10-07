@@ -1,49 +1,99 @@
 # Cosmik website
 
-The first design implementation for Cosmik's project catalog. Source is private while the design and content are developed. **Nothing in this repository publishes or enables GitHub Pages.**
+A private, unpublished website for Cosmik’s independent gaming workshop. **GitHub Pages is off. There is no deployment workflow, external preview or custom domain.** This repository does not publish the site when code changes.
 
 ## Run locally
 
-Requires Node.js 22 or later. There are no third-party build dependencies and no install step.
+Requires Node.js 22 or later. No third-party build dependencies or install step.
 
-- `npm run dev` builds the site and serves it at `http://127.0.0.1:4173`.
+- `npm run dev` builds and serves at `http://127.0.0.1:4173`.
 - `npm run build` generates `site/`.
-- `npm run preview` serves the existing build.
-- `npm run check` builds and runs all automated tests.
+- `npm run preview` serves the current build.
+- `npm run check` rebuilds and runs all automated tests.
 
-Rebuild after edits. Set `PORT` to change the preview port. The preview server binds only to localhost and is intended for local development.
+Rebuild after source edits. `PORT` changes the preview port. The development server binds only to localhost. Generated pages also work as local files, except for the root-absolute 404 navigation intended for eventual root-level hosting.
 
-## Structure
+## Site structure
 
-- `src/projects.mjs`: catalog data. A project has its own permanent route and may name another project's ID as its `parent`.
-- `src/templates.mjs`: shared layout and semantic page templates.
-- `assets/site.css`: responsive website styles; no client-side JavaScript is required for content or navigation.
-- `assets/brand-tokens.css`: a copy of the Cosmik brand kit's baseline CSS (currently generated at `tokens/cosmik/cosmik.css`; the vendored snapshot is described below). Site styles use its roles only, never raw colour values.
-- `assets/art/`: original abstract visual studies, explicitly not screenshots.
-- `scripts/build.mjs`: dependency-free static generator.
-- `tests/site.test.mjs`: static structure, local-link, catalog, escaping, and asset checks.
-- `site/`: generated output, ignored by Git.
+Cosmik’s homepage highlights **current featured work**, independently of its permanent **project-family destinations**. HPLX is the current feature, not a permanent premise of the homepage. The Projects index lists families rather than treating repositories, games and tools as equivalent products.
 
-Pages: home, project index, HPLX, Amnesia: The Dark Descent Redux, Amnesia: A Machine for Pigs Redux, HPLX Editor, About, and a 404 page. Catalog entries have standalone routes regardless of their relationships. The homepage presents explicitly curated `featured: true` entries; it does not duplicate the full catalog. The project index is an image-free directory with shared name/type/status/parent columns and compact stacked mobile rows. Entries are grouped beneath their parent by default. Optional local search and type/status filters match projects independently, so a child remains discoverable when its parent is filtered out.
+HPLX has one family page at `/projects/hplx/`, containing:
 
-`assets/catalog-model.mjs` contains pure grouping and matching helpers shared by the build and browser. `assets/catalog.mjs` progressively enhances the pre-rendered directory. Controls stay hidden until initialization succeeds; every project remains available without JavaScript. Search is limited to this project directory, runs locally, and makes no network request. No external fonts, trackers, cookies, data-submitting forms, or third-party client dependencies are used.
+- Games: The Dark Descent Redux and its current development progress
+- Engine and tools: the engine, launcher and planned editor
+- Development: present availability and clearly separated future directions
+
+The home feature is configured by `featuredWork` in `src/projects.mjs`. To feature another family, add that family and its page content, then point `featuredWork.familyId` at its ID and change the editorial copy. The directory and navigation do not change when the feature changes. A regression test exercises this independently.
+
+Eight routes are retained:
+
+| Route | Purpose |
+|---|---|
+| `/` | Cosmik introduction, featured work and family navigation |
+| `/projects/` | Compact family directory |
+| `/projects/hplx/` | HPLX family, including games and tools |
+| `/about/` | The personal workshop and its scope |
+| `/projects/tdd/` | Redirect and fallback link to the family’s `#tdd` section |
+| `/projects/amfp/` | Redirect and fallback link to the visible `#future` disclosure |
+| `/projects/hplx-editor/` | Redirect and fallback link to the family’s `#editor` section |
+| `/404.html` | Missing-page recovery |
+
+The AMFP redirect lands on the visible future-work disclosure, rather than relying on a browser to open a closed disclosure when targeting its contents. Native `details`/`summary` controls reveal supporting development detail without JavaScript. There are no search filters, client scripts, trackers, cookies, external fonts or data-submitting forms.
+
+### Files
+
+- `src/projects.mjs`: family data, editable featured work, old-route mapping and validation
+- `src/templates.mjs`: shared shell and semantic static templates
+- `src/themes.mjs`: approval-gated family identity registry
+- `assets/family-themes.css`: scoped family-theme boundary
+- `assets/site.css`: responsive site styles using approved semantic tokens
+- `assets/brand-tokens.css`: exact pinned approved baseline from the brand repository
+- `scripts/build.mjs`: dependency-free generator
+- `scripts/serve.mjs`: localhost-only static preview server
+- `tests/`: family-model, HTML/asset/link/brand, and HTTP-server regression tests
+- `site/`: generated output, ignored by Git
 
 ## Content boundaries
 
-HPLX and Amnesia: The Dark Descent Redux are marked **In development**. Amnesia: A Machine for Pigs Redux is a stub explicitly marked **Not started**, with no game artwork or feature claims. No release version, playable demo, download, compatibility promise, roadmap date, or completed feature is claimed. Repository links for individual projects remain absent until public URLs are confirmed. `source: null` is intentional. Game artwork and assets are not included. Both Redux projects and HPLX Editor are HPLX children. HPLX Editor is **Planned** at `/projects/hplx-editor/`, with an initial scope of creating HPL2-compatible custom stories. This is intended functionality, not an available capability. The current HPLX scope is HPL2; no broader compatibility promise is made. The TDD route remains `/projects/tdd/`; the new AMFP stub is `/projects/amfp/`.
+HPLX names the ecosystem here: engine, Redux games, launcher and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent Redux, engine and launcher are in development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each Redux game, with in-viewport playtesting, not a promised standalone download.
 
-The header, footer, and About page link only to the public Cosmik organization and brand repository. Game names remain the property of their respective owners; the TDD page identifies this as an independent, unaffiliated reimplementation.
+The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. Launcher infrastructure exists, but end-to-end desktop validation is still in progress.
 
-## Brand assets and rights
+AMFP is future work that has not started. Penumbra/HPL1 is a future direction beyond current HPL2 work. These are not release promises. There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases. The package catalog’s internal availability flags do not mean public download availability.
 
-Emblems, semantic tokens, and type come from [cosmiklabs/brand](https://github.com/cosmiklabs/brand). Emblems and type are from the v0.2 baseline commit `d71904ab02b551a1e6e975ac0d5f10d59bb5bfb2`; the tokens and the IBM Plex Mono WOFF2 are from the kit's unreleased 0.3.0 changes (decorative-grey roles, native font format), to be re-pinned to the 0.3.0 tag once it is released. The approved emblem is used as a static identity; this site does not modify or finalize the separate logo animation work.
+Public links are restricted to the Cosmik organization and brand repository. Original creators’ names, assets, credits and licenses remain separate from the Cosmik endorsement. No blanket code, brand or artwork license is applied by this repository.
 
-Inter and IBM Plex Mono are self-hosted. Their SIL Open Font License notices are retained in `assets/fonts/`. No blanket code, brand, or artwork license has been selected for this website repository.
+## Approved brand baseline
 
-## Validation and publication
+Pinned to [cosmiklabs/brand at af89b8c](https://github.com/cosmiklabs/brand/tree/af89b8c2dd4f4426379d8b2af3b65ac4c13d21bf), the approved 7 October 2026 baseline:
 
-`npm run check` verifies the generated HTML structure, local links and fragments, all eight routes, parent relationships, font licensing files, grouping/filtering/reset behavior, curated-home structure, and basic safety/accessibility hooks. It does not replace an interactive browser accessibility or responsive-layout review.
+- Exact `tokens/cosmik/cosmik.css` snapshot
+- Black and warm off-white; hierarchy through type, space and structure
+- Self-hosted Inter and IBM Plex Mono with their SIL Open Font License notices
+- Accepted emblem geometry, unchanged
+- A live “Cosmik” interface label in Inter Medium beside a 48 px emblem with a 12 px gap; no recreated wordmark
+- Static branding, semantic color roles, visible focus and reduced-motion support
 
-During the initial implementation, Chromium launch was blocked by the execution environment's socket permissions. Browser layout and interaction tests therefore remain to be run locally at desktop and phone widths before publication. Static design review images, if provided separately, are composition previews rather than browser screenshots.
+### Family themes and identity
 
-The output is compatible with a future root-level GitHub Pages organization site. All regular navigation and assets use relative paths. The 404 uses root-absolute paths so it also works at unknown nested URLs. No deployment workflow, Pages setting, custom domain, or external preview is configured. Enabling hosting is a separate decision.
+Family pages have a `data-family` content boundary. The shared Cosmik header, global navigation and footer stay outside it; home, Projects and About remain baseline. Nested detail pages inherit their family's theme by supplying the same `familyId` to the shared shell. The preserved detail redirects do this too.
+
+`src/themes.mjs` gates theme assets by approval. Once a family identity is approved, register its separately scoped stylesheet and logo under `assets/families/<family>/`. Every family CSS override must be restricted to its `data-family` scope and explicit dark/light modes. A family may alter semantic colors and heading type; shared interface type, navigation structure, spacing, layout and interactions stay consistent.
+
+HPLX’s palette, type and separate logo are still being decided. It currently inherits the approved neutral baseline. The HPLX amber/Spectral family kit is still proposed and is **not** used. No Cosmik emblem is used as an HPLX product symbol, and this refresh does not invent or finalize a separate HPLX logo. There are no simulated product screenshots, generic space wallpaper or ornamental logo repeats. The old abstract art is no longer part of the generated site.
+
+## Validation and remaining review
+
+`npm run check` verifies:
+
+- Family-only navigation and changing featured work without changing destinations
+- All eight routes, redirect fallback links, local assets and fragments
+- One H1, unique IDs/titles, landmarks, image alternatives and native disclosures
+- Exact token/emblem/font hashes and preserved font licenses
+- Semantic-token-only styling, responsive and reduced-motion hooks
+- Absence of private-source/download links, external scripts and deployment configuration
+- Local HTTP routes, redirects, 404s, invalid URLs, MIME types and cache behavior
+
+The October 7 refresh passes the automated suite. The cloud browser refused the localhost preview with `net::ERR_BLOCKED_BY_CLIENT`; **interactive browser, screenshot, responsive-layout and assistive-technology review were not completed**. Static and HTTP checks are not browser certification. Before publication, review desktop and 320 px layouts, 200% text sizing, keyboard focus, repeated native disclosure toggles, Back/Forward and reduced motion in a supported browser.
+
+The preview includes `noindex, nofollow` metadata as an extra precaution. That is not access control; privacy is provided by the private repository and disabled hosting. Publication, indexing and any hosting settings require a separate decision.

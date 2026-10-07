@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "The Cosmik project catalog. Static, accessible, and dependency-free.",
+  "description": "The Cosmik gaming workshop. Featured work and connected project families.",
   "engines": { "node": ">=22" },
   "scripts": { "build": "node scripts/build.mjs", "test": "node --test", "check": "npm run build && npm test", "dev": "npm run build && node scripts/serve.mjs", "preview": "node scripts/serve.mjs" }
 }

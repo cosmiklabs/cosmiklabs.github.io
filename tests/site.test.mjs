@@ -1,117 +1,126 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {projects, projectById} from '../src/projects.mjs';
-import {escape, projectPage, directoryRow, featuredProject} from '../src/templates.mjs';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../site');
-async function walk(dir) {const result=[];for (const entry of await readdir(dir,{withFileTypes:true})) {const name=path.join(dir,entry.name);result.push(...entry.isDirectory()?await walk(name):[name]);}return result;}
+import { families, legacyRoutes } from '../src/projects.mjs';
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = path.join(projectRoot,'site');
+async function walk(dir) { const out=[]; for(const e of await readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);out.push(...e.isDirectory()?await walk(p):[p]);} return out; }
 const files=await walk(root);
-const htmlFiles=files.filter(name=>name.endsWith('.html'));
-test('build produces the complete page set',()=>assert.equal(htmlFiles.length,4+projects.length));
-test('catalog identifiers and parent relationships are valid and acyclic',()=>{
- assert.equal(new Set(projects.map(p=>p.id)).size,projects.length);
- for (const p of projects) {assert.match(p.id,/^[a-z0-9-]+$/);assert.ok(p.status);let parent=p.parent;const seen=new Set([p.id]);while(parent){assert.ok(projectById.has(parent));assert.ok(!seen.has(parent));seen.add(parent);parent=projectById.get(parent).parent;}}
- assert.equal(projectById.get('tdd').parent,'hplx');
+const htmlFiles=files.filter(f=>f.endsWith('.html'));
+const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f),await readFile(f,'utf8')])));
+
+test('the complete build preserves all eight original routes',()=>{
+ assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html'].sort());
 });
-test('all local HTML links, assets, and fragments resolve',async()=>{
- for (const file of htmlFiles){const html=await readFile(file,'utf8');for(const [,href] of html.matchAll(/(?:href|src)="([^"]+)"/g)){
-  if(/^(https?:|mailto:|data:)/.test(href))continue;
-  const [pathname,fragment]=href.split('#');
-  let resolved=pathname.startsWith('/')?path.join(root,pathname):path.resolve(path.dirname(file),pathname || path.basename(file));
-  const info=await stat(resolved);if(info.isDirectory())resolved=path.join(resolved,'index.html');
-  assert.ok(files.includes(resolved),`${file}: ${href}`);
-  if(fragment)assert.match(await readFile(resolved,'utf8'),new RegExp(`id="${fragment}"`));
- }}
+
+test('every local link, stylesheet, font and fragment resolves',async()=>{
+ for(const [name,html] of pages){
+  for(const [,href] of html.matchAll(/(?:href|src)="([^"]+)"/g)){
+   if(/^https?:/.test(href))continue;
+   const [pathname,fragment]=href.split('#');
+   let target=pathname.startsWith('/')?path.join(root,pathname):path.resolve(path.dirname(path.join(root,name)),pathname||path.basename(name));
+   if((await stat(target)).isDirectory())target=path.join(target,'index.html');
+   assert.ok(files.includes(target),`${name}: ${href}`);
+   if(fragment)assert.match(await readFile(target,'utf8'),new RegExp(`id="${fragment}"`));
+  }
+ }
+ const css=await readFile(path.join(root,'assets/site.css'),'utf8');
+ for(const [,url] of css.matchAll(/url\('([^']+)'\)/g))assert.ok((await stat(path.join(root,'assets',url))).size>0);
 });
-test('every page has semantic landmarks and one descriptive h1',async()=>{
+
+test('all pages have a unique title, one h1, landmarks, labels and no JavaScript dependency',()=>{
  const titles=[];
- for(const file of htmlFiles){const html=await readFile(file,'utf8');assert.match(html,/<html lang="en"/);assert.equal((html.match(/<h1[> ]/g)||[]).length,1);assert.match(html,/<main id="main"/);assert.match(html,/class="skip-link"/);assert.match(html,/<nav aria-label="Main navigation"/);assert.match(html,/<meta name="description"/);titles.push(html.match(/<title>(.*?)<\/title>/)[1]);for(const [,tag] of html.matchAll(/(<img\b[^>]*>)/g))assert.match(tag,/alt="[^"]*"/);assert.doesNotMatch(html,/onclick=|javascript:/i);const scripts=[...html.matchAll(/<script[^>]*>/g)].map(m=>m[0]);if(file===path.join(root,'projects/index.html'))assert.deepEqual(scripts,['<script type="module" src="../assets/catalog.mjs">']);else assert.equal(scripts.length,0);}
+ for(const [name,html] of pages){
+  assert.match(html,/<html lang="en"/);assert.equal((html.match(/<h1[> ]/g)||[]).length,1,name);
+  assert.match(html,/<main id="main" tabindex="-1">/);assert.match(html,/<a class="skip-link" href="#main">/);
+  assert.match(html,/<nav aria-label="Main navigation">/);assert.match(html,/<meta name="description"/);
+  assert.match(html,/<meta name="viewport" content="width=device-width, initial-scale=1">/);
+  assert.doesNotMatch(html,/<script|onclick=|javascript:/i);
+  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length,`${name} duplicate IDs`);
+  for(const [img] of html.matchAll(/<img\b[^>]*>/g))assert.match(img,/alt="[^"]*"/);
+  for(const [svg] of html.matchAll(/<svg\b[^>]*>/g))assert.match(svg,/aria-hidden="true"/);
+  titles.push(html.match(/<title>(.*?)<\/title>/)[1]);
+ }
  assert.equal(new Set(titles).size,titles.length);
 });
-test('no private-source links, fake downloads, trackers, or deployment data',async()=>{
- for(const file of htmlFiles){const html=await readFile(file,'utf8');assert.doesNotMatch(html,/matthewdowns|localhost|workspace\/|api[_-]?key|analytics|Download now|Play now|cosmik-labs\.github\.io/i);}
-});
-test('font assets and license notices are preserved',async()=>{
- for(const file of ['Inter-Regular.woff2','Inter-Medium.woff2','Inter-SemiBold.woff2','IBMPlexMono-Regular.ttf','Inter-OFL.txt','IBM-Plex-OFL.txt'])assert.ok((await stat(path.join(root,'assets/fonts',file))).size>0);
-});
-test('styling supports visible focus and reduced motion',async()=>{
- const css=await readFile(path.join(root,'assets/site.css'),'utf8');assert.match(css,/:focus-visible/);assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);assert.match(css,/@media\(max-width:680px\)/);assert.doesNotMatch(css,/@import|https?:\/\//);
-});
-test('data escape prevents HTML injection',()=>assert.equal(escape('<b title="x">&\'</b>'),'&lt;b title=&quot;x&quot;&gt;&amp;&#39;&lt;/b&gt;'));
 
-test('standalone and multiple-child projects render without invented relationships',()=>{
- const standalone={id:'sample',name:'Sample',type:'Tool',status:'In development',parent:null,summary:'Sample tool.',lead:'A useful tool.',description:'Independent project.',art:'engine.svg',artLabel:'Abstract artwork',focus:'Tools',note:'In progress.',source:null};
- const html=projectPage(standalone,[standalone]);assert.doesNotMatch(html,/relationship-diagram|The Dark Descent|Built on HPLX/);assert.match(html,/<h1>Sample<\/h1>/);
- assert.match(directoryRow(standalone,'./',[standalone]),/Independent/);
- const children=['child-a','child-b'].map(id=>({...standalone,id,name:id,parent:'sample'}));
- const parentHtml=projectPage(standalone,[standalone,...children]);assert.equal((parentHtml.match(/class="diagram-connector"/g)||[]).length,1);for(const child of children)assert.ok(parentHtml.includes(`projects/${child.id}/`));
+test('homepage feature and stable family list are separate, without repeated project cards',()=>{
+ const html=pages.get('index.html');
+ assert.equal((html.match(/class="featured-work"/g)||[]).length,1);
+ assert.equal((html.match(/class="family-row"/g)||[]).length,families.length);
+ assert.match(html,/data-featured-family="hplx"/);
+ assert.doesNotMatch(html,/directory-controls|project-card|project-grid|assets\/art\//);
+ const index=pages.get('projects/index.html');
+ assert.equal((index.match(/class="family-row"/g)||[]).length,families.length);
+ assert.doesNotMatch(index,/projects\/(tdd|amfp|hplx-editor)\//);
 });
 
-test('projects with both a parent and children expose both relationships',()=>{
- const middle={...projects[0],id:'middle',parent:'hplx'};
- const child={...projects[1],id:'child',parent:'middle'};
- const html=projectPage(middle,[projects[0],middle,child]);assert.ok(html.includes('projects/hplx/'));assert.ok(html.includes('projects/child/'));assert.equal((html.match(/class="diagram-connector"/g)||[]).length,2);
+test('HPLX houses games, engine, launcher, editor and future context together',()=>{
+ const html=pages.get('projects/hplx/index.html');
+ for(const id of ['games','tdd','tools','engine','launcher','editor','development','amfp','penumbra'])assert.match(html,new RegExp(`id="${id}"`));
+ assert.match(html,/The HPLX family/);assert.match(html,/planned editor/);
+ assert.match(html,/The editor is not built yet/);assert.match(html,/within each Redux game/);
+ assert.match(html,/Work has not started/);assert.match(html,/No release dates/);
+ assert.match(html,/only platform verified/);assert.match(html,/no public release or download yet/);
+ assert.match(html,/unaffiliated with the original creators/);
+ assert.equal((html.match(/<details[> ]/g)||[]).length,2);
+ assert.equal((html.match(/<summary>/g)||[]).length,2);
 });
 
-test('Redux titles, stable routes, and development states are accurate',async()=>{
- assert.equal(projects.length,4);
- assert.equal(projectById.get('tdd').name,'Amnesia: The Dark Descent Redux');
- assert.equal(projectById.get('tdd').status,'In development');
- assert.equal(projectById.get('amfp').name,'Amnesia: A Machine for Pigs Redux');
- assert.equal(projectById.get('amfp').status,'Not started');
- assert.equal(projectById.get('amfp').parent,'hplx');
- for(const id of ['tdd','amfp']){
-  const html=await readFile(path.join(root,`projects/${id}/index.html`),'utf8');
-  assert.ok(html.includes(`<h1>${projectById.get(id).name}</h1>`));
-  assert.ok(html.includes(`<title>${projectById.get(id).name} — Cosmik</title>`));
-  assert.ok(html.includes('has-long-title'));
+test('old detail URLs have working redirect targets and readable fallback links',()=>{
+ for(const route of legacyRoutes){
+  const html=pages.get(`projects/${route.id}/index.html`);
+  const target=`../../projects/${route.familyId}/#${route.fragment}`;
+  assert.ok(html.includes(`content="0; url=${target}"`));assert.ok(html.includes(`href="${target}"`));
+  assert.match(html,/Part of HPLX/);
  }
- const stub=await readFile(path.join(root,'projects/amfp/index.html'),'utf8');
- assert.match(stub,/work has not started/);assert.match(stub,/Not started/);assert.doesNotMatch(stub.slice(stub.indexOf('<header class="project-heading'),stub.indexOf('</header>',stub.indexOf('<header class="project-heading'))),/In development/);assert.doesNotMatch(stub,/class="project-art"|View source|assets\/art\/null/);
 });
 
-test('both Redux games are independently discoverable and HPLX siblings',async()=>{
- for(const route of ['projects/index.html','projects/hplx/index.html']){
-  const html=await readFile(path.join(root,route),'utf8');
-  for(const id of ['tdd','amfp']) {assert.ok(html.includes(`projects/${id}/`));assert.ok(html.includes(projectById.get(id).name));}
-  assert.match(html,/Not started|not started/);
+test('private source, download and external service links are absent',()=>{
+ const approved=new Set(['https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand']);
+ for(const [name,html] of pages){
+  const urls=[...html.matchAll(/(?:href|src)="(https?:[^"]+)"/g)].map(m=>m[1]);
+  for(const url of urls)assert.ok(approved.has(url),`${name}: unexpected ${url}`);
+  assert.doesNotMatch(html,/Download now|Play now|View source|fully compatible|cosmik-labs|localhost|\/workspace\/|analytics|api[_-]?key/i);
+  assert.match(html,/<meta name="robots" content="noindex, nofollow">/);
  }
- const engine=await readFile(path.join(root,'projects/hplx/index.html'),'utf8');
- const diagram=engine.slice(engine.indexOf('class="relationship-diagram"'));
- assert.equal((diagram.match(/class="diagram-connector"/g)||[]).length,1);
- assert.match(diagram,/class="diagram-children"/);
- assert.match(engine,/work on it has not started/);
 });
 
-test('long-title and stub styles retain responsive content without clipping',async()=>{
+test('approved baseline tokens, unchanged emblems and fonts are pinned',async()=>{
+ const gitHash=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
+ const expected={
+  'brand-tokens.css':'3033047a35e29cb543a1fbdff73396524630240f',
+  'emblem.svg':'5519818f64e11a3dc1f0fdbd3aacc563451e8541',
+  'emblem-ink.svg':'ccaa7d5fd11f67f061173030a1d984794bc7c966',
+  'fonts/Inter-Regular.woff2':'2bcd222ecfae996d035ff72bf70672305cc29261',
+  'fonts/Inter-Medium.woff2':'fdfdcc699fc1e19eb1943c2896e8d66e17b538ff',
+  'fonts/Inter-SemiBold.woff2':'fbae113d2855e22c06376495bd2dfe5f02411272',
+  'fonts/IBMPlexMono-Regular.woff2':'b62779f207175f77b7a736f94ac57437171f9586',
+ };
+ for(const [name,sha] of Object.entries(expected))assert.equal(gitHash(await readFile(path.join(root,'assets',name))),sha,name);
+ for(const name of ['Inter-OFL.txt','IBM-Plex-OFL.txt'])assert.match(await readFile(path.join(root,'assets/fonts',name),'utf8'),/SIL OPEN FONT LICENSE/);
+ const tokens=await readFile(path.join(root,'assets/brand-tokens.css'),'utf8');assert.match(tokens,/APPROVED/);assert.doesNotMatch(tokens,/Spectral|hplx-amber/);
+ for(const html of pages.values()){assert.match(html,/width="48" height="48" alt=""><span>Cosmik<\/span>/);assert.doesNotMatch(html,/<span>COSMIK<\/span>/);}
+});
+
+test('site CSS uses defined semantic roles, visible focus, responsive layout and reduced motion',async()=>{
  const css=await readFile(path.join(root,'assets/site.css'),'utf8');
- assert.match(css,/\.project-heading\.has-long-title h1/);assert.match(css,/overflow-wrap:anywhere/);assert.match(css,/grid-template-columns:minmax\(0,1fr\) auto/);
- for(const htmlFile of htmlFiles){const html=await readFile(htmlFile,'utf8');assert.doesNotMatch(html,/<h[13]>The Dark Descent<\/h[13]>|two connected projects|Both in development/);}
+ const tokens=await readFile(path.join(root,'assets/brand-tokens.css'),'utf8');
+ for(const [,token] of css.matchAll(/var\((--c-[\w-]+)/g))assert.ok(tokens.includes(`${token}:`),`undefined token ${token}`);
+ assert.doesNotMatch(css,/#(?:[0-9a-f]{3}){1,2}\b|rgba?\(|hsla?\(|var\(--c-primitive-|@import|https?:\/\//i);
+ assert.match(css,/:focus-visible/);assert.match(css,/max-width:720px/);assert.match(css,/max-width:380px/);
+ assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);assert.match(css,/scroll-behavior:auto/);
+ assert.match(css,/--c-layout-control-min/);assert.match(css,/flex-wrap:wrap/);
+ assert.doesNotMatch(css,/overflow-x:hidden|text-overflow:ellipsis|line-clamp/);
 });
 
-
-test('HPLX Editor is a planned HPL2-scoped child with its own page',async()=>{
- const editor=projectById.get('hplx-editor');assert.equal(editor.name,'HPLX Editor');assert.equal(editor.type,'Editor');assert.equal(editor.status,'Planned');assert.equal(editor.parent,'hplx');assert.equal(editor.source,null);assert.equal(editor.art,null);
- const page=await readFile(path.join(root,'projects/hplx-editor/index.html'),'utf8');
- assert.match(page,/<h1>HPLX Editor<\/h1>/);assert.match(page,/<title>HPLX Editor — Cosmik<\/title>/);assert.match(page,/HPL2-compatible custom stories/);assert.match(page,/not an available release/);assert.match(page,/No editor build/);assert.match(page,/Part of/);assert.doesNotMatch(page,/class="project-art"|View source|HPL3|SOMA|Rebirth|Bunker/);
- for(const route of ['projects/index.html','projects/hplx/index.html']){
-  const html=await readFile(path.join(root,route),'utf8');assert.ok(html.includes('projects/hplx-editor/'));assert.match(html,/HPLX Editor/);assert.match(html,/Planned|planned/);
- }
- const rowHtml=directoryRow(editor,'./');assert.match(rowHtml,/Planned/);assert.match(rowHtml,/>Editor<\/td>/);assert.doesNotMatch(rowHtml,/REDUX|NOT STARTED/);
-});
-
-test('HPLX has three correctly typed sibling projects and clear current scope',async()=>{
- assert.deepEqual(projects.filter(p=>p.parent==='hplx').map(p=>p.id),['tdd','amfp','hplx-editor']);
- const engine=await readFile(path.join(root,'projects/hplx/index.html'),'utf8');assert.match(engine,/current focus on HPL2/);assert.match(engine,/HPLX Editor is planned/);
- const diagram=engine.slice(engine.indexOf('class="relationship-diagram"'));assert.equal((diagram.match(/class="diagram-connector"/g)||[]).length,1);assert.match(diagram,/>Editor<\/span>/);assert.match(diagram,/>Game reimplementation<\/span>/);assert.match(diagram,/>Planned<\/span>/);
-});
-
-
-test('home is curated while the directory lists every project without image cards',async()=>{
- const home=await readFile(path.join(root,'index.html'),'utf8');const index=await readFile(path.join(root,'projects/index.html'),'utf8');
- assert.equal((home.match(/class="featured-project"/g)||[]).length,projects.filter(p=>p.featured).length);
- assert.match(home,/Browse all projects/);assert.doesNotMatch(home,/directory-table|project-grid|project-card|projects\/amfp\//);
- assert.equal((index.match(/data-project-row /g)||[]).length,projects.length);assert.match(index,/role="table"/);assert.match(index,/scope="col"/);assert.match(index,/data-directory-form hidden/);assert.match(index,/<noscript>/);assert.match(index,/data-empty hidden/);assert.match(index,/aria-live="polite"/);assert.doesNotMatch(index,/card-image|project-card|assets\/art\//);
+test('the repository contains no publishing workflow or domain setting',async()=>{
+ const sourceFiles=await walk(projectRoot);
+ assert.ok(!sourceFiles.some(f=>/\.github\/workflows\//.test(f)));
+ assert.ok(!sourceFiles.some(f=>path.basename(f)==='CNAME'));
+ const pkg=JSON.parse(await readFile(path.join(projectRoot,'package.json'),'utf8'));
+ assert.equal(pkg.private,true);assert.ok(!pkg.scripts.deploy);
 });
