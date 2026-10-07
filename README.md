@@ -18,7 +18,7 @@ Rebuild after edits. Set `PORT` to change the preview port. The preview server b
 - `src/projects.mjs`: catalog data. A project has its own permanent route and may name another project's ID as its `parent`.
 - `src/templates.mjs`: shared layout and semantic page templates.
 - `assets/site.css`: responsive website styles; no client-side JavaScript is required for content or navigation.
-- `assets/brand-tokens.css`: semantic tokens from the published Cosmik brand kit v0.2.
+- `assets/brand-tokens.css`: a copy of the Cosmik brand kit's `tokens/cosmik.css`. Site styles use its roles only, never raw colour values.
 - `assets/art/`: original abstract visual studies, explicitly not screenshots.
 - `scripts/build.mjs`: dependency-free static generator.
 - `tests/site.test.mjs`: static structure, local-link, catalog, escaping, and asset checks.
@@ -36,7 +36,7 @@ The header, footer, and About page link only to the public Cosmik organization a
 
 ## Brand assets and rights
 
-Emblems, semantic tokens, and type come from [cosmiklabs/brand](https://github.com/cosmiklabs/brand), v0.2 baseline commit `d71904ab02b551a1e6e975ac0d5f10d59bb5bfb2`. The approved emblem is used as a static identity; this site does not modify or finalize the separate logo animation work.
+Emblems, semantic tokens, and type come from [cosmiklabs/brand](https://github.com/cosmiklabs/brand). Emblems and type are from the v0.2 baseline commit `d71904ab02b551a1e6e975ac0d5f10d59bb5bfb2`; the tokens and the IBM Plex Mono WOFF2 are from the kit's unreleased 0.3.0 changes (decorative-grey roles, native font format), to be re-pinned to the 0.3.0 tag once it is released. The approved emblem is used as a static identity; this site does not modify or finalize the separate logo animation work.
 
 Inter and IBM Plex Mono are self-hosted. Their SIL Open Font License notices are retained in `assets/fonts/`. No blanket code, brand, or artwork license has been selected for this website repository.
 
