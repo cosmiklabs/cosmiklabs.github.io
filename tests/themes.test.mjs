@@ -4,13 +4,14 @@ import { families } from '../src/projects.mjs';
 import { familyThemes, resolveFamilyTheme } from '../src/themes.mjs';
 import { home, catalog, about, familyPage, legacyPage } from '../src/templates.mjs';
 
-test('pending HPLX identity inherits neutral baseline without proposed assets',()=>{
- assert.equal(familyThemes.hplx.state,'pending-identity');
- assert.deepEqual(resolveFamilyTheme('hplx'),{id:'hplx',state:'baseline',stylesheet:null,logo:null});
+test('HPLX uses the owner-selected warm website theme while its logo stays absent',()=>{
+ assert.equal(familyThemes.hplx.state,'approved-for-website');
+ assert.deepEqual(resolveFamilyTheme('hplx'),{id:'hplx',state:'approved-for-website',stylesheet:'assets/families/hplx/theme.css',logo:null});
  assert.equal(resolveFamilyTheme('unknown').state,'baseline');
  const html=familyPage(families[0]);
- assert.match(html,/data-family="hplx" data-family-theme="baseline"/);
- assert.doesNotMatch(html,/hplx\.css|Spectral|lantern-amber/);
+ assert.match(html,/data-family="hplx" data-family-theme="approved-for-website"/);
+ assert.match(html,/assets\/families\/hplx\/theme\.css/);
+ assert.match(html,/<h1>HPLX<\/h1>/);
 });
 
 test('family theme is confined to content; global shell and other pages stay baseline',()=>{
@@ -20,7 +21,7 @@ test('family theme is confined to content; global shell and other pages stay bas
  assert.doesNotMatch(main,/emblem\.svg/);
  const shell=html.replace(main,'');
  assert.doesNotMatch(shell,/data-family=/);assert.match(shell,/emblem\.svg/);
- for(const page of [home(),catalog(),about()])assert.doesNotMatch(page,/data-family=/);
+ for(const page of [home(),catalog(),about()]){assert.doesNotMatch(page,/data-family=/);assert.doesNotMatch(page,/families\/hplx\/theme\.css|Spectral/);}
  assert.match(legacyPage({id:'tdd',familyId:'hplx',fragment:'tdd',name:'The Dark Descent Redux'}),/data-family="hplx"/);
 });
 

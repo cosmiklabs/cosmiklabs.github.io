@@ -24,5 +24,7 @@ test('local server serves routes, normalizes trailing slashes and handles errors
   const css=await fetch(base+'/assets/site.css');assert.equal(css.status,200);assert.match(css.headers.get('content-type'),/text\/css/);
   const font=await fetch(base+'/assets/fonts/IBMPlexMono-Regular.woff2');assert.equal(font.status,200);assert.equal(font.headers.get('content-type'),'font/woff2');
   assert.equal(css.headers.get('cache-control'),'no-store');
+  const spectral=await fetch(base+'/assets/fonts/Spectral-SemiBold.woff2');assert.equal(spectral.status,200);assert.equal(spectral.headers.get('content-type'),'font/woff2');
+  const theme=await fetch(base+'/assets/families/hplx/theme.css');assert.equal(theme.status,200);assert.match(await theme.text(),/--c-primitive-hplx-amber: #E0A53A/);
  } finally { child.kill(); }
 });

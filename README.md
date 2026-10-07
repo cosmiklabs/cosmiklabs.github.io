@@ -78,9 +78,13 @@ Pinned to [cosmiklabs/brand at af89b8c](https://github.com/cosmiklabs/brand/tree
 
 Family pages have a `data-family` content boundary. The shared Cosmik header, global navigation and footer stay outside it; home, Projects and About remain baseline. Nested detail pages inherit their family's theme by supplying the same `familyId` to the shared shell. The preserved detail redirects do this too.
 
-`src/themes.mjs` gates theme assets by approval. Once a family identity is approved, register its separately scoped stylesheet and logo under `assets/families/<family>/`. Every family CSS override must be restricted to its `data-family` scope and explicit dark/light modes. A family may alter semantic colors and heading type; shared interface type, navigation structure, spacing, layout and interactions stay consistent.
+`src/themes.mjs` gates theme assets by approval, including explicit website-only use. Theme and logo decisions are independent. Register a selected stylesheet or approved logo under `assets/families/<family>/`. Every family CSS override must be restricted to its `data-family` scope and explicit dark/light modes. A family may alter semantic colors and heading type; shared interface type, navigation structure, spacing, layout and interactions stay consistent.
 
-HPLX’s palette, type and separate logo are still being decided. It currently inherits the approved neutral baseline. The HPLX amber/Spectral family kit is still proposed and is **not** used. No Cosmik emblem is used as an HPLX product symbol, and this refresh does not invent or finalize a separate HPLX logo. There are no simulated product screenshots, generic space wallpaper or ornamental logo repeats. The old abstract art is no longer part of the generated site.
+The owner selected the existing HPLX warm theme for this private website on 7 October 2026. HPLX pages now use the kit’s warm dark surfaces, bone text, lantern-amber accents, parchment light sections and Spectral headings. Body text, controls and labels remain Inter/Plex. The Cosmik home, Projects, About, global navigation and footer stay monochrome.
+
+`assets/families/hplx/theme.css` starts with the exact generated `tokens/hplx/hplx.css` from the pinned brand commit, followed by local font loading and a small, family-scoped application of the accent. Spectral SemiBold is self-hosted with its SIL Open Font License. Tests verify the source hash, asset hashes, selector isolation, all implemented contrast pairs and inheritance through dark/light sections.
+
+This is approval to use the existing theme in the private website, not a change to the public brand kit’s proposed status or approval of every family asset. The HPLX logo remains absent: the page uses plain HPLX text, with no Cosmik emblem as its product symbol. No new logo, imagery or launcher changes are included. There are no simulated product screenshots, generic space wallpaper or ornamental logo repeats. The old abstract art is no longer part of the generated site.
 
 ## Validation and remaining review
 
