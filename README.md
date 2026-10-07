@@ -18,7 +18,7 @@ Rebuild after edits. Set `PORT` to change the preview port. The preview server b
 - `src/projects.mjs`: catalog data. A project has its own permanent route and may name another project's ID as its `parent`.
 - `src/templates.mjs`: shared layout and semantic page templates.
 - `assets/site.css`: responsive website styles; no client-side JavaScript is required for content or navigation.
-- `assets/brand-tokens.css`: a copy of the Cosmik brand kit's `tokens/cosmik.css`. Site styles use its roles only, never raw colour values.
+- `assets/brand-tokens.css`: a copy of the Cosmik brand kit's baseline CSS (currently generated at `tokens/cosmik/cosmik.css`; the vendored snapshot is described below). Site styles use its roles only, never raw colour values.
 - `assets/art/`: original abstract visual studies, explicitly not screenshots.
 - `scripts/build.mjs`: dependency-free static generator.
 - `tests/site.test.mjs`: static structure, local-link, catalog, escaping, and asset checks.
