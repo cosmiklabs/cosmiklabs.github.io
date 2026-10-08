@@ -83,7 +83,7 @@ test('private source, download and external service links are absent',()=>{
  const approved=new Set(['https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand']);
  for(const [name,html] of pages){
   const urls=[...html.matchAll(/(?:href|src)="(https?:[^"]+)"/g)].map(m=>m[1]);
-  for(const url of urls)assert.ok(approved.has(url),`${name}: unexpected ${url}`);
+  for(const url of urls)assert.ok(approved.has(url)||(process.env.SITE_URL && url.startsWith(new URL(process.env.SITE_URL).origin + '/')),`${name}: unexpected ${url}`);
   assert.doesNotMatch(html,/Download now|Play now|View source|fully compatible|cosmik-labs|localhost|\/workspace\/|analytics|api[_-]?key/i);
   assert.match(html,/<meta name="robots" content="noindex, nofollow">/);
  }
@@ -94,6 +94,7 @@ test('approved baseline tokens, unchanged emblems and fonts are pinned',async()=
  const expected={
   'brand-tokens.css':'3033047a35e29cb543a1fbdff73396524630240f',
   'emblem.svg':'5519818f64e11a3dc1f0fdbd3aacc563451e8541',
+  'cosmik-512.png':'e022596fa2c583da56c01f7536e8d44306b0dae7',
   'cosmik.ico':'4521a86f042673f72c1ed99365fb4964a44a199c',
   'cosmik-apple-touch-180.png':'9cbc0683f24f7564a88fabe6a649f7990d54c066',
   'fonts/Inter-Regular.woff2':'2bcd222ecfae996d035ff72bf70672305cc29261',

@@ -1,7 +1,14 @@
+/** Areas of work; family destinations remain independent of homepage emphasis. */
+export const pillars = [
+  {id:'reimagine', name:'Reimagine', summary:'Modern reimplementations of games and engines with released source code.'},
+  {id:'extend', name:'Extend', summary:'Mods and tools that build on existing games.'},
+  {id:'create', name:'Create', summary:'Original games and experiments.'},
+];
+
 /** Family destinations are stable. Featured work is an independent editorial choice. */
 export const families = [
   {
-    id: 'hplx', name: 'HPLX', status: 'In development',
+    id: 'hplx', name: 'HPLX', pillar: 'reimagine', status: 'In development',
     summary: 'Classic games, rebuilt with a shared engine and tools.',
     scope: 'Engine, game reimplementations, launcher and editor',
     description: 'HPLX brings a modern engine, game reimplementations, a launcher and a planned editor into one family. Work starts with HPL2 and Amnesia: The Dark Descent.',
@@ -51,6 +58,7 @@ export function validateContent(catalog = families, feature = featuredWork) {
   for (const family of catalog) {
     if (!/^[a-z0-9-]+$/.test(family.id) || ids.has(family.id)) throw new Error('Family IDs must be unique URL-safe names.');
     if (!family.name || !family.summary || !family.status) throw new Error('Each family needs a name, summary and status.');
+    if (!pillars.some(p => p.id === family.pillar)) throw new Error('Each family needs a known pillar.');
     ids.add(family.id);
   }
   if (!ids.has(feature.familyId)) throw new Error('Featured work must belong to an existing family.');

@@ -15,7 +15,7 @@ test('the catalog contains families, not an equal list of games, tools and repos
 });
 
 test('feature can change without changing family destinations or navigation', () => {
-  const next = { ...families[0], id: 'sample', name: 'Sample', scope: 'Original games', summary: 'A different family.' };
+  const next = { ...families[0], id: 'sample', name: 'Sample', pillar: 'create', scope: 'Original games', summary: 'A different family.' };
   const all = [...families, next];
   const feature = { ...featuredWork, familyId: 'sample', heading: 'A new feature.', description: 'New work.', focusTitle: 'New game', focusDescription: 'An experiment.' };
   validateContent(all, feature);
@@ -24,6 +24,11 @@ test('feature can change without changing family destinations or navigation', ()
   assert.match(featured, /data-featured-family="sample"/);
   assert.match(featured, /Explore Sample/);
   assert.doesNotMatch(featured, /HPLX|Dark Descent/);
+  assert.match(featured, /Featured work · Create/);
+  assert.ok(html.indexOf('class="pillars wrap"') < html.indexOf('class="featured-work"'));
+  assert.match(html, /<h3>Reimagine<\/h3>/);
+  assert.match(html, /<h3>Extend<\/h3>/);
+  assert.match(html, /<h3>Create<\/h3>/);
   for (const id of ['hplx', 'sample']) assert.match(html, new RegExp(`projects/${id}/`));
   const index = catalog(all);
   assert.equal((index.match(/class="family-row"/g) || []).length, 2);
@@ -34,6 +39,7 @@ test('feature and family validation rejects broken or duplicate destinations', (
   assert.throws(() => validateContent([...families, families[0]]), /unique/);
   assert.throws(() => validateContent([{...families[0], id:'../bad'}]), /URL-safe/);
   assert.throws(() => validateContent([{...families[0], status:''}]), /status/);
+  assert.throws(() => validateContent([{...families[0], pillar:'unknown'}]), /pillar/);
   assert.throws(() => home(families, {...featuredWork, familyId:'missing'}), /not found/);
 });
 
