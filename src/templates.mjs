@@ -1,3 +1,4 @@
+import { legalCopy } from './legal-copy.mjs';
 import { families, featuredWork, pillars } from './projects.mjs';
 import { resolveFamilyTheme } from './themes.mjs';
 export const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -50,7 +51,7 @@ ${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` 
 <nav aria-label="Main navigation"><a href="${url('projects/')}"${current === 'projects' ? ' aria-current="page"' : current === 'family' ? ' aria-current="location"' : ''}>Projects</a><a href="${url('about/')}"${current === 'about' ? ' aria-current="page"' : ''}>About</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a></nav>
 </header>
 <main id="main" tabindex="-1">${theme ? `<div class="family-content" data-family="${escape(theme.id)}" data-family-theme="${theme.state}">${body(root)}</div>` : body(root)}</main>
-<footer class="site-footer wrap"><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent gaming workshop</span></p><div><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
+<footer class="site-footer wrap"><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent gaming workshop</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
 </body></html>`;
 }
 
@@ -106,4 +107,22 @@ export function legacyPage(legacy) {
 
 export function notFound() {
   return shell({title:'Page not found — Cosmik', description:'This page could not be found.', route:'', rootOverride:'/', canonical:false, body: root => `<section class="page-heading wrap not-found">${label('404')}<h1>Page not found.</h1><p>The address may have changed. You can find the current work in Projects.</p><a class="button" href="${root}projects/">Explore projects ${arrow}</a></section>`});
+}
+
+
+export function legalPage(kind) {
+  const privacy = kind === 'privacy';
+  const title = privacy ? 'Privacy' : 'Legal & Licenses';
+  const entries = legalCopy[privacy ? 'Privacy' : 'Legal and Licenses'];
+  const description = privacy ? 'How information is handled when you visit cosmiklabs.org or contact Cosmik.' : 'Project independence, software licenses, original game assets and Cosmik branding.';
+  const renderEntry = entry => {
+    if (entry.style === 'Heading 2') return `<h2>${escape(entry.text)}</h2>`;
+    let text = escape(entry.text);
+    for (const link of entry.links) text = text.replace(escape(link.text), `<a href="${escape(link.url)}">${escape(link.text)}</a>`);
+    text = text.replaceAll('legal@cosmiklabs.org', '<a href="mailto:legal@cosmiklabs.org">legal@cosmiklabs.org</a>');
+    return `<p>${text}</p>`;
+  };
+  return shell({ title: `${title} — Cosmik`, description, route: kind, body: () => `
+<article class="legal-page wrap"><header class="page-heading">${label('Cosmik')}<h1>${escape(title)}</h1><p>${escape(entries[0].text)}</p></header>
+<div class="legal-copy">${entries.slice(1).map(renderEntry).join('\n')}${privacy ? '' : '<p><a href="https://github.com/cosmiklabs/brand/blob/main/LICENSE.md">Brand licensing and usage terms</a></p>'}</div></article>` });
 }

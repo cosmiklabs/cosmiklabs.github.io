@@ -169,3 +169,11 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 }
 @media(max-width:380px){.wrap{width:calc(100% - var(--c-space-4)*2)}.family-row-end{gap:var(--c-space-2)}.family-row-end .status{font-size:.75rem}.family-nav{gap:var(--c-space-2)}.family-nav a{font-size:.875rem}.feature-status{gap:var(--c-space-2)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:var(--c-motion-reduced-duration)!important;animation-duration:var(--c-motion-reduced-duration)!important}}
+
+
+/* Readable, responsive public policy pages. */
+.legal-page{padding-bottom:var(--c-space-16)}
+.legal-copy{max-width:70ch;overflow-wrap:anywhere}
+.legal-copy h2{font-size:var(--c-type-card-font-size);margin-block:var(--c-space-12) var(--c-space-4)}
+.legal-copy p{margin-block:var(--c-space-4);line-height:1.75}
+.legal-copy a{text-decoration:underline;text-underline-offset:.2em}

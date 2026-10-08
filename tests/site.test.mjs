@@ -12,14 +12,14 @@ const files=await walk(root);
 const htmlFiles=files.filter(f=>f.endsWith('.html'));
 const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f).split(path.sep).join('/'),await readFile(f,'utf8')])));
 
-test('the complete build preserves all eight original routes',()=>{
- assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html'].sort());
+test('the complete build preserves original routes and adds public policies',()=>{
+ assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html'].sort());
 });
 
 test('every local link, stylesheet, font and fragment resolves',async()=>{
  for(const [name,html] of pages){
   for(const [,href] of html.matchAll(/(?:href|src)="([^"]+)"/g)){
-   if(/^https?:/.test(href))continue;
+   if(/^(?:https?:|mailto:)/.test(href))continue;
    const [pathname,fragment]=href.split('#');
    let target=pathname.startsWith('/')?path.join(root,pathname):path.resolve(path.dirname(path.join(root,name)),pathname||path.basename(name));
    if((await stat(target)).isDirectory())target=path.join(target,'index.html');
@@ -80,11 +80,11 @@ test('old detail URLs have working redirect targets and readable fallback links'
 });
 
 test('private source, download and external service links are absent',()=>{
- const approved=new Set(['https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand']);
+ const approved=new Set(['https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand','https://github.com/cosmiklabs/brand/blob/main/LICENSE.md','https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement','https://www.cloudflare.com/privacypolicy/','https://developers.cloudflare.com/speed/observatory/rum-beacon/']);
  for(const [name,html] of pages){
   const urls=[...html.matchAll(/(?:href|src)="(https?:[^"]+)"/g)].map(m=>m[1]);
   for(const url of urls)assert.ok(approved.has(url)||(process.env.SITE_URL && url.startsWith(new URL(process.env.SITE_URL).origin + '/')),`${name}: unexpected ${url}`);
-  assert.doesNotMatch(html,/Download now|Play now|View source|fully compatible|cosmik-labs|localhost|\/workspace\/|analytics|api[_-]?key/i);
+  assert.doesNotMatch(html,/Download now|Play now|View source|fully compatible|cosmik-labs|localhost|\/workspace\/|api[_-]?key/i);
   if(process.env.SITE_URL) assert.doesNotMatch(html,/<meta name="robots"/);
   else assert.match(html,/<meta name="robots" content="noindex, nofollow">/);
  }
@@ -131,3 +131,4 @@ test('Pages publishes only the generated site without a custom domain or package
  const pkg=JSON.parse(await readFile(path.join(projectRoot,'package.json'),'utf8'));
  assert.equal(pkg.private,true);assert.ok(!pkg.scripts.deploy);
 });
+
