@@ -4,9 +4,9 @@ import { families } from '../src/projects.mjs';
 import { familyThemes, resolveFamilyTheme } from '../src/themes.mjs';
 import { home, catalog, about, familyPage, legacyPage } from '../src/templates.mjs';
 
-test('HPLX uses the owner-selected warm website theme while its logo stays absent',()=>{
+test('HPLX uses the owner-selected warm website theme with its selected Ember symbol',()=>{
  assert.equal(familyThemes.hplx.state,'approved-for-website');
- assert.deepEqual(resolveFamilyTheme('hplx'),{id:'hplx',state:'approved-for-website',stylesheet:'assets/families/hplx/theme.css',logo:null});
+ assert.deepEqual(resolveFamilyTheme('hplx'),{id:'hplx',state:'approved-for-website',stylesheet:'assets/families/hplx/theme.css',logo:'assets/families/hplx/hplx-ember-amber.svg'});
  assert.equal(resolveFamilyTheme('unknown').state,'baseline');
  const html=familyPage(families[0]);
  assert.match(html,/data-family="hplx" data-family-theme="approved-for-website"/);

@@ -5,10 +5,10 @@
  */
 export const familyThemes = {
   hplx: {
-    // Owner selected this kit for the private website; the separate logo remains absent.
+    // Owner selected this kit for the private website; the Ember symbol was selected independently on 8 October.
     state: 'approved-for-website',
     stylesheet: 'assets/families/hplx/theme.css',
-    logo: null,
+    logo: 'assets/families/hplx/hplx-ember-amber.svg',
   },
 };
 
