@@ -85,7 +85,8 @@ test('private source, download and external service links are absent',()=>{
   const urls=[...html.matchAll(/(?:href|src)="(https?:[^"]+)"/g)].map(m=>m[1]);
   for(const url of urls)assert.ok(approved.has(url)||(process.env.SITE_URL && url.startsWith(new URL(process.env.SITE_URL).origin + '/')),`${name}: unexpected ${url}`);
   assert.doesNotMatch(html,/Download now|Play now|View source|fully compatible|cosmik-labs|localhost|\/workspace\/|analytics|api[_-]?key/i);
-  assert.match(html,/<meta name="robots" content="noindex, nofollow">/);
+  if(process.env.SITE_URL) assert.doesNotMatch(html,/<meta name="robots"/);
+  else assert.match(html,/<meta name="robots" content="noindex, nofollow">/);
  }
 });
 

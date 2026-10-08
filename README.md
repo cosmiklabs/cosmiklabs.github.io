@@ -1,12 +1,12 @@
 # Cosmik website
 
-The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX product repositories remain private.
+The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX engine, game and launcher repositories remain private; their package catalog is public.
 
 ## Publication
 
 GitHub Pages uses `.github/workflows/pages.yml`. Pushes to `main` or a manual workflow run build and test the site with Node.js 22, then publish only generated `site/` output. Source templates, tests, README and Git metadata are not in that output. Official GitHub actions are pinned to commit hashes; deployment permissions are limited to the deploy job. No custom domain is configured.
 
-The existing `noindex, nofollow` metadata is retained. Hosting is public, but search-engine indexing has not been enabled.
+Search indexing is enabled for the published build (owner, 8 October 2026). Local builds without `SITE_URL` retain `noindex, nofollow`.
 
 ## Run locally
 
@@ -17,7 +17,7 @@ Requires Node.js 22 or later. No third-party build dependencies or install step.
 - `npm run preview` serves the current build.
 - `npm run check` rebuilds and runs all automated tests.
 
-Rebuild after source edits. `PORT` changes the preview port. The development server binds only to localhost. Generated pages also work as local files, except for the root-absolute 404 navigation intended for eventual root-level hosting.
+Rebuild after source edits. `PORT` changes the preview port. The development server binds only to localhost. Generated pages also work as local files, except for the root-absolute 404 navigation used by root-level hosting.
 
 ## Editing
 
@@ -37,7 +37,7 @@ Public links are restricted to the Cosmik organization and brand repository. Ori
 
 Pinned to [cosmiklabs/brand at af89b8c](https://github.com/cosmiklabs/brand/tree/af89b8c2dd4f4426379d8b2af3b65ac4c13d21bf), the approved 7 October 2026 baseline. `assets/brand-tokens.css` is the exact generated baseline; the HPLX theme starts with that commit's generated family CSS. Preserve the unmodified emblem and the bundled Inter, IBM Plex Mono and Spectral SIL Open Font License notices. Tests check the pinned assets.
 
-The owner approved the existing HPLX warm theme for this private website on 7 October. This does not change the brand kit's proposed family status. The HPLX page now pairs the separately selected Ember symbol with an ordinary live HPLX name. Family overrides stay inside their `data-family` boundary and explicit dark/light modes; shared navigation, layout, interactions and interface type stay consistent. The Cosmik home, Projects, About, header and footer use the baseline.
+The owner approved the existing HPLX warm theme for this website on 7 October. This does not change the brand kit's proposed family status. The HPLX page now pairs the separately selected Ember symbol with an ordinary live HPLX name. Family overrides stay inside their `data-family` boundary and explicit dark/light modes; shared navigation, layout, interactions and interface type stay consistent. The Cosmik home, Projects, About, header and footer use the baseline.
 
 ### HPLX Ember symbol
 
@@ -47,8 +47,8 @@ This is a symbol, not a recreated wordmark or combined lockup. No glow, crop, op
 
 ## Remaining review
 
-The October 7 issue fixes pass the automated suite. Headless Chrome checked the home, Projects, HPLX and About pages at 1280, 768, 390 and 320 CSS pixels with 100% and 200% root text size; no horizontal page overflow remained. Homepage desktop and mobile captures were visually reviewed. Full browser zoom, complete keyboard/assistive-technology checks, Back/Forward and other browser engines remain to be reviewed before publication. These checks are not product accessibility certification.
+The October 7 issue fixes pass the automated suite. Headless Chrome checked the home, Projects, HPLX and About pages at 1280, 768, 390 and 320 CSS pixels with 100% and 200% root text size; no horizontal page overflow remained. Homepage desktop and mobile captures were visually reviewed. Full browser zoom, complete keyboard/assistive-technology checks, Back/Forward and other browser engines remain unverified. These checks are not product accessibility certification.
 
 For the October 8 Ember integration, the master SVG was independently rendered and inspected and all 30 automated tests pass, including the new identity checks. Live browser QA for this change remains unverified because the cloud browser cannot connect to the localhost preview. The earlier rendering checks above describe the previous revision.
 
-Set `SITE_URL` to the final HTTPS base URL when building publication previews to emit canonical URLs and absolute share-image URLs; unset previews omit those URLs. Social cards use the unmodified 512 px plate icon from the pinned brand kit. Redirects name their destination as canonical, and 404 pages omit it. The preview includes `noindex, nofollow` metadata as an extra precaution. That is not access control. Publication was approved on 8 October 2026; the website and this source repository are now public. Search-engine indexing and custom-domain changes remain separate decisions.
+Set `SITE_URL` to the final HTTPS base URL when building publication previews to emit canonical URLs and absolute share-image URLs; unset previews omit those URLs. Social cards use the unmodified 512 px plate icon from the pinned brand kit. Redirects name their destination as canonical, and 404 pages omit it. The preview includes `noindex, nofollow` metadata as an extra precaution. That is not access control. Publication was approved on 8 October 2026; the website and this source repository are now public. Search indexing is enabled in publication builds; no custom domain is configured.

@@ -34,7 +34,7 @@ export function shell({ title, description, route, body, current = '', rootOverr
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)}</title><meta name="description" content="${escape(description)}">
 ${shareMetadata({title, description, route, redirect, canonical})}
-<meta name="robots" content="noindex, nofollow"><meta name="color-scheme" content="dark">
+${process.env.SITE_URL ? '' : '<meta name="robots" content="noindex, nofollow">'}<meta name="color-scheme" content="dark">
 ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))}">` : ''}
 <link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
 <link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
