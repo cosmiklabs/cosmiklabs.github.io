@@ -12,7 +12,7 @@ export const families = [
     ],
     games: [
       {
-        id: 'tdd', name: 'Amnesia: The Dark Descent Redux', shortName: 'The Dark Descent Redux', status: 'In development',
+        id: 'tdd', name: 'Amnesia: The Dark Descent', shortName: 'The Dark Descent', status: 'In development',
         description: 'The first game reimplementation in the HPLX family. It uses your existing game content with a new runtime built on the HPLX engine.',
         progress: 'Menus, saves and custom-story launching are implemented. The opening campaign sections have been playtested; later campaign checks, menu validation and lighting comparisons are still in progress.',
       },
@@ -34,13 +34,13 @@ export const featuredWork = {
   heading: 'Classic games. New foundations.',
   description: 'An engine, Redux games and the tools around them. Explore the HPLX family, starting with Amnesia: The Dark Descent.',
   focusLabel: 'Current focus',
-  focusTitle: 'The Dark Descent Redux',
+  focusTitle: 'The Dark Descent',
   focusDescription: 'Bringing the first game and its engine forward together.',
 };
 
 /** Old individual-project URLs retain a route into their context in the family. */
 export const legacyRoutes = [
-  { id: 'tdd', familyId: 'hplx', fragment: 'tdd', name: 'The Dark Descent Redux' },
+  { id: 'tdd', familyId: 'hplx', fragment: 'tdd', name: 'The Dark Descent' },
   { id: 'amfp', familyId: 'hplx', fragment: 'future', name: 'A Machine for Pigs Redux' },
   { id: 'hplx-editor', familyId: 'hplx', fragment: 'editor', name: 'HPLX Editor' },
 ];

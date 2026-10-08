@@ -22,7 +22,7 @@ test('family theme is confined to content; global shell and other pages stay bas
  const shell=html.replace(main,'');
  assert.doesNotMatch(shell,/data-family=/);assert.match(shell,/emblem\.svg/);
  for(const page of [home(),catalog(),about()]){assert.doesNotMatch(page,/data-family=/);assert.doesNotMatch(page,/families\/hplx\/theme\.css|Spectral/);}
- assert.match(legacyPage({id:'tdd',familyId:'hplx',fragment:'tdd',name:'The Dark Descent Redux'}),/data-family="hplx"/);
+ assert.match(legacyPage({id:'tdd',familyId:'hplx',fragment:'tdd',name:'The Dark Descent'}),/data-family="hplx"/);
 });
 
 test('only approved, isolated family asset paths are enabled',()=>{

@@ -19,7 +19,7 @@ Cosmik’s homepage highlights **current featured work**, independently of its p
 
 HPLX has one family page at `/projects/hplx/`, containing:
 
-- Games: The Dark Descent Redux and its current development progress
+- Games: The Dark Descent and its current development progress
 - Engine and tools: the engine, launcher and planned editor
 - Development: present availability and clearly separated future directions
 
@@ -55,7 +55,7 @@ The AMFP redirect lands on the visible future-work disclosure, rather than relyi
 
 ## Content boundaries
 
-HPLX names the ecosystem here: engine, Redux games, launcher and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent Redux, engine and launcher are in development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each Redux game, with in-viewport playtesting, not a promised standalone download.
+HPLX names the ecosystem here: engine, Redux games, launcher and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent, engine and launcher are in development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each Redux game, with in-viewport playtesting, not a promised standalone download.
 
 The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. Launcher infrastructure exists, but end-to-end desktop validation is still in progress.
 

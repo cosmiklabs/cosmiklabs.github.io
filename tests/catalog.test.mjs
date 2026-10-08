@@ -8,7 +8,7 @@ test('the catalog contains families, not an equal list of games, tools and repos
   assert.deepEqual(families.map(f => f.id), ['hplx']);
   const hplx = families[0];
   assert.equal(hplx.name, 'HPLX');
-  assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent Redux');
+  assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
   assert.deepEqual(hplx.tools.map(t => t.id), ['engine', 'launcher', 'editor']);
   assert.equal(hplx.tools.find(t => t.id === 'editor').status, 'Planned');
   assert.deepEqual(hplx.future.map(f => f.id), ['amfp', 'penumbra']);
