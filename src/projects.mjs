@@ -3,10 +3,10 @@ export const families = [
   {
     id: 'hplx', name: 'HPLX', status: 'In development',
     summary: 'Classic games, rebuilt with a shared engine and tools.',
-    scope: 'Engine, Redux games, launcher and editor',
-    description: 'HPLX brings a modern engine, Redux game reimplementations, a launcher and a planned editor into one family. Work starts with HPL2 and Amnesia: The Dark Descent.',
+    scope: 'Engine, game reimplementations, launcher and editor',
+    description: 'HPLX brings a modern engine, game reimplementations, a launcher and a planned editor into one family. Work starts with HPL2 and Amnesia: The Dark Descent.',
     groups: [
-      { title: 'Play', items: 'Redux games' },
+      { title: 'Play', items: 'game reimplementations' },
       { title: 'Build', items: 'Engine & planned editor' },
       { title: 'Manage', items: 'Launcher' },
     ],
@@ -18,12 +18,12 @@ export const families = [
       },
     ],
     tools: [
-      { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The shared foundation for Redux games. Current work focuses on HPL2 formats and the runtime systems needed by The Dark Descent.' },
+      { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The shared foundation for game reimplementations. Current work focuses on HPL2 formats and the runtime systems needed by The Dark Descent.' },
       { id: 'launcher', name: 'HPLX Launcher', status: 'In development', description: 'A desktop home for HPLX games. Game-copy discovery, saves, installed custom stories and package management are implemented. End-to-end desktop validation is still in progress.' },
-      { id: 'editor', name: 'Editor', status: 'Planned', description: 'Editing tools are planned within each Redux game, with in-viewport playtesting. The editor is not built yet.' },
+      { id: 'editor', name: 'HPLX Editor', status: 'Planned', description: 'Editing tools are planned within each HPLX game, with in-viewport playtesting. The editor is not built yet.' },
     ],
     future: [
-      { id: 'amfp', name: 'Amnesia: A Machine for Pigs Redux', detail: 'A future game reimplementation. Work has not started.' },
+      { id: 'amfp', name: 'Amnesia: A Machine for Pigs', detail: 'A future game reimplementation. Work has not started.' },
       { id: 'penumbra', name: 'Penumbra & HPL1', detail: 'A future direction for the family, beyond the current HPL2 work.' },
     ],
   },
@@ -32,17 +32,18 @@ export const families = [
 export const featuredWork = {
   familyId: 'hplx',
   heading: 'Classic games. New foundations.',
-  description: 'An engine, Redux games and the tools around them. Explore the HPLX family, starting with Amnesia: The Dark Descent.',
+  description: 'An engine, game reimplementations and the tools around them. Explore the HPLX family, starting with Amnesia: The Dark Descent.',
   focusLabel: 'Current focus',
   focusTitle: 'The Dark Descent',
   focusDescription: 'Bringing the first game and its engine forward together.',
 };
 
 /** Old individual-project URLs retain a route into their context in the family. */
+const hplx = families.find(family => family.id === 'hplx');
 export const legacyRoutes = [
-  { id: 'tdd', familyId: 'hplx', fragment: 'tdd', name: 'The Dark Descent' },
-  { id: 'amfp', familyId: 'hplx', fragment: 'future', name: 'A Machine for Pigs Redux' },
-  { id: 'hplx-editor', familyId: 'hplx', fragment: 'editor', name: 'HPLX Editor' },
+  { id: 'tdd', familyId: 'hplx', fragment: 'tdd', name: hplx.games.find(game => game.id === 'tdd').shortName },
+  { id: 'amfp', familyId: 'hplx', fragment: 'future', name: hplx.future.find(game => game.id === 'amfp').name },
+  { id: 'hplx-editor', familyId: 'hplx', fragment: 'editor', name: hplx.tools.find(tool => tool.id === 'editor').name },
 ];
 
 export function validateContent(catalog = families, feature = featuredWork) {

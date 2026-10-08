@@ -62,7 +62,7 @@ test('HPLX houses games, engine, launcher, editor and future context together',(
  const html=pages.get('projects/hplx/index.html');
  for(const id of ['games','tdd','tools','engine','launcher','editor','development','amfp','penumbra'])assert.match(html,new RegExp(`id="${id}"`));
  assert.match(html,/The HPLX family/);assert.match(html,/planned editor/);
- assert.match(html,/The editor is not built yet/);assert.match(html,/within each Redux game/);
+ assert.match(html,/The editor is not built yet/);assert.match(html,/within each HPLX game/);
  assert.match(html,/Work has not started/);assert.match(html,/No release dates/);
  assert.match(html,/only platform verified/);assert.match(html,/no public release or download yet/);
  assert.match(html,/unaffiliated with the original creators/);
@@ -94,7 +94,8 @@ test('approved baseline tokens, unchanged emblems and fonts are pinned',async()=
  const expected={
   'brand-tokens.css':'3033047a35e29cb543a1fbdff73396524630240f',
   'emblem.svg':'5519818f64e11a3dc1f0fdbd3aacc563451e8541',
-  'emblem-ink.svg':'ccaa7d5fd11f67f061173030a1d984794bc7c966',
+  'cosmik.ico':'4521a86f042673f72c1ed99365fb4964a44a199c',
+  'cosmik-apple-touch-180.png':'9cbc0683f24f7564a88fabe6a649f7990d54c066',
   'fonts/Inter-Regular.woff2':'2bcd222ecfae996d035ff72bf70672305cc29261',
   'fonts/Inter-Medium.woff2':'fdfdcc699fc1e19eb1943c2896e8d66e17b538ff',
   'fonts/Inter-SemiBold.woff2':'fbae113d2855e22c06376495bd2dfe5f02411272',

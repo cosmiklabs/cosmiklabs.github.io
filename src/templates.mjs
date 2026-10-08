@@ -19,7 +19,8 @@ export function shell({ title, description, route, body, current = '', rootOverr
 <title>${escape(title)}</title><meta name="description" content="${escape(description)}">
 <meta name="robots" content="noindex, nofollow"><meta name="color-scheme" content="dark">
 ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))}">` : ''}
-<link rel="icon" href="${url('assets/emblem.svg')}" type="image/svg+xml">
+<link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
+<link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
 <link rel="preload" href="${url('assets/fonts/Inter-Regular.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css')}">
 <link rel="stylesheet" href="${url('assets/family-themes.css')}">
@@ -54,7 +55,7 @@ export function home(catalog = families, feature = featuredWork) {
 }
 
 export function catalog(catalog = families) {
-  return shell({ title: 'Projects — Cosmik', description: 'Explore Cosmik’s project families. Start with HPLX: its engine, Redux games, launcher and planned editor.', route: 'projects', current: 'projects', body: root => `
+  return shell({ title: 'Projects — Cosmik', description: 'Explore Cosmik’s project families. Start with HPLX: its engine, game reimplementations, launcher and planned editor.', route: 'projects', current: 'projects', body: root => `
 <section class="page-heading wrap">${label('Projects')}<h1>Find your way in.</h1><p>Related games and tools, together in one place.</p></section>
 <section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Project families</h2>${familyList(root, catalog)}</section>
 <section class="directory-note wrap"><p>Cosmik’s work starts with HPLX. There’s room for other games, mods and tools as they take shape.</p></section>` });
@@ -75,8 +76,8 @@ export function familyPage(family) {
 export function about() {
   return shell({ title: 'About — Cosmik', description: 'Cosmik is Matthew Downs’s independent open-source gaming workshop.', route: 'about', current: 'about', body: root => `
 <section class="page-heading wrap">${label('About Cosmik')}<h1>An independent<br>gaming workshop.</h1><p>A personal project by Matthew Downs.</p></section>
-<section class="about-content" data-theme="light"><div class="wrap section-grid"><h2>A place to make things.</h2><div><p class="about-lead">Cosmik is an independent open-source gaming workshop, building games, mods, tools, and modern reimplementations of classic game technology.</p><p>It’s a home for related work, with room for each project to have its own purpose. HPLX is the first family: the engine, Redux games, launcher and planned editing tools.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
-<section class="about-approach wrap" aria-label="Areas of work"><article>${label('01')}<h2>Reimagine</h2><p>Modern reimplementations of classic games and engines.</p></article><article>${label('02')}<h2>Extend</h2><p>Mods and tools that make more possible.</p></article><article>${label('03')}<h2>Create</h2><p>Original games and experiments.</p></article></section>
+<section class="about-content" data-theme="light"><div class="wrap section-grid"><h2>A place to make things.</h2><div><p class="about-lead">Cosmik is an independent open-source gaming workshop, building games, mods, tools, and modern reimplementations of classic game technology.</p><p>It’s a home for related work, with room for each project to have its own purpose. HPLX is the first family: the engine, game reimplementations, launcher and planned editing tools.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
+<section class="about-approach wrap" aria-label="Areas of work"><article>${label('01')}<h2>Reimagine</h2><p>Modern reimplementations of games and engines with released source code.</p></article><article>${label('02')}<h2>Extend</h2><p>Mods and tools that build on existing games.</p></article><article>${label('03')}<h2>Create</h2><p>Original games and experiments.</p></article></section>
 <section class="about-links wrap"><p>Follow what takes shape.</p><a class="text-link" href="https://github.com/cosmiklabs">Cosmik on GitHub ${external}</a></section>` });
 }
 
