@@ -20,7 +20,8 @@ test('every local link, stylesheet, font and fragment resolves',async()=>{
  for(const [name,html] of pages){
   for(const [,href] of html.matchAll(/(?:href|src)="([^"]+)"/g)){
    if(/^(?:https?:|mailto:)/.test(href))continue;
-   const [pathname,fragment]=href.split('#');
+   const [resource,fragment]=href.split('#');
+   const pathname=resource.split('?')[0];
    let target=pathname.startsWith('/')?path.join(root,pathname):path.resolve(path.dirname(path.join(root,name)),pathname||path.basename(name));
    if((await stat(target)).isDirectory())target=path.join(target,'index.html');
    assert.ok(files.includes(target),`${name}: ${href}`);
