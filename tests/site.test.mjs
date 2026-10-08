@@ -81,7 +81,7 @@ test('old detail URLs have working redirect targets and readable fallback links'
 });
 
 test('private source, download and external service links are absent',()=>{
- const approved=new Set(['https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand','https://github.com/cosmiklabs/brand/blob/main/LICENSE.md','https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement','https://www.cloudflare.com/privacypolicy/','https://developers.cloudflare.com/speed/observatory/rum-beacon/']);
+ const approved=new Set(['https://github.com/cosmiklabs','https://github.com/cosmiklabs/brand','https://github.com/cosmiklabs/brand/blob/main/LICENSE.md','https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement','https://www.cloudflare.com/privacypolicy/','https://developers.cloudflare.com/speed/observatory/rum-beacon/','https://frictionalgames.com/2020-09-amnesia-is-now-open-source/']);
  for(const [name,html] of pages){
   const urls=[...html.matchAll(/(?:href|src)="(https?:[^"]+)"/g)].map(m=>m[1]);
   for(const url of urls)assert.ok(approved.has(url)||(process.env.SITE_URL && url.startsWith(new URL(process.env.SITE_URL).origin + '/')),`${name}: unexpected ${url}`);

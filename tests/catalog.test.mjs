@@ -11,7 +11,7 @@ test('the catalog contains families, not an equal list of games, tools and repos
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
   assert.deepEqual(hplx.tools.map(t => t.id), ['engine', 'launcher', 'editor']);
   assert.equal(hplx.tools.find(t => t.id === 'editor').status, 'Planned');
-  assert.deepEqual(hplx.future.map(f => f.id), ['amfp', 'penumbra']);
+  assert.deepEqual(hplx.future.map(f => f.id), ['amfp', 'penumbra', 'hpl3']);
 });
 
 test('feature can change without changing family destinations or navigation', () => {

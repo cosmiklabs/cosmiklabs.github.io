@@ -37,3 +37,21 @@ test('built legal pages preserve publication canonical URLs and indexing choices
     } else assert.match(html, /noindex, nofollow/);
   }
 });
+
+test('HPLX prominently states the retail install, asset boundary and free-use commitment', () => {
+  const html = familyPage(families[0]);
+  const notice = html.match(/<section class="family-tools section-grid"[\s\S]*?<\/section>/)[0];
+  assert.ok(html.indexOf(notice) < html.indexOf('id="games"'));
+  for (const page of [notice, legalPage('legal')]) {
+    assert.match(page, /legitimately obtained local retail installation/);
+    assert.match(page, /never.*(?:bundl|distribut)/);
+    assert.match(page, /Cosmik Labs does not, and never will, require payment to use HPLX/);
+    assert.match(page, /original retail game.*may cost money/);
+    assert.match(page, /not affiliated with, sponsored by, or endorsed by Frictional Games/);
+    assert.match(page, /respective rights holders/);
+  }
+  assert.match(html, /modern reimplementation of the HPL engine family/);
+  assert.match(html, /possible longer-term direction, not a commitment/);
+  assert.match(legalPage('legal'), /GPLv3/);
+  assert.match(legalPage('legal'), /does not transfer ownership/);
+});

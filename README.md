@@ -59,3 +59,7 @@ Set `SITE_URL` to the final HTTPS base URL when building publication previews to
 `src/legal-copy.mjs` holds the approved Privacy and Legal & Licenses text, dated 8 October 2026. `legalPage()` renders `/privacy/` and `/legal/`; shared footer links appear on every page. Correspondence retention is indefinite with no routine deletion schedule. The pages describe configured analytics without claiming verified beacon delivery or guaranteed visitor-residence exclusions. The public brand license is linked, not modified. Review-only notes are excluded from the source and generated site.
 
 Run `npm run check` and `SITE_URL=https://cosmiklabs.org npm run check` to validate both preview and public metadata, links, policy text and preserved routes. Deployment retains the configured Pages base URL and existing indexing behavior.
+
+### HPLX requirements and independence
+
+The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. TDD remains the current development focus; AMFP and Penumbra are future directions and HPL3 is a possibility, not promised support. No software license was changed.

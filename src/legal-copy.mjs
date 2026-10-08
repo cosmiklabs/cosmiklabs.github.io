@@ -125,7 +125,27 @@ export const legalCopy = {
     },
     {
       "style": "Normal",
-      "text": "Cosmik and its HPLX projects are independent and unofficial. They are not affiliated with, sponsored by, or endorsed by Frictional Games or the other owners of the games and technology discussed here. Game names, trademarks, logos, and other third-party material remain the property of their respective owners. References to them identify the games, technology, or compatibility being discussed.",
+      "text": "Cosmik Labs and its HPLX projects are independent and unofficial. They are not affiliated with, sponsored by, or endorsed by Frictional Games or the other owners of the games and technology discussed here. The original HPL engines, games, source code and assets remain the property of Frictional Games and their respective rights holders. Game names, trademarks, logos, and other third-party material remain the property of their respective owners. References to them identify the games, technology, or compatibility being discussed.",
+      "links": []
+    },
+    {
+      "style": "Heading 2",
+      "text": "What HPLX is",
+      "links": []
+    },
+    {
+      "style": "Normal",
+      "text": "HPLX is an independent, modern reimplementation of the HPL engine family, designed to run the original games using assets from the player’s retail installation. It includes game-specific reimplementations and supporting tools. Current development focuses on HPL2 and Amnesia: The Dark Descent. A Machine for Pigs and the Penumbra series are future directions; HPL3 games are a possibility, not a commitment or a claim of current support.",
+      "links": []
+    },
+    {
+      "style": "Heading 2",
+      "text": "Free to use",
+      "links": []
+    },
+    {
+      "style": "Normal",
+      "text": "Cosmik Labs does not, and never will, require payment to use HPLX. This commitment applies to HPLX, not to the original retail games, which are obtained separately and may cost money. HPLX remains in development, with no public release or download yet.",
       "links": []
     },
     {
@@ -154,13 +174,28 @@ export const legalCopy = {
       ]
     },
     {
+      "style": "Normal",
+      "text": "Frictional Games released the source code for Amnesia: The Dark Descent and A Machine for Pigs under GPLv3. This grants rights under that license; it does not transfer ownership or make the original game assets freely redistributable.",
+      "links": []
+    },
+    {
+      "style": "Normal",
+      "text": "Frictional Games’ source release and asset clarification",
+      "links": [
+        {
+          "text": "Frictional Games’ source release and asset clarification",
+          "url": "https://frictionalgames.com/2020-09-amnesia-is-now-open-source/"
+        }
+      ]
+    },
+    {
       "style": "Heading 2",
       "text": "Original game assets",
       "links": []
     },
     {
       "style": "Normal",
-      "text": "HPLX game reimplementations require a legitimately obtained retail installation of the relevant original game. Original game assets, including artwork, models, textures, audio, maps, and story content, remain subject to their owners’ rights and terms. A license for engine or project code does not grant permission to copy or redistribute those assets.",
+      "text": "HPLX game reimplementations require a legitimately obtained local retail installation of the relevant original game. HPLX never bundles or distributes original game assets. Original game assets, including artwork, models, textures, audio, maps, and story content, remain subject to their owners’ rights and terms. A license for engine or project code does not grant permission to copy or redistribute those assets.",
       "links": []
     },
     {

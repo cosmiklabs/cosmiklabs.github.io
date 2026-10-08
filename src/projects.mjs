@@ -11,7 +11,7 @@ export const families = [
     id: 'hplx', name: 'HPLX', pillar: 'reimagine', status: 'In development',
     summary: 'Classic games, rebuilt with a shared engine and tools.',
     scope: 'Engine, game reimplementations, launcher and editor',
-    description: 'HPLX brings a modern engine, game reimplementations, a launcher and a planned editor into one family. Work starts with HPL2 and Amnesia: The Dark Descent.',
+    description: 'HPLX is an independent, modern reimplementation of the HPL engine family, designed to run the original games using assets from the player’s retail installation. The family includes game reimplementations, a launcher and a planned editor. Current development focuses on HPL2 and Amnesia: The Dark Descent.',
     groups: [
       { title: 'Play', items: 'game reimplementations' },
       { title: 'Build', items: 'Engine & planned editor' },
@@ -20,7 +20,7 @@ export const families = [
     games: [
       {
         id: 'tdd', name: 'Amnesia: The Dark Descent', shortName: 'The Dark Descent', status: 'In development',
-        description: 'The first game reimplementation in the HPLX family. It uses your existing game content with a new runtime built on the HPLX engine.',
+        description: 'The first game reimplementation in the HPLX family. It requires a legitimately obtained local retail installation of the original game and uses its assets with the HPLX engine. Original game assets are never bundled with HPLX.',
         progress: 'Menus, saves and custom-story launching are implemented. The opening campaign sections have been playtested; later campaign checks, menu validation and lighting comparisons are still in progress.',
       },
     ],
@@ -32,6 +32,7 @@ export const families = [
     future: [
       { id: 'amfp', name: 'Amnesia: A Machine for Pigs', detail: 'A future game reimplementation. Work has not started.' },
       { id: 'penumbra', name: 'Penumbra & HPL1', detail: 'A future direction for the family, beyond the current HPL2 work.' },
+      { id: 'hpl3', name: 'HPL3 games', detail: 'A possible longer-term direction, not a commitment or a claim of current support.' },
     ],
   },
 ];
