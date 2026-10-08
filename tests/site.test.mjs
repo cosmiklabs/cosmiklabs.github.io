@@ -10,7 +10,7 @@ const root = path.join(projectRoot,'site');
 async function walk(dir) { const out=[]; for(const e of await readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);out.push(...e.isDirectory()?await walk(p):[p]);} return out; }
 const files=await walk(root);
 const htmlFiles=files.filter(f=>f.endsWith('.html'));
-const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f),await readFile(f,'utf8')])));
+const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f).split(path.sep).join('/'),await readFile(f,'utf8')])));
 
 test('the complete build preserves all eight original routes',()=>{
  assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html'].sort());
@@ -119,7 +119,7 @@ test('site CSS uses defined semantic roles, visible focus, responsive layout and
 
 test('the repository contains no publishing workflow or domain setting',async()=>{
  const sourceFiles=await walk(projectRoot);
- assert.ok(!sourceFiles.some(f=>/\.github\/workflows\//.test(f)));
+ assert.ok(!sourceFiles.some(f=>/\.github\/workflows\//.test(f.split(path.sep).join('/'))));
  assert.ok(!sourceFiles.some(f=>path.basename(f)==='CNAME'));
  const pkg=JSON.parse(await readFile(path.join(projectRoot,'package.json'),'utf8'));
  assert.equal(pkg.private,true);assert.ok(!pkg.scripts.deploy);

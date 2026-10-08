@@ -1,0 +1,4 @@
+# Preserve the exact bytes of pinned brand text assets on every platform.
+*.css text eol=lf
+*.svg text eol=lf
+assets/fonts/*-OFL.txt -text
