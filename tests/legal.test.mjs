@@ -47,7 +47,7 @@ test('HPLX prominently states the retail install, asset boundary and free-use co
     assert.match(page, /never.*(?:bundl|distribut)/);
     assert.match(page, /Cosmik Labs does not, and never will, require payment to use HPLX/);
     assert.match(page, /original retail game.*may cost money/);
-    assert.match(page, /not affiliated with, sponsored by, or endorsed by Frictional Games/);
+    assert.match(page.replace(/<[^>]*>/g, ''), /not affiliated with, sponsored by, or endorsed by Frictional Games/);
     assert.match(page, /respective rights holders/);
   }
   assert.match(html, /modern reimplementation of the HPL engine family/);

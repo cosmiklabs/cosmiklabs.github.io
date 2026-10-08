@@ -63,3 +63,9 @@ Run `npm run check` and `SITE_URL=https://cosmiklabs.org npm run check` to valid
 ### HPLX requirements and independence
 
 The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. TDD remains the current development focus; AMFP and Penumbra are future directions and HPL3 is a possibility, not promised support. No software license was changed.
+
+### Original retail game links
+
+`src/retail-links.mjs` lists original PC editions separately from HPLX availability. The Dark Descent and A Machine for Pigs link to Steam, GOG, Epic Games Store and the Humble Store URLs linked by their official game websites. The Penumbra series links to the complete retail collection on Steam and GOG (Overture, Black Plague and Requiem). No individual HPL3 games or new HPLX support commitments are introduced.
+
+Steam, GOG and Epic product/package listings were verified on 8 October 2026. The Humble destinations are taken from the official [TDD site](https://www.amnesiagame.com/) and [AMFP purchase page](https://aamfp.com/buy); the current Humble listings could not be independently retrieved. Links make no price, regional availability or HPLX store-build compatibility claim. The notice explains that local PC files are needed and console purchases do not provide them.
