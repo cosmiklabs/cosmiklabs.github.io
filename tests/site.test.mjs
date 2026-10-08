@@ -119,9 +119,13 @@ test('site CSS uses defined semantic roles, visible focus, responsive layout and
  assert.doesNotMatch(css,/overflow-x:hidden|text-overflow:ellipsis|line-clamp/);
 });
 
-test('the repository contains no publishing workflow or domain setting',async()=>{
+test('Pages publishes only the generated site without a custom domain or package publishing',async()=>{
  const sourceFiles=await walk(projectRoot);
- assert.ok(!sourceFiles.some(f=>/\.github\/workflows\//.test(f.split(path.sep).join('/'))));
+ const workflow=await readFile(path.join(projectRoot,'.github/workflows/pages.yml'),'utf8');
+ assert.match(workflow,/path: site/);
+ assert.match(workflow,/run: npm run check/);
+ assert.match(workflow,/branches: \[main\]/);
+ assert.doesNotMatch(workflow,/contents: write|pull_request_target/);
  assert.ok(!sourceFiles.some(f=>path.basename(f)==='CNAME'));
  const pkg=JSON.parse(await readFile(path.join(projectRoot,'package.json'),'utf8'));
  assert.equal(pkg.private,true);assert.ok(!pkg.scripts.deploy);

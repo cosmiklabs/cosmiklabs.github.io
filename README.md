@@ -1,6 +1,12 @@
 # Cosmik website
 
-A private, unpublished website for Cosmik’s independent gaming workshop. **GitHub Pages is off. There is no deployment workflow, external preview or custom domain.** This repository does not publish the site when code changes.
+The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX product repositories remain private.
+
+## Publication
+
+GitHub Pages uses `.github/workflows/pages.yml`. Pushes to `main` or a manual workflow run build and test the site with Node.js 22, then publish only generated `site/` output. Source templates, tests, README and Git metadata are not in that output. Official GitHub actions are pinned to commit hashes; deployment permissions are limited to the deploy job. No custom domain is configured.
+
+The existing `noindex, nofollow` metadata is retained. Hosting is public, but search-engine indexing has not been enabled.
 
 ## Run locally
 
@@ -45,4 +51,4 @@ The October 7 issue fixes pass the automated suite. Headless Chrome checked the 
 
 For the October 8 Ember integration, the master SVG was independently rendered and inspected and all 30 automated tests pass, including the new identity checks. Live browser QA for this change remains unverified because the cloud browser cannot connect to the localhost preview. The earlier rendering checks above describe the previous revision.
 
-Set `SITE_URL` to the final HTTPS base URL when building publication previews to emit canonical URLs and absolute share-image URLs; unset previews omit those URLs. Social cards use the unmodified 512 px plate icon from the pinned brand kit. Redirects name their destination as canonical, and 404 pages omit it. The preview includes `noindex, nofollow` metadata as an extra precaution. That is not access control; privacy is provided by the private repository and disabled hosting. Publication, indexing and any hosting settings require a separate decision.
+Set `SITE_URL` to the final HTTPS base URL when building publication previews to emit canonical URLs and absolute share-image URLs; unset previews omit those URLs. Social cards use the unmodified 512 px plate icon from the pinned brand kit. Redirects name their destination as canonical, and 404 pages omit it. The preview includes `noindex, nofollow` metadata as an extra precaution. That is not access control. Publication was approved on 8 October 2026; the website and this source repository are now public. Search-engine indexing and custom-domain changes remain separate decisions.
