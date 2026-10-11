@@ -10,12 +10,12 @@ export const families = [
   {
     id: 'hplx', name: 'HPLX', pillar: 'reimagine', status: 'In development',
     summary: 'Classic games, rebuilt with a shared engine and tools.',
-    scope: 'Engine, game reimplementations, launcher and editor',
-    description: 'HPLX is an independent, modern reimplementation of the HPL engine family, designed to run the original games using assets from the player’s retail installation. The family includes game reimplementations, a launcher and a planned editor. Current development focuses on HPL2 and Amnesia: The Dark Descent.',
+    scope: 'Engine, game reimplementations, app and editor',
+    description: 'HPLX is an independent, modern reimplementation of the HPL engine family, designed to run the original games using assets from the player’s retail installation. The family includes game reimplementations, a desktop app and a planned editor. Current development focuses on HPL2 and Amnesia: The Dark Descent.',
     groups: [
       { title: 'Play', items: 'game reimplementations' },
       { title: 'Build', items: 'Engine & planned editor' },
-      { title: 'Manage', items: 'Launcher' },
+      { title: 'Manage', items: 'Desktop app' },
     ],
     games: [
       {
@@ -26,7 +26,7 @@ export const families = [
     ],
     tools: [
       { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The shared foundation for game reimplementations. Current work focuses on HPL2 formats and the runtime systems needed by The Dark Descent.' },
-      { id: 'launcher', name: 'HPLX Launcher', status: 'In development', description: 'A desktop home for HPLX games. Game-copy discovery, saves, installed custom stories and package management are implemented. End-to-end desktop validation is still in progress.' },
+      { id: 'app', name: 'HPLX App', status: 'In development', description: 'A desktop home for HPLX games: your library, saves, custom stories and downloads in one place. Game-copy discovery, saves, installed custom stories and package management are implemented. End-to-end desktop validation is still in progress.' },
       { id: 'editor', name: 'HPLX Editor', status: 'Planned', description: 'Editing tools are planned within each HPLX game, with in-viewport playtesting. The editor is not built yet.' },
     ],
     future: [

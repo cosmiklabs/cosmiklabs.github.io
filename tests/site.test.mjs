@@ -60,9 +60,9 @@ test('homepage feature and stable family list are separate, without repeated pro
  assert.doesNotMatch(index,/projects\/(tdd|amfp|hplx-editor)\//);
 });
 
-test('HPLX houses games, engine, launcher, editor and future context together',()=>{
+test('HPLX houses games, engine, app, editor and future context together',()=>{
  const html=pages.get('projects/hplx/index.html');
- for(const id of ['games','tdd','tools','engine','launcher','editor','development','amfp','penumbra'])assert.match(html,new RegExp(`id="${id}"`));
+ for(const id of ['games','tdd','tools','engine','app','editor','development','amfp','penumbra'])assert.match(html,new RegExp(`id="${id}"`));
  assert.match(html,/The HPLX family/);assert.match(html,/planned editor/);
  assert.match(html,/The editor is not built yet/);assert.match(html,/within each HPLX game/);
  assert.match(html,/Work has not started/);assert.match(html,/No release dates/);

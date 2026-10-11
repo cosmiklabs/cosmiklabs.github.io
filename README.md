@@ -1,6 +1,6 @@
 # Cosmik website
 
-The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX engine, game and launcher repositories remain private; their package catalog is public.
+The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX engine, game and app repositories remain private; their package catalog is public.
 
 ## Publication
 
@@ -25,9 +25,9 @@ Edit family data and `featuredWork.familyId` in `src/projects.mjs`, page templat
 
 ## Content boundaries
 
-HPLX names the ecosystem here: engine, game reimplementations, launcher and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent, engine and launcher are in development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each HPLX game, with in-viewport playtesting, not a promised standalone download.
+HPLX names the ecosystem here: engine, game reimplementations, desktop app and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent, engine and desktop app are in development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each HPLX game, with in-viewport playtesting, not a promised standalone download.
 
-The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. Launcher infrastructure exists, but end-to-end desktop validation is still in progress.
+The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. The desktop app exists, but end-to-end desktop validation is still in progress.
 
 AMFP is future work that has not started. Penumbra/HPL1 is a future direction beyond current HPL2 work. These are not release promises. There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases. The package catalog’s internal availability flags do not mean public download availability.
 
