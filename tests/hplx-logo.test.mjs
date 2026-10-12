@@ -41,3 +41,13 @@ test('the logo preserves aspect ratio, responsive width and surrounding space',a
  assert.doesNotMatch(style,/transform|filter|clip|object-fit:cover|max-height/);
  assert.equal(240/90,400/150);
 });
+
+
+test('Ember, the live title and endorsement share one compact centered identity block',async()=>{
+ const html=familyPage(families[0]);
+ assert.match(html,/<p class="eyebrow">[^<]+<\/p><div class="family-identity"><img class="family-logo"[^>]+><h1>HPLX<\/h1><p class="endorsement">A Cosmik project<\/p><\/div>/);
+ const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
+ const identity=css.match(/\.family-identity\{([^}]+)\}/)[1];
+ assert.match(identity,/width:15rem/);assert.match(identity,/max-width:100%/);assert.match(identity,/text-align:center/);
+ for(const page of [home(),catalog(),about(),notFound()])assert.doesNotMatch(page,/class="family-identity"/);
+});
