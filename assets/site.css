@@ -94,6 +94,7 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .family-nav a:hover{text-decoration:underline}
 .section-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:var(--c-space-16);padding-block:var(--c-space-16)}
 .section-grid .eyebrow{margin-bottom:var(--c-space-6)}
+.game-detail+.game-detail{margin-top:var(--c-space-12);padding-top:var(--c-space-12);border-top:1px solid var(--c-divider)}
 .game-detail h3{margin-block:var(--c-space-6) var(--c-space-4)}
 .game-detail>p{max-width:var(--c-layout-line)}
 details{margin-top:var(--c-space-8);border-block:1px solid var(--c-border)}

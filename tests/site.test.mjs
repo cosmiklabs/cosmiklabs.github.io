@@ -65,11 +65,11 @@ test('HPLX houses games, engine, app, editor and future context together',()=>{
  for(const id of ['games','tdd','tools','engine','app','editor','development','amfp','penumbra'])assert.match(html,new RegExp(`id="${id}"`));
  assert.match(html,/The HPLX family/);assert.match(html,/planned editor/);
  assert.match(html,/The editor is not built yet/);assert.match(html,/within each HPLX game/);
- assert.match(html,/Work has not started/);assert.match(html,/No release dates/);
- assert.match(html,/only platform verified/);assert.match(html,/no public release or download yet/);
+ assert.match(html,/Work has begun/);assert.match(html,/No release dates/);
+ assert.doesNotMatch(html,/only platform verified/);assert.match(html,/no public release or download yet/);
  assert.match(html,/unaffiliated with the original creators/);
- assert.equal((html.match(/<details[> ]/g)||[]).length,2);
- assert.equal((html.match(/<summary>/g)||[]).length,2);
+ assert.equal((html.match(/<details[> ]/g)||[]).length,4);
+ assert.equal((html.match(/<summary>/g)||[]).length,4);
 });
 
 test('old detail URLs have working redirect targets and readable fallback links',()=>{

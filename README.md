@@ -25,11 +25,11 @@ Edit family data and `featuredWork.familyId` in `src/projects.mjs`, page templat
 
 ## Content boundaries
 
-HPLX names the ecosystem here: engine, game reimplementations, desktop app and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent, engine and desktop app are in development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each HPLX game, with in-viewport playtesting, not a promised standalone download.
+HPLX names the ecosystem here: engine, game reimplementations, desktop app and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent, A Machine for Pigs, engine and desktop app are in development; Penumbra is in early development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each HPLX game, with in-viewport playtesting, not a promised standalone download.
 
-The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. The desktop app exists, but end-to-end desktop validation is still in progress.
+The Dark Descent’s menus, saves and custom-story launching are implemented. A Machine for Pigs’ campaign maps and scripts run in development tests. Full campaign playthroughs and visual validation remain open; automated checks do not establish complete compatibility or native playthrough readiness. The desktop app exists, but end-to-end desktop validation is still in progress.
 
-AMFP is future work that has not started. Penumbra/HPL1 is a future direction beyond current HPL2 work. These are not release promises. There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases. The package catalog’s internal availability flags do not mean public download availability.
+Penumbra work has begun, starting with HPL1 compatibility and Overture; Black Plague and Requiem are planned to follow. The first goal is loading Overture’s original maps and assets. These are development stages, not release promises. There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases. The package catalog’s internal availability flags do not mean public download availability.
 
 Public links are restricted to the Cosmik organization and brand repository. Original creators’ names, assets, credits and licenses remain separate from the Cosmik endorsement. No blanket code, brand or artwork license is applied by this repository.
 
@@ -51,21 +51,23 @@ The October 7 issue fixes pass the automated suite. Headless Chrome checked the 
 
 For the October 8 Ember integration, the master SVG was independently rendered and inspected and all 30 automated tests pass, including the new identity checks. Live browser QA for this change remains unverified because the cloud browser cannot connect to the localhost preview. The earlier rendering checks above describe the previous revision.
 
+For the October 14 game-family refresh, all 43 automated tests pass in both preview and publication builds. These cover the three visible game groups and their stages, the updated AMFP redirect, consistent project-scope copy, preserved retail links, legal notices and the centered Ember identity. Browser layout and interaction checks for this revision remain unverified.
+
 Set `SITE_URL` to the final HTTPS base URL when building publication previews to emit canonical URLs and absolute share-image URLs; unset previews omit those URLs. Social cards use the unmodified 512 px plate icon from the pinned brand kit. Redirects name their destination as canonical, and 404 pages omit it. The preview includes `noindex, nofollow` metadata as an extra precaution. That is not access control. Publication was approved on 8 October 2026; the website and this source repository are now public. Search indexing is enabled in publication builds; no custom domain is configured.
 
 
 ## Public policy pages
 
-`src/legal-copy.mjs` holds the approved Privacy and Legal & Licenses text, dated 8 October 2026. `legalPage()` renders `/privacy/` and `/legal/`; shared footer links appear on every page. Correspondence retention is indefinite with no routine deletion schedule. The pages describe configured analytics without claiming verified beacon delivery or guaranteed visitor-residence exclusions. The public brand license is linked, not modified. Review-only notes are excluded from the source and generated site.
+`src/legal-copy.mjs` holds the approved Privacy and Legal & Licenses text. Privacy remains dated 8 October 2026. The 14 October Legal & Licenses revision updates only its date and factual HPLX project-scope paragraph; its legal terms and ownership, retail-install, free-use and independence notices are unchanged. `legalPage()` renders `/privacy/` and `/legal/`; shared footer links appear on every page. Correspondence retention is indefinite with no routine deletion schedule. The pages describe configured analytics without claiming verified beacon delivery or guaranteed visitor-residence exclusions. The public brand license is linked, not modified. Review-only notes are excluded from the source and generated site.
 
 Run `npm run check` and `SITE_URL=https://cosmiklabs.org npm run check` to validate both preview and public metadata, links, policy text and preserved routes. Deployment retains the configured Pages base URL and existing indexing behavior.
 
 ### HPLX requirements and independence
 
-The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. TDD remains the current development focus; AMFP and Penumbra are future directions and HPL3 is a possibility, not promised support. No software license was changed.
+The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. The Dark Descent and A Machine for Pigs are in development; Penumbra work has begun with Overture first and Black Plague and Requiem planned to follow. HPL3 remains a possibility, not promised support. No software license was changed.
 
 ### Original retail game links
 
-`src/retail-links.mjs` lists original PC editions separately from HPLX availability. The Dark Descent and A Machine for Pigs link to Steam, GOG, Epic Games Store and the Humble Store URLs linked by their official game websites. The Penumbra series links to the complete retail collection on Steam and GOG (Overture, Black Plague and Requiem). No individual HPL3 games or new HPLX support commitments are introduced.
+`src/retail-links.mjs` lists original PC editions separately from HPLX availability. The Dark Descent and A Machine for Pigs link to Steam, GOG, Epic Games Store and the Humble Store URLs linked by their official game websites. The Penumbra series links to the complete retail collection on Steam and GOG (Overture, Black Plague and Requiem). No individual HPL3 games, public availability or completed-compatibility claims are introduced.
 
 Steam, GOG and Epic product/package listings were verified on 8 October 2026. The Humble destinations are taken from the official [TDD site](https://www.amnesiagame.com/) and [AMFP purchase page](https://aamfp.com/buy); the current Humble listings could not be independently retrieved. Links make no price, regional availability or HPLX store-build compatibility claim. The notice explains that local PC files are needed and console purchases do not provide them.

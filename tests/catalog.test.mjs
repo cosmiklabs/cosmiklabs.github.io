@@ -11,7 +11,8 @@ test('the catalog contains families, not an equal list of games, tools and repos
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
   assert.deepEqual(hplx.tools.map(t => t.id), ['engine', 'app', 'editor']);
   assert.equal(hplx.tools.find(t => t.id === 'editor').status, 'Planned');
-  assert.deepEqual(hplx.future.map(f => f.id), ['amfp', 'penumbra', 'hpl3']);
+  assert.deepEqual(hplx.games.map(game => game.id), ['tdd', 'amfp', 'penumbra']);
+  assert.deepEqual(hplx.future.map(f => f.id), ['hpl3']);
 });
 
 test('feature can change without changing family destinations or navigation', () => {
@@ -44,7 +45,7 @@ test('feature and family validation rejects broken or duplicate destinations', (
 });
 
 test('old project destinations lead to the right context within HPLX', () => {
-  assert.deepEqual(legacyRoutes.map(({id,fragment}) => [id,fragment]), [['tdd','tdd'],['amfp','future'],['hplx-editor','editor']]);
+  assert.deepEqual(legacyRoutes.map(({id,fragment}) => [id,fragment]), [['tdd','tdd'],['amfp','amfp'],['hplx-editor','editor']]);
   assert.ok(legacyRoutes.every(route => route.familyId === 'hplx'));
 });
 
