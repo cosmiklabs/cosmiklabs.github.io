@@ -8,42 +8,40 @@ export const pillars = [
 /** Family destinations are stable. Featured work is an independent editorial choice. */
 export const families = [
   {
-    id: 'hplx', name: 'HPLX', pillar: 'reimagine', status: 'In development',
-    summary: 'Classic games, rebuilt with a shared engine and tools.',
-    scope: 'Engine, game reimplementations, app and editor',
-    description: 'HPLX is an independent, modern reimplementation of the HPL engine family, designed to run the original games using assets from the player’s retail installation. The family includes game reimplementations, a desktop app and a planned editor. Current development focuses on HPL2 and Amnesia: The Dark Descent.',
+    id: 'hplx', name: 'HPLX', pillar: 'extend', status: 'In development',
+    summary: 'Make custom stories for The Dark Descent, and play them as you build.',
+    scope: 'An editor for Amnesia: The Dark Descent’s custom stories',
+    description: 'HPLX makes creating custom stories for Amnesia: The Dark Descent easier and better. Its editor plays your story right inside it, on a faithful reimplementation of the game that uses the files from your own copy.',
     groups: [
-      { title: 'Play', items: 'game reimplementations' },
-      { title: 'Build', items: 'Engine & planned editor' },
-      { title: 'Manage', items: 'Desktop app' },
+      { title: 'Build', items: 'Your story, in the editor' },
+      { title: 'Play', items: 'Your story, without leaving the editor' },
+      { title: 'Share', items: 'The game’s own files, for every player' },
     ],
     games: [
       {
         id: 'tdd', name: 'Amnesia: The Dark Descent', shortName: 'The Dark Descent', status: 'In development',
-        description: 'The first game reimplementation in the HPLX family. It requires a legitimately obtained local retail installation of the original game and uses its assets with the HPLX engine. Original game assets are never bundled with HPLX.',
+        description: 'The game underneath the editor: a reimplementation of The Dark Descent, as close to the original in look and behavior as we can make it, so a playtest shows what your players will see. It uses the files from your own copy of the game, which are never bundled with HPLX, and it runs on its own too.',
         progress: 'Menus, saves and custom-story launching are implemented. The opening campaign sections have been playtested; later campaign checks, menu validation and lighting comparisons are still in progress.',
       },
     ],
     tools: [
-      { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The shared foundation for game reimplementations. Current work focuses on HPL2 formats and the runtime systems needed by The Dark Descent.' },
-      { id: 'app', name: 'HPLX App', status: 'In development', description: 'A desktop home for HPLX games: your library, saves, custom stories and downloads in one place. Game-copy discovery, saves, installed custom stories and package management are implemented. End-to-end desktop validation is still in progress.' },
-      { id: 'editor', name: 'HPLX Editor', status: 'Planned', description: 'Editing tools are planned within each HPLX game, with in-viewport playtesting. The editor is not built yet.' },
+      { id: 'editor', name: 'HPLX Editor', status: 'In design', description: 'Place props, lights and script areas, then press one key to play your story from where you’re looking, and Esc to keep building. It saves the game’s own files, so your story runs in the original game for everyone who plays it.', progress: 'The editor is in design and not built yet. Its layout, and how you find and place the game’s assets, are being worked out on design boards.' },
+      { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The foundation under the game: The Dark Descent’s file formats and the systems it needs, rebuilt in Rust.' },
     ],
     future: [
-      { id: 'amfp', name: 'Amnesia: A Machine for Pigs', detail: 'A future game reimplementation. Work has not started.' },
-      { id: 'penumbra', name: 'Penumbra & HPL1', detail: 'A future direction for the family, beyond the current HPL2 work.' },
-      { id: 'hpl3', name: 'HPL3 games', detail: 'A possible longer-term direction, not a commitment or a claim of current support.' },
+      { id: 'amfp', name: 'Amnesia: A Machine for Pigs', detail: 'A reimplementation was started. It’s paused while HPLX focuses on The Dark Descent’s editor.' },
+      { id: 'penumbra', name: 'Penumbra', detail: 'Early work on Penumbra: Overture is paused for the same reason.' },
     ],
   },
 ];
 
 export const featuredWork = {
   familyId: 'hplx',
-  heading: 'Classic games. New foundations.',
-  description: 'An engine, game reimplementations and the tools around them. Explore the HPLX family, starting with Amnesia: The Dark Descent.',
+  heading: 'Build a story. Play it as you build.',
+  description: 'An editor for Amnesia: The Dark Descent’s custom stories, with the game built in, so you can play your story without leaving it.',
   focusLabel: 'Current focus',
-  focusTitle: 'The Dark Descent',
-  focusDescription: 'Bringing the first game and its engine forward together.',
+  focusTitle: 'The HPLX Editor',
+  focusDescription: 'Designing the editor, and making the game underneath it faithful to the original.',
 };
 
 /** Old individual-project URLs retain a route into their context in the family. */

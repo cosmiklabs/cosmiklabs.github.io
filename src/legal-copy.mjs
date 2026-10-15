@@ -105,7 +105,7 @@ export const legalCopy = {
   "Legal and Licenses": [
     {
       "style": "Normal",
-      "text": "Last updated: 8 October 2026",
+      "text": "Last updated: 15 October 2026",
       "links": []
     },
     {
@@ -135,7 +135,7 @@ export const legalCopy = {
     },
     {
       "style": "Normal",
-      "text": "HPLX is an independent, modern reimplementation of the HPL engine family, designed to run the original games using assets from the player’s retail installation. It includes game-specific reimplementations and supporting tools. Current development focuses on HPL2 and Amnesia: The Dark Descent. A Machine for Pigs and the Penumbra series are future directions; HPL3 games are a possibility, not a commitment or a claim of current support.",
+      "text": "HPLX is an independent editor for Amnesia: The Dark Descent’s custom stories. It includes a reimplementation of the game that runs it using assets from the player’s retail installation, so stories can be played inside the editor. Work on A Machine for Pigs and the Penumbra series is paused, and no HPL3 game is planned.",
       "links": []
     },
     {

@@ -9,9 +9,9 @@ test('the catalog contains families, not an equal list of games, tools and repos
   const hplx = families[0];
   assert.equal(hplx.name, 'HPLX');
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
-  assert.deepEqual(hplx.tools.map(t => t.id), ['engine', 'app', 'editor']);
-  assert.equal(hplx.tools.find(t => t.id === 'editor').status, 'Planned');
-  assert.deepEqual(hplx.future.map(f => f.id), ['amfp', 'penumbra', 'hpl3']);
+  assert.deepEqual(hplx.tools.map(t => t.id), ['editor', 'engine']);
+  assert.equal(hplx.tools.find(t => t.id === 'editor').status, 'In design');
+  assert.deepEqual(hplx.future.map(f => f.id), ['amfp', 'penumbra']);
 });
 
 test('feature can change without changing family destinations or navigation', () => {

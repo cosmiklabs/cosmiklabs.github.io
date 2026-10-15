@@ -1,6 +1,6 @@
 # Cosmik website
 
-The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX engine, game and app repositories remain private; their package catalog is public.
+The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX engine and game repositories remain private; the former app and its package catalog are archived.
 
 ## Publication
 
@@ -25,11 +25,11 @@ Edit family data and `featuredWork.familyId` in `src/projects.mjs`, page templat
 
 ## Content boundaries
 
-HPLX names the ecosystem here: engine, game reimplementations, desktop app and editor. The engine is labeled **HPLX Engine** when discussed separately. The Dark Descent, engine and desktop app are in development; the editor is **Planned** and not built. The current editor direction is editing tools linked into each HPLX game, with in-viewport playtesting, not a promised standalone download.
+HPLX is presented as an editor for Amnesia: The Dark Descent’s custom stories, for the people who make them (owner, 15 October 2026). It sits under **Extend**. The editor is **In design** and not built. The Dark Descent’s reimplementation and the **HPLX Engine** are in development and are presented as the game underneath the editor, which also runs on its own. There is no desktop app.
 
-The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. The desktop app exists, but end-to-end desktop validation is still in progress.
+The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. 
 
-AMFP is future work that has not started. Penumbra/HPL1 is a future direction beyond current HPL2 work. These are not release promises. There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases. The package catalog’s internal availability flags do not mean public download availability.
+Work on A Machine for Pigs and Penumbra is paused, and no HPL3 game is planned. These are not release promises. There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases.
 
 Public links are restricted to the Cosmik organization and brand repository. Original creators’ names, assets, credits and licenses remain separate from the Cosmik endorsement. No blanket code, brand or artwork license is applied by this repository.
 
@@ -56,13 +56,13 @@ Set `SITE_URL` to the final HTTPS base URL when building publication previews to
 
 ## Public policy pages
 
-`src/legal-copy.mjs` holds the approved Privacy and Legal & Licenses text, dated 8 October 2026. `legalPage()` renders `/privacy/` and `/legal/`; shared footer links appear on every page. Correspondence retention is indefinite with no routine deletion schedule. The pages describe configured analytics without claiming verified beacon delivery or guaranteed visitor-residence exclusions. The public brand license is linked, not modified. Review-only notes are excluded from the source and generated site.
+`src/legal-copy.mjs` holds the approved Privacy text (8 October 2026) and Legal & Licenses text (8 October 2026; its "What HPLX is" paragraph rewritten 15 October 2026 for the editor, pending owner review). `legalPage()` renders `/privacy/` and `/legal/`; shared footer links appear on every page. Correspondence retention is indefinite with no routine deletion schedule. The pages describe configured analytics without claiming verified beacon delivery or guaranteed visitor-residence exclusions. The public brand license is linked, not modified. Review-only notes are excluded from the source and generated site.
 
 Run `npm run check` and `SITE_URL=https://cosmiklabs.org npm run check` to validate both preview and public metadata, links, policy text and preserved routes. Deployment retains the configured Pages base URL and existing indexing behavior.
 
 ### HPLX requirements and independence
 
-The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. TDD remains the current development focus; AMFP and Penumbra are future directions and HPL3 is a possibility, not promised support. No software license was changed.
+The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. The Dark Descent and its editor are the only focus; AMFP and Penumbra are paused, and HPL3 is not planned. No software license was changed.
 
 ### Original retail game links
 

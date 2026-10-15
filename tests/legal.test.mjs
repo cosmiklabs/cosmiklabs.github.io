@@ -11,7 +11,7 @@ test('public policies preserve all approved paragraphs and exclude review-only c
     const text = html.replace(/<[^>]*>/g, '');
     for (const entry of legalCopy[key]) assert.ok(text.includes(escape(entry.text)), `${route}: ${entry.text}`);
     assert.doesNotMatch(html, /\[publication date\]|Review notes|Confirm before publishing|Matthew|Downs|Missouri|@gmail|attorney-reviewed|GDPR compliant/i);
-    assert.match(html, /Last updated: 8 October 2026/);
+    assert.match(html, route === 'legal' ? /Last updated: 15 October 2026/ : /Last updated: 8 October 2026/);
     assert.match(html, /href="mailto:legal@cosmiklabs.org"/);
   }
   assert.match(legalPage('privacy'), /Correspondence may be retained indefinitely; there is no routine deletion schedule\./);
@@ -41,7 +41,7 @@ test('built legal pages preserve publication canonical URLs and indexing choices
 test('HPLX prominently states the retail install, asset boundary and free-use commitment', () => {
   const html = familyPage(families[0]);
   const notice = html.match(/<section class="family-tools section-grid"[\s\S]*?<\/section>/)[0];
-  assert.ok(html.indexOf(notice) < html.indexOf('id="games"'));
+  assert.ok(html.indexOf(notice) < html.indexOf('id="make"'));
   for (const page of [notice, legalPage('legal')]) {
     assert.match(page, /legitimately obtained local retail installation/);
     assert.match(page, /never.*(?:bundl|distribut)/);
@@ -50,8 +50,8 @@ test('HPLX prominently states the retail install, asset boundary and free-use co
     assert.match(page.replace(/<[^>]*>/g, ''), /not affiliated with, sponsored by, or endorsed by Frictional Games/);
     assert.match(page, /respective rights holders/);
   }
-  assert.match(html, /modern reimplementation of the HPL engine family/);
-  assert.match(html, /possible longer-term direction, not a commitment/);
+  assert.match(html, /makes creating custom stories for Amnesia: The Dark Descent/);
+  assert.match(html, /paused while HPLX focuses on The Dark Descent’s editor/);
   assert.match(legalPage('legal'), /GPLv3/);
   assert.match(legalPage('legal'), /does not transfer ownership/);
 });
