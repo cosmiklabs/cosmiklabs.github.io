@@ -1,9 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { legalCopy } from '../src/legal-copy.mjs';
 import { legalPage, escape, home, familyPage, notFound } from '../src/templates.mjs';
 import { families } from '../src/projects.mjs';
+
+test('HPLX scope updates leave approved legal terms and the entire privacy policy unchanged', () => {
+  // Baseline: website commit f5cdc95. Only the legal date and the factual HPLX scope paragraph may change.
+  const unchanged = {
+    Privacy: legalCopy.Privacy,
+    'Legal and Licenses': legalCopy['Legal and Licenses'].filter(entry =>
+      !entry.text.startsWith('Last updated:') &&
+      !entry.text.startsWith('HPLX is an independent')),
+  };
+  assert.equal(createHash('sha256').update(JSON.stringify(unchanged)).digest('hex'),
+    '493d1d323c8d97a7e7313a2d66f90dabc6ea4276dc65956b27013eb6071131e6');
+});
 
 test('public policies preserve all approved paragraphs and exclude review-only content', () => {
   for (const [route, key] of [['privacy','Privacy'], ['legal','Legal and Licenses']]) {

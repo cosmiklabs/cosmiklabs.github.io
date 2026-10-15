@@ -67,7 +67,7 @@ test('HPLX leads with the editor, then the game, engine and paused work',()=>{
  assert.ok(html.indexOf('id="make"') < html.indexOf('id="game"'));
  assert.match(html,/The HPLX family/);assert.match(html,/The editor is in design and not built yet/);
  assert.match(html,/paused/);assert.match(html,/No release dates/);
- assert.match(html,/only platform verified/);assert.match(html,/no public release or download yet/);
+ assert.doesNotMatch(html,/only platform verified/);assert.match(html,/no public release or download yet/);
  assert.match(html,/unaffiliated with the original creators/);
  assert.equal((html.match(/<details[> ]/g)||[]).length,3);
  assert.equal((html.match(/<summary>/g)||[]).length,3);
