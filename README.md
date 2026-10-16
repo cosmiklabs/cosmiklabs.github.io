@@ -25,7 +25,7 @@ Edit family data and `featuredWork.familyId` in `src/projects.mjs`, page templat
 
 ## Content boundaries
 
-HPLX is presented as an editor for Amnesia: The Dark Descent’s custom stories, for the people who make them (owner, 15 October 2026). It sits under **Extend**. The editor is **In design** and not built. The Dark Descent’s reimplementation and the **HPLX Engine** are in development and are presented as the game underneath the editor, which also runs on its own. There is no desktop app.
+HPLX is presented as an editor for Amnesia: The Dark Descent’s custom stories, for the people who make them (owner, 15 October 2026). It sits under **Extend**. The editor is **In development**: built and being tested, not released. The Dark Descent’s reimplementation and the **HPLX Engine** are in development and are presented as the game underneath the editor, which also runs on its own. There is no desktop app.
 
 The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. 
 

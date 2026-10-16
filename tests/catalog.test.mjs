@@ -10,7 +10,7 @@ test('the catalog contains families, not an equal list of games, tools and repos
   assert.equal(hplx.name, 'HPLX');
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
   assert.deepEqual(hplx.tools.map(t => t.id), ['editor', 'engine']);
-  assert.equal(hplx.tools.find(t => t.id === 'editor').status, 'In design');
+  assert.equal(hplx.tools.find(t => t.id === 'editor').status, 'In development');
   assert.deepEqual(hplx.future.map(f => f.id), ['amfp', 'penumbra']);
 });
 

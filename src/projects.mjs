@@ -25,7 +25,7 @@ export const families = [
       },
     ],
     tools: [
-      { id: 'editor', name: 'HPLX Editor', status: 'In design', description: 'Place props, lights and script areas, then press one key to play your story from where you’re looking, and Esc to keep building. It saves the game’s own files, so your story runs in the original game for everyone who plays it.', progress: 'The editor is in design and not built yet. Its layout, and how you find and place the game’s assets, are being worked out on design boards.' },
+      { id: 'editor', name: 'HPLX Editor', status: 'In development', description: 'Place props, lights and script areas, then press one key to play your story from where you’re looking, and Esc to keep building. It saves the game’s own files, so your story runs in the original game for everyone who plays it.', progress: 'The editor is built and being tested: placing and editing, playing your story inside it, checks for scripts and text, assets from Frictional’s other games, and a view of where darkness drains sanity. It isn’t released yet.' },
       { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The foundation under the game: The Dark Descent’s file formats and the systems it needs, rebuilt in Rust.' },
     ],
     future: [
@@ -41,7 +41,7 @@ export const featuredWork = {
   description: 'An editor for Amnesia: The Dark Descent’s custom stories, with the game built in, so you can play your story without leaving it.',
   focusLabel: 'Current focus',
   focusTitle: 'The HPLX Editor',
-  focusDescription: 'Designing the editor, and making the game underneath it faithful to the original.',
+  focusDescription: 'Testing the editor, and making the game underneath it faithful to the original.',
 };
 
 /** Old individual-project URLs retain a route into their context in the family. */

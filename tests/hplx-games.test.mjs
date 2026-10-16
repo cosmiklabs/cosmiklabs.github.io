@@ -9,7 +9,7 @@ const html = familyPage(hplx);
 const future = html.match(/<details class="future-plans"[\s\S]*?<\/details>/)[0];
 
 test('the editor leads, The Dark Descent sits underneath it, and other games are paused', () => {
-  assert.deepEqual(hplx.tools.map(({id, status}) => [id, status]), [['editor', 'In design'], ['engine', 'In development']]);
+  assert.deepEqual(hplx.tools.map(({id, status}) => [id, status]), [['editor', 'In development'], ['engine', 'In development']]);
   assert.deepEqual(hplx.games.map(({id, status}) => [id, status]), [['tdd', 'In development']]);
   assert.ok(html.indexOf('id="editor"') < html.indexOf('id="tdd"'));
   for (const id of ['amfp', 'penumbra']) assert.match(future, new RegExp(`id="${id}"[\\s\\S]*?paused`));
@@ -19,7 +19,7 @@ test('the editor leads, The Dark Descent sits underneath it, and other games are
 test('progress copy does not present the editor or the game as finished', () => {
   const tdd = hplx.games.find(game => game.id === 'tdd');
   const editor = hplx.tools.find(tool => tool.id === 'editor');
-  assert.match(editor.progress, /in design and not built yet/);
+  assert.match(editor.progress, /being tested[\s\S]*isn’t released yet/);
   assert.match(tdd.progress, /still in progress/);
   assert.match(html, /no public release or download yet/);
   assert.match(html, /No release dates are announced/);
