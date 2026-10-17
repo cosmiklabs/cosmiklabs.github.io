@@ -1,14 +1,13 @@
 /** Areas of work; family destinations remain independent of homepage emphasis. */
 export const pillars = [
-  {id:'reimagine', name:'Reimagine', summary:'Modern reimplementations of games and engines with released source code.'},
-  {id:'extend', name:'Extend', summary:'Mods and tools that build on existing games.'},
-  {id:'create', name:'Create', summary:'Original games and experiments.'},
+  {id:'stories', name:'Story creation', summary:'Tools for making playable stories.'},
+  {id:'structures', name:'Structural authoring', summary:'Tools for shaping designed spaces.'},
 ];
 
 /** Family destinations are stable. Featured work is an independent editorial choice. */
 export const families = [
   {
-    id: 'hplx', name: 'HPLX', pillar: 'extend', status: 'In development',
+    id: 'hplx', name: 'HPLX', pillar: 'stories', status: 'In development',
     summary: 'Make custom stories for The Dark Descent, and play them as you build.',
     scope: 'An editor for Amnesia: The Dark Descent’s custom stories',
     description: 'HPLX makes creating custom stories for Amnesia: The Dark Descent easier and better. Its editor plays your story right inside it, on a faithful reimplementation of the game that uses the files from your own copy.',
@@ -31,6 +30,17 @@ export const families = [
     future: [
       { id: 'amfp', name: 'Amnesia: A Machine for Pigs', detail: 'A reimplementation was started. It’s paused while HPLX focuses on The Dark Descent’s editor.' },
       { id: 'penumbra', name: 'Penumbra', detail: 'Early work on Penumbra: Overture is paused for the same reason.' },
+    ],
+  },
+  {
+    id: 'tecton', name: 'Tecton', pillar: 'structures', status: 'In development',
+    summary: 'Design and build 3D structures with an agent, from brief to rendered review.',
+    scope: 'Structural authoring, from initial idea to rendered review',
+    description: 'Tecton brings your idea for a space into focus. Guide an agent through planning, construction and rendered review, with room to refine the result along the way.',
+    groups: [
+      {title: 'Plan', items: 'Describe and refine the place'},
+      {title: 'Build', items: 'Turn the design into structure'},
+      {title: 'Review', items: 'See the result and iterate'},
     ],
   },
 ];

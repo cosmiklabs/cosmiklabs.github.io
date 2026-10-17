@@ -41,7 +41,7 @@ ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))
 <link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
 <link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
 <link rel="preload" href="${url('assets/fonts/Inter-Regular.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css?v=20261014-hplx-games')}">
+<link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css?v=20261017-two-families')}">
 <link rel="stylesheet" href="${url('assets/family-themes.css')}">
 ${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` : ''}
 </head>
@@ -52,33 +52,32 @@ ${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` 
 <nav aria-label="Main navigation"><a href="${url('projects/')}"${current === 'projects' ? ' aria-current="page"' : current === 'family' ? ' aria-current="location"' : ''}>Projects</a><a href="${url('about/')}"${current === 'about' ? ' aria-current="page"' : ''}>About</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a></nav>
 </header>
 <main id="main" tabindex="-1">${theme ? `<div class="family-content" data-family="${escape(theme.id)}" data-family-theme="${theme.state}">${body(root)}</div>` : body(root)}</main>
-<footer class="site-footer wrap"><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent gaming workshop</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
+<footer class="site-footer wrap"><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent software workshop</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
 </body></html>`;
 }
 
 export function familyList(root, catalog = families) {
-  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
+  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'tecton' ? `<img class="family-row-symbol" src="${root}assets/families/tecton/tecton-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
 export function home(catalog = families, feature = featuredWork) {
   const family = catalog.find(item => item.id === feature.familyId);
   if (!family) throw new Error('Featured family not found.');
-  return shell({ title: 'Cosmik — Independent gaming workshop', description: 'Independent games, mods, tools, and modern reimplementations of classic game technology.', route: '', body: root => `
-<section class="home-intro wrap">${label('Independent gaming workshop')}<div><h1>Games, tools,<br>and a little curiosity.</h1><p>Cosmik builds games, mods, tools, and modern reimplementations of classic game technology.</p></div></section>
-<section class="pillars wrap" aria-labelledby="pillars-title"><h2 class="section-label" id="pillars-title">What Cosmik does</h2><ul class="pillar-list">${pillars.map(pillar => { const members = catalog.filter(item => item.pillar === pillar.id); return `<li><h3>${escape(pillar.name)}</h3><p>${escape(pillar.summary)}</p>${members.length ? `<p class="pillar-families">${members.map(item => `<a href="${familyUrl(root, item)}">${escape(item.name)}</a>`).join(', ')}</p>` : ''}</li>`; }).join('')}</ul></section>
+  return shell({ title: 'Cosmik — Independent software workshop', description: 'Independent tools for making stories and building spaces.', route: '', body: root => `
+<section class="home-intro wrap">${label('Independent software workshop')}<div><h1>Tools for stories.<br>Tools for spaces.</h1><p>Cosmik makes creative software. Explore HPLX for custom stories and Tecton for structural authoring.</p></div></section>
 <section class="featured-work" data-theme="light" aria-labelledby="featured-title" data-featured-family="${escape(family.id)}"><div class="wrap feature-layout">
 <div class="feature-main">${label(`Featured work · ${pillarName(family.pillar)}`)}<h2 id="featured-title">${escape(family.name)}</h2><p class="feature-heading">${escape(feature.heading)}</p><p class="feature-description">${escape(feature.description)}</p><a class="button" href="${familyUrl(root, family)}">Explore ${escape(family.name)} ${arrow}</a></div>
 <div class="feature-context"><div class="feature-status">${status(family.status)}<span class="eyebrow">A Cosmik project</span></div><div class="family-outline" role="group" aria-label="${escape(family.name)} family overview">${family.groups.map(group => `<div><span class="outline-label">${escape(group.title)}</span><span>${escape(group.items)}</span></div>`).join('')}</div><div class="current-focus">${label(feature.focusLabel)}<h3>${escape(feature.focusTitle)}</h3><p>${escape(feature.focusDescription)}</p></div></div>
 </div></section>
 <section class="family-section wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Project families</h2><a class="text-link" href="${root}projects/">View all projects ${arrow}</a></div>${familyList(root, catalog)}</section>
-<section class="home-about wrap"><p>A personal workshop by Matthew Downs.<br>Space to reimagine, extend, and create.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></section>` });
+<section class="home-about wrap"><p>An independent workshop.<br>Different tools, each with a purpose.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></section>` });
 }
 
 export function catalog(catalog = families) {
-  return shell({ title: 'Projects — Cosmik', description: 'Explore Cosmik’s project families. Start with HPLX, an editor for The Dark Descent’s custom stories.', route: 'projects', current: 'projects', body: root => `
-<section class="page-heading wrap">${label('Projects')}<h1>Find your way in.</h1><p>Related games and tools, together in one place.</p></section>
+  return shell({ title: 'Projects — Cosmik', description: 'Explore HPLX for custom stories and Tecton for structural authoring.', route: 'projects', current: 'projects', body: root => `
+<section class="page-heading wrap">${label('Projects')}<h1>Find your way in.</h1><p>Each family has its own purpose, tools and direction.</p></section>
 <section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Project families</h2>${familyList(root, catalog)}</section>
-<section class="directory-note wrap"><p>Cosmik’s work starts with HPLX. There’s room for other games, mods and tools as they take shape.</p></section>` });
+<section class="directory-note wrap"><p>Both families are in development. Their pages explain what exists today and what is planned.</p></section>` });
 }
 
 export function retailLinks(id) {
@@ -88,6 +87,7 @@ export function retailLinks(id) {
 }
 
 export function familyPage(family) {
+  if (family.id === 'tecton') return tectonPage(family);
   const theme = resolveFamilyTheme(family.id);
   return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav>
@@ -101,11 +101,21 @@ export function familyPage(family) {
 }
 
 export function about() {
-  return shell({ title: 'About — Cosmik', description: 'Cosmik is Matthew Downs’s independent open-source gaming workshop.', route: 'about', current: 'about', body: root => `
-<section class="page-heading wrap">${label('About Cosmik')}<h1>An independent<br>gaming workshop.</h1><p>A personal project by Matthew Downs.</p></section>
-<section class="about-content" data-theme="light"><div class="wrap section-grid"><h2>A place to make things.</h2><div><p class="about-lead">Cosmik is an independent open-source gaming workshop, building games, mods, tools, and modern reimplementations of classic game technology.</p><p>It’s a home for related work, with room for each project to have its own purpose. HPLX is the first family: an editor for The Dark Descent’s custom stories, with the game built in.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
-<section class="about-approach wrap" aria-label="Areas of work">${pillars.map((pillar, i) => `<article>${label(`0${i+1}`)}<h2>${escape(pillar.name)}</h2><p>${escape(pillar.summary)}</p></article>`).join('')}</section>
-<section class="about-links wrap"><p>Follow what takes shape.</p><a class="text-link" href="https://github.com/cosmiklabs">Cosmik on GitHub ${external}</a></section>` });
+  return shell({ title: 'About — Cosmik', description: 'Cosmik is an independent software workshop making tools for stories and spaces.', route: 'about', current: 'about', body: root => `
+<section class="page-heading wrap">${label('About Cosmik')}<h1>An independent<br>software workshop.</h1><p>Creative tools, with room for different approaches.</p></section>
+<section class="about-content" data-theme="light"><div class="wrap section-grid"><h2>Each project has a purpose.</h2><div><p class="about-lead">Cosmik develops software that helps people make things, from custom stories in an existing game to designed 3D spaces.</p><p>HPLX is an editor for Amnesia: The Dark Descent’s custom stories. Tecton is being developed to help turn ideas into detailed 3D environments through AI-assisted authoring.</p><p>Both are in development. Their family pages explain the direction of the work and where each product stands.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
+<section class="about-links wrap"><p>Public work and brand resources.</p><a class="text-link" href="https://github.com/cosmiklabs">Cosmik on GitHub ${external}</a></section>` });
+}
+
+export function tectonPage(family) {
+  return shell({title: 'Tecton — Cosmik', description: family.description, route: 'projects/tecton', current: 'family', familyId: 'tecton', body: root => `
+<div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">Tecton</span></nav>
+<header class="family-heading"><div>${label('Structural authoring · The Tecton family')}<div class="tecton-identity"><img class="tecton-logo" src="${root}assets/families/tecton/tecton-latch-dark.svg" width="64" height="64" alt=""><h1>Tecton</h1><p class="endorsement">A Cosmik project</p></div></div><div><h2>From an idea<br>to a built space.</h2><p>${escape(family.description)}</p>${status(family.status)}</div></header>
+<nav class="family-nav" aria-label="On this page"><a href="#workflow">The workflow</a><a href="#your-design">Your design</a><a href="#development">Development</a></nav></div>
+<section class="family-games" data-theme="light" id="workflow" aria-labelledby="workflow-title"><div class="wrap section-grid"><div>${label('01 / The planned workflow')}<h2 id="workflow-title">Define it.<br>Build it.<br>Review it.</h2></div><div><p class="development-lead">One place to guide an agent from a design brief to a structure you can inspect.</p><ol class="authoring-steps"><li><h3>Envision and plan</h3><p>Describe the space and refine its layout, proportions and requirements before construction.</p></li><li><h3>Construct</h3><p>Turn the agreed design into structural geometry, keeping the decisions from your plan at the center of the build.</p></li><li><h3>Render and review</h3><p>Inspect the result, give feedback and refine the design.</p></li></ol><p class="legal-note">The planned workflow keeps your brief, the build and the review connected.</p></div></div></section>
+<section class="family-tools wrap section-grid" id="your-design" aria-labelledby="design-title"><div>${label('02 / Your design')}<h2 id="design-title">Make room<br>for your vision.</h2></div><div><p class="development-lead">Start with the place you want to make. Its layout, proportions and character guide the construction.</p><p>Shape the details that matter to you, from the arrangement of rooms to the character of a space. Review what takes shape and guide the next revision.</p><p>The aim is to make the process easier to guide and revise, while keeping artistic direction in your hands.</p></div></section>
+<section class="family-development" data-theme="light" id="development" aria-labelledby="development-title"><div class="wrap section-grid"><div>${label('03 / Development')}<h2 id="development-title">Taking shape.</h2></div><div class="development-copy"><p class="development-lead">Tecton is in development.</p><p>It isn’t available to sign up for yet, and no release date has been announced.</p></div></div></section>
+<div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All project families</a><p class="legal-note">Part of Cosmik’s family of creative tools.</p></div>`});
 }
 
 export function legacyPage(legacy) {

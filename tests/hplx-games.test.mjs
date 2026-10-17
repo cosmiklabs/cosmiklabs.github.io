@@ -27,8 +27,8 @@ test('progress copy does not present the editor or the game as finished', () => 
 
 test('homepage, family directory, About and legal scope consistently present the editor', () => {
   assert.equal(featuredWork.focusTitle, 'The HPLX Editor');
-  assert.match(catalog(), /editor for The Dark Descent’s custom stories/);
-  assert.match(about(), /editor for The Dark Descent’s custom stories/);
+  assert.match(catalog(), /editor for (?:Amnesia: )?The Dark Descent’s custom stories/);
+  assert.match(about(), /editor for (?:Amnesia: )?The Dark Descent’s custom stories/);
   assert.match(legalPage('legal'), /independent editor for Amnesia: The Dark Descent’s custom stories/);
   for (const page of [home(), catalog(), html, about(), legalPage('legal')]) {
     assert.doesNotMatch(page, /desktop app|HPLX App|Work has begun|Amnesia and Penumbra|Windows is the only platform verified/i);
@@ -45,5 +45,5 @@ test('stacked detail articles keep their spacing and the centered Ember identity
   const css = await readFile(new URL('../assets/site.css', import.meta.url), 'utf8');
   assert.match(css, /\.game-detail\+\.game-detail\{[^}]*margin-top:var\(--c-space-12\)[^}]*border-top:1px solid var\(--c-divider\)/);
   assert.match(css, /\.family-identity\{width:15rem;max-width:100%;text-align:center\}/);
-  assert.match(html, /site\.css\?v=20261014-hplx-games/);
+  assert.match(html, /site\.css\?v=20261017-two-families/);
 });

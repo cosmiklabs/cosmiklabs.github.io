@@ -179,3 +179,17 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 .legal-copy h2{font-size:var(--c-type-card-font-size);margin-block:var(--c-space-12) var(--c-space-4)}
 .legal-copy p{margin-block:var(--c-space-4);line-height:1.75}
 .legal-copy a{text-decoration:underline;text-underline-offset:.2em}
+
+/* The authoring sequence is readable without motion, scripting or color cues. */
+.authoring-steps{margin-block:var(--c-space-8);padding-left:var(--c-space-6)}
+.authoring-steps li{padding-left:var(--c-space-2);margin-block:var(--c-space-6)}
+.authoring-steps h3{margin-bottom:var(--c-space-2)}
+
+/* Symbols are decorative beside live product names, never replacement text. */
+.family-row-name:has(.family-row-symbol){display:flex;align-items:center;gap:var(--c-space-2)}
+.family-row-symbol{display:block;width:2rem;height:2rem;flex:none}
+.tecton-identity{display:grid;grid-template-columns:1.35em minmax(0,1fr);align-items:center;column-gap:var(--c-space-4);font-size:var(--c-type-display-font-size);margin-top:var(--c-space-6)}
+.tecton-logo{display:block;width:1.35em;height:1.35em}
+.family-heading .tecton-identity h1{margin:0}
+.tecton-identity .endorsement{grid-column:2;margin-top:var(--c-space-2)}
+@media(max-width:720px){.tecton-identity{font-size:var(--c-type-display-small-font-size)}}

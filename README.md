@@ -1,6 +1,6 @@
 # Cosmik website
 
-The public website for Cosmik’s independent gaming workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX engine and game repositories remain private; the former app and its package catalog are archived.
+The public website for Cosmik’s independent software workshop, hosted at https://cosmiklabs.github.io/. The website source and history are public. The HPLX engine and game repositories remain private; the former app and its package catalog are archived.
 
 ## Publication
 
@@ -25,7 +25,7 @@ Edit family data and `featuredWork.familyId` in `src/projects.mjs`, page templat
 
 ## Content boundaries
 
-HPLX is presented as an editor for Amnesia: The Dark Descent’s custom stories, for the people who make them (owner, 15 October 2026). It sits under **Extend**. The editor is **In development**: built and being tested, not released. The Dark Descent’s reimplementation and the **HPLX Engine** are in development and are presented as the game underneath the editor, which also runs on its own. There is no desktop app.
+HPLX is presented as an editor for Amnesia: The Dark Descent’s custom stories, for the people who make them (owner, 15 October 2026). It appears under **Story creation**. The editor is **In development**: built and being tested, not released. The Dark Descent’s reimplementation and the **HPLX Engine** are in development and are presented as the game underneath the editor, which also runs on its own. There is no desktop app.
 
 The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. 
 
@@ -69,3 +69,14 @@ The HPLX page prominently states the owner’s retail-install requirement, never
 `src/retail-links.mjs` lists original PC editions separately from HPLX availability. The Dark Descent and A Machine for Pigs link to Steam, GOG, Epic Games Store and the Humble Store URLs linked by their official game websites. The Penumbra series links to the complete retail collection on Steam and GOG (Overture, Black Plague and Requiem). No individual HPL3 games or new HPLX support commitments are introduced.
 
 Steam, GOG and Epic product/package listings were verified on 8 October 2026. The Humble destinations are taken from the official [TDD site](https://www.amnesiagame.com/) and [AMFP purchase page](https://aamfp.com/buy); the current Humble listings could not be independently retrieved. Links make no price, regional availability or HPLX store-build compatibility claim. The notice explains that local PC files are needed and console purchases do not provide them.
+
+
+## October 17 family refresh
+
+The umbrella now describes an independent software workshop. The previous Reimagine / Extend / Create pillars are retired. HPLX stays featured; the stable directory now has HPLX and Tecton, with a dedicated Tecton destination. Tecton’s marketing leads with the authoring workflow and creative outcomes. Public copy describes the customer experience without implementation or commercial-model detail. No paid-only, free-tier, credit, pricing, signup, download, or launch promise is made.
+
+Tecton's approved mineral-teal roles are mapped from [brand commit d9726b6](https://github.com/cosmiklabs/brand/commit/d9726b6431cdf11d6fcb5e903f8b1711aa87534f), `tokens/tecton/tecton.css`, to explicit dark/light declarations compatible with the existing site. Its typography inherits Inter and IBM Plex Mono. The approved angle-only Latch symbol sits beside the live product name. A neutral white symbol identifies Tecton in the monochrome family directory. Navigation and footer remain monochrome. No private showcase assets or implementation material are published by this draft.
+
+The existing legal and privacy text is unchanged: the free-use commitment already applies specifically to HPLX, licensing is project-specific, and this informational website still has no accounts, payments or uploads. A future operational SaaS would need its own reviewed terms and privacy disclosures.
+
+Validation for this draft: 48 automated tests pass in preview and publication metadata modes. Tests cover internal links, fragments, theme scope, role resolution, text contrast, visible focus styles, retained HPLX identity and unchanged policy text. Chromium rendering was attempted but could not start because the sandbox rejected its process socket. No visual, keyboard, zoom or screen-reader acceptance is claimed for this revision. The owner approved publication on 17 October 2026. Pushes to main publish automatically through the existing Pages workflow.
