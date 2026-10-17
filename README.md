@@ -41,7 +41,7 @@ The owner approved the existing HPLX warm theme for this website on 7 October. T
 
 ### HPLX Glimmer symbol
 
-Glimmer is the official HPLX symbol, approved on 17 October 2026. The family header uses the exact transparent amber master; the homepage and Projects listings use its neutral white variant. Both preserve the approved two-path geometry and square 64 × 64 viewBox. The hero displays the symbol at 128 × 128 CSS pixels, centered above the live HPLX name; listing symbols are 32 × 32. Decorative image alternatives avoid repeating adjacent live text. Cosmik’s global identity and Tecton’s Latch remain unchanged.
+Glimmer is the official HPLX symbol, approved on 17 October 2026. The family header uses the exact transparent amber master; the homepage and Projects listings use its neutral white variant. Both preserve the approved two-path geometry and square 64 × 64 viewBox. Both family heroes share a responsive horizontal lockup: the symbol sits to the left of the live product name, with the endorsement below the name. Hero symbols scale with the display type at 1.35em; listing symbols are 32 × 32. Decorative image alternatives avoid repeating adjacent live text. Cosmik’s global identity and Tecton’s Latch remain unchanged.
 
 Canonical source: [cosmiklabs/brand at cba2b2e](https://github.com/cosmiklabs/brand/tree/cba2b2e266a71fd7041f49cd621916fe2b83f376/assets/hplx). Historical Ember files are retained for provenance but no active template uses them. No glow, crop or reconstructed wordmark is added.
 

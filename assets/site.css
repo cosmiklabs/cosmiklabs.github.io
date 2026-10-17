@@ -83,8 +83,6 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .breadcrumbs a{display:inline-flex;align-items:center;min-height:var(--c-layout-control-min)}
 .family-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:var(--c-space-16);padding-block:var(--c-space-12) var(--c-space-16)}
 .family-heading h1{margin-top:var(--c-space-6)}
-.family-identity{width:15rem;max-width:100%;text-align:center}
-.family-logo{display:block;width:8rem;max-width:100%;height:auto;margin:var(--c-space-6) auto 0}
 .endorsement{font-size:.875rem;color:var(--c-muted);margin-top:var(--c-space-4)}
 .family-heading h2{margin-bottom:var(--c-space-6)}
 .family-heading>div>p:not(.eyebrow):not(.endorsement){color:var(--c-muted);max-width:52ch}
@@ -188,11 +186,11 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 /* Symbols are decorative beside live product names, never replacement text. */
 .family-row-name:has(.family-row-symbol){display:flex;align-items:center;gap:var(--c-space-2)}
 .family-row-symbol{display:block;width:2rem;height:2rem;flex:none}
-.tecton-identity{display:grid;grid-template-columns:1.35em minmax(0,1fr);align-items:center;column-gap:var(--c-space-4);font-size:var(--c-type-display-font-size);margin-top:var(--c-space-6)}
-.tecton-logo{display:block;width:1.35em;height:1.35em}
-.family-heading .tecton-identity h1{margin:0}
-.tecton-identity .endorsement{grid-column:2;margin-top:var(--c-space-2)}
-@media(max-width:720px){.tecton-identity{font-size:var(--c-type-display-small-font-size)}}
+.family-identity,.tecton-identity{display:grid;grid-template-columns:1.35em minmax(0,1fr);align-items:center;column-gap:var(--c-space-4);font-size:var(--c-type-display-font-size);margin-top:var(--c-space-6)}
+.family-logo,.tecton-logo{display:block;width:1.35em;height:1.35em}
+.family-heading .family-identity h1,.family-heading .tecton-identity h1{margin:0}
+.family-identity .endorsement,.tecton-identity .endorsement{grid-column:2;margin-top:var(--c-space-2)}
+@media(max-width:720px){.family-identity,.tecton-identity{font-size:var(--c-type-display-small-font-size)}}
 
 /* Compact Glimmer uses the same square symbol size as Latch. */
 .family-row-symbol-hplx{width:2rem;height:2rem}
