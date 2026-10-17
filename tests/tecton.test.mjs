@@ -62,7 +62,7 @@ test('Latch uses exact approved angle-only geometry and decorative accessible pl
 
 test('both family listings display decorative approved symbols beside live names',()=>{
  for(const page of [home(),catalog()]) {
-  assert.match(page, /<img class="family-row-symbol family-row-symbol-hplx"[^>]+hplx-ember-bone\.svg"[^>]+alt="">HPLX/);
+  assert.match(page, /<img class="family-row-symbol family-row-symbol-hplx"[^>]+hplx-glimmer-white\.svg"[^>]+alt="">HPLX/);
   assert.match(page, /<img class="family-row-symbol"[^>]+tecton-latch-white\.svg"[^>]+alt="">Tecton/);
  }
 });

@@ -41,9 +41,9 @@ test('the existing AMFP route lands on its paused entry', () => {
   assert.equal((html.match(/id="amfp"/g) || []).length, 1);
 });
 
-test('stacked detail articles keep their spacing and the centered Ember identity', async () => {
+test('stacked detail articles keep their spacing and the centered Glimmer identity', async () => {
   const css = await readFile(new URL('../assets/site.css', import.meta.url), 'utf8');
   assert.match(css, /\.game-detail\+\.game-detail\{[^}]*margin-top:var\(--c-space-12\)[^}]*border-top:1px solid var\(--c-divider\)/);
   assert.match(css, /\.family-identity\{width:15rem;max-width:100%;text-align:center\}/);
-  assert.match(html, /site\.css\?v=20261017-family-marks/);
+  assert.match(html, /site\.css\?v=20261017-glimmer/);
 });

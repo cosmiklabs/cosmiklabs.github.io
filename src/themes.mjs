@@ -10,10 +10,10 @@ export const familyThemes = {
     logo: 'assets/families/tecton/tecton-latch-dark.svg',
   },
   hplx: {
-    // Owner selected this kit for the private website; the Ember symbol was selected independently on 8 October.
+    // Owner selected this kit for the private website; Glimmer was approved as the official HPLX symbol on 17 October.
     state: 'approved-for-website',
     stylesheet: 'assets/families/hplx/theme.css',
-    logo: 'assets/families/hplx/hplx-ember-amber.svg',
+    logo: 'assets/families/hplx/hplx-glimmer-dark.svg',
   },
 };
 

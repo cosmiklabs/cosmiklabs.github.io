@@ -37,13 +37,13 @@ Public links are restricted to the Cosmik organization and brand repository. Ori
 
 Pinned to [cosmiklabs/brand at af89b8c](https://github.com/cosmiklabs/brand/tree/af89b8c2dd4f4426379d8b2af3b65ac4c13d21bf), the approved 7 October 2026 baseline. `assets/brand-tokens.css` is the exact generated baseline; the HPLX theme starts with that commit's generated family CSS. Preserve the unmodified emblem and the bundled Inter, IBM Plex Mono and Spectral SIL Open Font License notices. Tests check the pinned assets.
 
-The owner approved the existing HPLX warm theme for this website on 7 October. This does not change the brand kit's proposed family status. The HPLX page now pairs the separately selected Ember symbol with an ordinary live HPLX name. Family overrides stay inside their `data-family` boundary and explicit dark/light modes; shared navigation, layout, interactions and interface type stay consistent. The Cosmik home, Projects, About, header and footer use the baseline.
+The owner approved the existing HPLX warm theme for this website on 7 October. This does not change the brand kit's proposed family status. The HPLX page now pairs the owner-approved Glimmer symbol with an ordinary live HPLX name. Family overrides stay inside their `data-family` boundary and explicit dark/light modes; shared navigation, layout, interactions and interface type stay consistent. The Cosmik home, Projects, About, header and footer use the baseline.
 
-### HPLX Ember symbol
+### HPLX Glimmer symbol
 
-The HPLX family header uses the exact primary transparent amber SVG from [cosmiklabs/brand at 3cbb77f](https://github.com/cosmiklabs/brand/blob/3cbb77fdc84779ecc5ba89f052fb8b35bffe0046/assets/hplx/hplx-ember-amber.svg), selected on 8 October 2026. Its file hash, geometry, color and 400:150 aspect ratio are preserved. The symbol sits above the live product name with an empty image alternative to avoid repeating the adjacent HPLX text. The separate “A Cosmik project” endorsement and global Cosmik identity remain unchanged.
+Glimmer is the official HPLX symbol, approved on 17 October 2026. The family header uses the exact transparent amber master; the homepage and Projects listings use its neutral white variant. Both preserve the approved two-path geometry and square 64 × 64 viewBox. The hero displays the symbol at 128 × 128 CSS pixels, centered above the live HPLX name; listing symbols are 32 × 32. Decorative image alternatives avoid repeating adjacent live text. Cosmik’s global identity and Tecton’s Latch remain unchanged.
 
-This is a symbol, not a recreated wordmark or combined lockup. No glow, crop, optical redesign or derived icon is added. Use follows the [asset guidance](https://github.com/cosmiklabs/brand/blob/3cbb77fdc84779ecc5ba89f052fb8b35bffe0046/assets/hplx/README.md) and the brand repository's [brand-use policy](https://github.com/cosmiklabs/brand/blob/3cbb77fdc84779ecc5ba89f052fb8b35bffe0046/LICENSE.md#2-brand-marks-trademark-style-policy).
+Canonical source: [cosmiklabs/brand at cba2b2e](https://github.com/cosmiklabs/brand/tree/cba2b2e266a71fd7041f49cd621916fe2b83f376/assets/hplx). Historical Ember files are retained for provenance but no active template uses them. No glow, crop or reconstructed wordmark is added.
 
 ## Remaining review
 

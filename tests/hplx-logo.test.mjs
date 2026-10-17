@@ -5,49 +5,54 @@ import { createHash } from 'node:crypto';
 import { families } from '../src/projects.mjs';
 import { familyPage, home, catalog, about, notFound } from '../src/templates.mjs';
 import { resolveFamilyTheme } from '../src/themes.mjs';
-const asset=new URL('../assets/families/hplx/hplx-ember-amber.svg',import.meta.url);
+const asset=new URL('../assets/families/hplx/hplx-glimmer-dark.svg',import.meta.url);
 
-test('Ember SVG is the exact selected primary master, without recreation',async()=>{
+test('Glimmer SVG is the exact selected primary master, without recreation',async()=>{
  const bytes=await readFile(asset);
  const sha=createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
- assert.equal(sha,'333a045f7aba9c1c4ad65c7b009cb269a1baf46f');
- const svg=bytes.toString();assert.match(svg,/viewBox="135 289 400 150"/);assert.match(svg,/fill="#F7B041"/);
- assert.equal((svg.match(/<path /g)||[]).length,3);
+ assert.equal(sha,'2ce7d0590b6826f759952b1ffded6c71bb7b62ed');
+ const svg=bytes.toString();assert.match(svg,/viewBox="0 0 64 64"/);assert.match(svg,/fill="#E0A53A"/);
+ assert.equal((svg.match(/<path /g)||[]).length,2);
  assert.doesNotMatch(svg,/<image|<filter|transform=|<script|href=/);
 });
 
 test('HPLX header uses the symbol alongside a live, accessible product name',()=>{
- assert.equal(resolveFamilyTheme('hplx').logo,'assets/families/hplx/hplx-ember-amber.svg');
+ assert.equal(resolveFamilyTheme('hplx').logo,'assets/families/hplx/hplx-glimmer-dark.svg');
  const html=familyPage(families[0]);
  const header=html.match(/<header class="family-heading">[\s\S]*?<\/header>/)[0];
- assert.match(header,/<img class="family-logo" src="\.\.\/\.\.\/assets\/families\/hplx\/hplx-ember-amber.svg" width="240" height="90" alt="">/);
+ assert.match(header,/<img class="family-logo" src="\.\.\/\.\.\/assets\/families\/hplx\/hplx-glimmer-dark.svg" width="128" height="128" alt="">/);
  assert.match(header,/<h1>HPLX<\/h1>/);assert.match(header,/A Cosmik project/);
  assert.doesNotMatch(header,/emblem.svg/);
- assert.equal((html.match(/hplx-ember-amber.svg/g)||[]).length,1);
+ assert.equal((html.match(/hplx-glimmer-dark.svg/g)||[]).length,1);
 });
 
-test('Ember remains inside the family identity without changing Cosmik branding',()=>{
+test('Glimmer remains inside the family identity without changing Cosmik branding',()=>{
  const html=familyPage(families[0]);
  const main=html.match(/<main[\s\S]*?<\/main>/)[0];
- assert.match(main,/hplx-ember-amber.svg/);
- assert.doesNotMatch(html.replace(main,''),/hplx-ember-amber.svg/);
- for(const page of [home(),catalog(),about(),notFound()])assert.doesNotMatch(page,/hplx-ember-amber.svg/);
+ assert.match(main,/hplx-glimmer-dark.svg/);
+ assert.doesNotMatch(html.replace(main,''),/hplx-glimmer-dark.svg/);
+ for(const page of [home(),catalog(),about(),notFound()])assert.doesNotMatch(page,/hplx-glimmer-dark.svg/);
 });
 
 test('the logo preserves aspect ratio, responsive width and surrounding space',async()=>{
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
  const style=css.match(/\.family-logo\{([^}]+)\}/)[1];
- assert.match(style,/width:15rem/);assert.match(style,/max-width:100%/);assert.match(style,/height:auto/);assert.match(style,/margin-top:var\(--c-space-6\)/);
+ assert.match(style,/width:8rem/);assert.match(style,/max-width:100%/);assert.match(style,/height:auto/);assert.match(style,/margin:var\(--c-space-6\) auto 0/);
  assert.doesNotMatch(style,/transform|filter|clip|object-fit:cover|max-height/);
- assert.equal(240/90,400/150);
+ assert.equal(128/128,64/64);
 });
 
 
-test('Ember, the live title and endorsement share one compact centered identity block',async()=>{
+test('Glimmer, the live title and endorsement share one compact centered identity block',async()=>{
  const html=familyPage(families[0]);
  assert.match(html,/<p class="eyebrow">[^<]+<\/p><div class="family-identity"><img class="family-logo"[^>]+><h1>HPLX<\/h1><p class="endorsement">A Cosmik project<\/p><\/div>/);
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
  const identity=css.match(/\.family-identity\{([^}]+)\}/)[1];
  assert.match(identity,/width:15rem/);assert.match(identity,/max-width:100%/);assert.match(identity,/text-align:center/);
  for(const page of [home(),catalog(),about(),notFound()])assert.doesNotMatch(page,/class="family-identity"/);
+});
+
+test('active pages use Glimmer without any obsolete Ember references',()=>{
+ for(const page of [familyPage(families[0]),home(),catalog(),about()]) assert.doesNotMatch(page,/hplx-ember/);
+ for(const page of [home(),catalog()]) assert.match(page,/<img class="family-row-symbol family-row-symbol-hplx"[^>]*hplx-glimmer-white.svg" width="32" height="32" alt="">HPLX/);
 });

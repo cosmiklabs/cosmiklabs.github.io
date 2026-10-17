@@ -84,7 +84,7 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .family-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:var(--c-space-16);padding-block:var(--c-space-12) var(--c-space-16)}
 .family-heading h1{margin-top:var(--c-space-6)}
 .family-identity{width:15rem;max-width:100%;text-align:center}
-.family-logo{display:block;width:15rem;max-width:100%;height:auto;margin-top:var(--c-space-6)}
+.family-logo{display:block;width:8rem;max-width:100%;height:auto;margin:var(--c-space-6) auto 0}
 .endorsement{font-size:.875rem;color:var(--c-muted);margin-top:var(--c-space-4)}
 .family-heading h2{margin-bottom:var(--c-space-6)}
 .family-heading>div>p:not(.eyebrow):not(.endorsement){color:var(--c-muted);max-width:52ch}
@@ -194,5 +194,5 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 .tecton-identity .endorsement{grid-column:2;margin-top:var(--c-space-2)}
 @media(max-width:720px){.tecton-identity{font-size:var(--c-type-display-small-font-size)}}
 
-/* Preserve the wide Ember silhouette beside the family name. */
-.family-row-symbol-hplx{width:3rem;height:auto}
+/* Compact Glimmer uses the same square symbol size as Latch. */
+.family-row-symbol-hplx{width:2rem;height:2rem}
