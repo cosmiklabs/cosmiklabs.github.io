@@ -193,3 +193,6 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 .family-heading .tecton-identity h1{margin:0}
 .tecton-identity .endorsement{grid-column:2;margin-top:var(--c-space-2)}
 @media(max-width:720px){.tecton-identity{font-size:var(--c-type-display-small-font-size)}}
+
+/* Preserve the wide Ember silhouette beside the family name. */
+.family-row-symbol-hplx{width:3rem;height:auto}

@@ -41,7 +41,7 @@ ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))
 <link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
 <link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
 <link rel="preload" href="${url('assets/fonts/Inter-Regular.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css?v=20261017-two-families')}">
+<link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css?v=20261017-family-marks')}">
 <link rel="stylesheet" href="${url('assets/family-themes.css')}">
 ${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` : ''}
 </head>
@@ -57,7 +57,7 @@ ${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` 
 }
 
 export function familyList(root, catalog = families) {
-  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'tecton' ? `<img class="family-row-symbol" src="${root}assets/families/tecton/tecton-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
+  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'tecton' ? `<img class="family-row-symbol" src="${root}assets/families/tecton/tecton-latch-white.svg" width="32" height="32" alt="">` : family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-ember-bone.svg" width="48" height="18" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
 export function home(catalog = families, feature = featuredWork) {
