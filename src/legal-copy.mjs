@@ -105,7 +105,7 @@ export const legalCopy = {
   "Legal and Licenses": [
     {
       "style": "Normal",
-      "text": "Last updated: 15 October 2026",
+      "text": "Last updated: 19 October 2026",
       "links": []
     },
     {
@@ -135,7 +135,7 @@ export const legalCopy = {
     },
     {
       "style": "Normal",
-      "text": "HPLX is an independent editor for Amnesia: The Dark Descent’s custom stories. It includes a reimplementation of the game that runs it using assets from the player’s retail installation, so stories can be played inside the editor. Work on A Machine for Pigs and the Penumbra series is paused, and no HPL3 game is planned.",
+      "text": "HPLX is an independent editor for Amnesia: The Dark Descent’s custom stories. It includes a reimplementation of the game that runs it using assets from the player’s retail installation, so stories can be played inside the editor. Its focus is making custom-story creation for the original game easier and better.",
       "links": []
     },
     {

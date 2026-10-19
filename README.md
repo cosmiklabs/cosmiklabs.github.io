@@ -25,11 +25,9 @@ Edit family data and `featuredWork.familyId` in `src/projects.mjs`, page templat
 
 ## Content boundaries
 
-HPLX is presented as an editor for Amnesia: The Dark Descent’s custom stories, for the people who make them (owner, 15 October 2026). It appears under **Story creation**. The editor is **In development**: built and being tested, not released. The Dark Descent’s reimplementation and the **HPLX Engine** are in development and are presented as the game underneath the editor, which also runs on its own. There is no desktop app.
+HPLX is presented as an editor for creating custom stories for the original Amnesia: The Dark Descent, for the people who make them (owner, 19 October 2026). It appears under **Story creation**. The editor is **In development**: built and being tested, not released. The reimplementation and **HPLX Engine** support custom-story authoring and playtesting inside the editor. Their purpose is a better, easier creation workflow.
 
-The Dark Descent’s menus, saves and custom-story launching are implemented, and opening campaign sections have documented playtests. Later campaign validation, menu checks and lighting comparisons remain open. Windows is the only verified platform. 
-
-Work on A Machine for Pigs and Penumbra is paused, and no HPL3 game is planned. These are not release promises. There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases.
+There are no downloads, release dates, public product-source links, complete-compatibility claims or game assets on this website. The product repositories remain private and have no releases. Public copy does not describe other-game attempts or campaign validation. The old AMFP URL redirects to the current editor section without retaining an obsolete roadmap entry.
 
 Public links are restricted to the Cosmik organization and brand repository. Original creators’ names, assets, credits and licenses remain separate from the Cosmik endorsement. No blanket code, brand or artwork license is applied by this repository.
 
@@ -56,19 +54,19 @@ Set `SITE_URL` to the final HTTPS base URL when building publication previews to
 
 ## Public policy pages
 
-`src/legal-copy.mjs` holds the approved Privacy text (8 October 2026) and Legal & Licenses text (8 October 2026). The 15 October revision of Legal & Licenses changes only its date and the factual "What HPLX is" paragraph; a test pins every other legal paragraph and the whole Privacy text. `legalPage()` renders `/privacy/` and `/legal/`; shared footer links appear on every page. Correspondence retention is indefinite with no routine deletion schedule. The pages describe configured analytics without claiming verified beacon delivery or guaranteed visitor-residence exclusions. The public brand license is linked, not modified. Review-only notes are excluded from the source and generated site.
+`src/legal-copy.mjs` holds the approved Privacy text (8 October 2026) and Legal & Licenses text (8 October 2026). The 19 October revision of Legal & Licenses changes only its date and the factual "What HPLX is" paragraph; a test pins every other legal paragraph and the whole Privacy text. `legalPage()` renders `/privacy/` and `/legal/`; shared footer links appear on every page. Correspondence retention is indefinite with no routine deletion schedule. The pages describe configured analytics without claiming verified beacon delivery or guaranteed visitor-residence exclusions. The public brand license is linked, not modified. Review-only notes are excluded from the source and generated site.
 
 Run `npm run check` and `SITE_URL=https://cosmiklabs.org npm run check` to validate both preview and public metadata, links, policy text and preserved routes. Deployment retains the configured Pages base URL and existing indexing behavior.
 
 ### HPLX requirements and independence
 
-The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. The Dark Descent and its editor are the only focus; AMFP and Penumbra are paused, and HPL3 is not planned. No software license was changed.
+The HPLX page prominently states the owner’s retail-install requirement, never-bundled original assets, independence from Frictional Games, and commitment never to require payment to use HPLX. The original retail games are separate. Legal & Licenses distinguishes ownership from the GPLv3 source release, with a link to Frictional Games’ official announcement. Custom-story creation for the original The Dark Descent is the sole focus. No software license was changed.
 
 ### Original retail game links
 
-`src/retail-links.mjs` lists original PC editions separately from HPLX availability. The Dark Descent and A Machine for Pigs link to Steam, GOG, Epic Games Store and the Humble Store URLs linked by their official game websites. The Penumbra series links to the complete retail collection on Steam and GOG (Overture, Black Plague and Requiem). No individual HPL3 games or new HPLX support commitments are introduced.
+`src/retail-links.mjs` lists the original PC edition of The Dark Descent separately from HPLX availability, with Steam, GOG, Epic Games Store and Humble Store URLs linked by its official website.
 
-Steam, GOG and Epic product/package listings were verified on 8 October 2026. The Humble destinations are taken from the official [TDD site](https://www.amnesiagame.com/) and [AMFP purchase page](https://aamfp.com/buy); the current Humble listings could not be independently retrieved. Links make no price, regional availability or HPLX store-build compatibility claim. The notice explains that local PC files are needed and console purchases do not provide them.
+Steam, GOG and Epic product listings were verified on 8 October 2026. The Humble destination is taken from the official [TDD site](https://www.amnesiagame.com/); the current Humble listing could not be independently retrieved. Links make no price, regional availability or HPLX store-build compatibility claim. The notice explains that local PC files are needed and console purchases do not provide them.
 
 
 ## Public project directory

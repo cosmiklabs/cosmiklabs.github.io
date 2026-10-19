@@ -9,20 +9,4 @@ export const retailGames = {
       { name: 'Humble Store', url: 'https://www.humblebundle.com/store/p/amnesia_thedarkdescent_storefront' },
     ],
   },
-  amfp: {
-    name: 'Amnesia: A Machine for Pigs', label: 'Original PC game',
-    stores: [
-      { name: 'Steam', url: 'https://store.steampowered.com/app/239200/' },
-      { name: 'GOG', url: 'https://www.gog.com/en/game/amnesia_a_machine_for_pigs' },
-      { name: 'Epic Games Store', url: 'https://store.epicgames.com/p/amnesia-a-machine-for-pigs?lang=en-US' },
-      { name: 'Humble Store', url: 'https://www.humblebundle.com/store/amnesia-a-machine-for-pigs' },
-    ],
-  },
-  penumbra: {
-    name: 'Penumbra collection (Overture, Black Plague and Requiem)', label: 'Original PC collection: Overture, Black Plague and Requiem',
-    stores: [
-      { name: 'Steam', url: 'https://store.steampowered.com/sub/32031/' },
-      { name: 'GOG', url: 'https://www.gog.com/en/game/the_penumbra_collection' },
-    ],
-  },
 };

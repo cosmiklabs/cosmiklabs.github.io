@@ -60,17 +60,17 @@ test('homepage feature and stable family list are separate, without repeated pro
  assert.doesNotMatch(index,/projects\/(tdd|amfp|hplx-editor)\//);
 });
 
-test('HPLX leads with the editor, then the game, engine and paused work',()=>{
+test('HPLX leads with the editor, then built-in playtesting and its engine',()=>{
  const html=pages.get('projects/hplx/index.html');
- for(const id of ['make','editor','game','tdd','engine','development','amfp','penumbra'])assert.match(html,new RegExp(`id="${id}"`));
+ for(const id of ['make','editor','game','tdd','engine','development'])assert.match(html,new RegExp(`id="${id}"`));
  assert.doesNotMatch(html,/id="app"|desktop app/i);
  assert.ok(html.indexOf('id="make"') < html.indexOf('id="game"'));
  assert.match(html,/The HPLX family/);assert.match(html,/The editor is built and being tested/);
- assert.match(html,/paused/);assert.match(html,/No release dates/);
+ assert.doesNotMatch(html,/paused|campaign|Penumbra|A Machine for Pigs/i);assert.match(html,/No release date/);
  assert.doesNotMatch(html,/only platform verified/);assert.match(html,/no public release or download yet/);
  assert.match(html,/unaffiliated with the original creators/);
- assert.equal((html.match(/<details[> ]/g)||[]).length,3);
- assert.equal((html.match(/<summary>/g)||[]).length,3);
+ assert.equal((html.match(/<details[> ]/g)||[]).length,1);
+ assert.equal((html.match(/<summary>/g)||[]).length,1);
 });
 
 test('old detail URLs have working redirect targets and readable fallback links',()=>{

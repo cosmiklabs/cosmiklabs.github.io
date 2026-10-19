@@ -6,23 +6,22 @@ import { home, catalog, familyPage, about, legalPage } from '../src/templates.mj
 
 const hplx = families.find(family => family.id === 'hplx');
 const html = familyPage(hplx);
-const future = html.match(/<details class="future-plans"[\s\S]*?<\/details>/)[0];
 
-test('the editor leads, The Dark Descent sits underneath it, and other games are paused', () => {
+
+test('the editor leads, The Dark Descent sits underneath it, for custom-story playtesting', () => {
   assert.deepEqual(hplx.tools.map(({id, status}) => [id, status]), [['editor', 'In development'], ['engine', 'In development']]);
   assert.deepEqual(hplx.games.map(({id, status}) => [id, status]), [['tdd', 'In development']]);
   assert.ok(html.indexOf('id="editor"') < html.indexOf('id="tdd"'));
-  for (const id of ['amfp', 'penumbra']) assert.match(future, new RegExp(`id="${id}"[\\s\\S]*?paused`));
-  assert.doesNotMatch(future, /id="hpl3"/);
+  assert.doesNotMatch(html, /campaign|A Machine for Pigs|Penumbra|HPL3|other games|paused|on its own|future-plans/i);
+  assert.match(html, /creating custom stories for the original Amnesia: The Dark Descent/);
+  assert.doesNotMatch(html, /so your story runs|for every player|faithful reimplementation/);
 });
 
 test('progress copy does not present the editor or the game as finished', () => {
-  const tdd = hplx.games.find(game => game.id === 'tdd');
   const editor = hplx.tools.find(tool => tool.id === 'editor');
   assert.match(editor.progress, /being tested[\s\S]*isn’t released yet/);
-  assert.match(tdd.progress, /still in progress/);
   assert.match(html, /no public release or download yet/);
-  assert.match(html, /No release dates are announced/);
+  assert.match(html, /No release date has been announced/);
 });
 
 test('homepage, family directory, About and legal scope consistently present the editor', () => {
@@ -32,13 +31,13 @@ test('homepage, family directory, About and legal scope consistently present the
   assert.match(legalPage('legal'), /independent editor for Amnesia: The Dark Descent’s custom stories/);
   for (const page of [home(), catalog(), html, about(), legalPage('legal')]) {
     assert.doesNotMatch(page, /desktop app|HPLX App|Work has begun|Amnesia and Penumbra|Windows is the only platform verified/i);
-    assert.doesNotMatch(page, /hpl1_formats|hpl1_compat|hplx-amnesia|hplx-penumbra|docs\/ROADMAP|campaign_validated/);
+    assert.doesNotMatch(page, /hpl1_formats|hpl1_compat|hplx-amnesia|hplx-penumbra|docs\/ROADMAP|campaign_validated|campaign|Penumbra|other games|paused/);
   }
 });
 
-test('the existing AMFP route lands on its paused entry', () => {
-  assert.equal(legacyRoutes.find(route => route.id === 'amfp').fragment, 'future');
-  assert.equal((html.match(/id="amfp"/g) || []).length, 1);
+test('the existing AMFP route leads to the current editor without obsolete copy', () => {
+  assert.equal(legacyRoutes.find(route => route.id === 'amfp').fragment, 'editor');
+  assert.equal(legacyRoutes.find(route => route.id === 'amfp').name, 'HPLX story creation');
 });
 
 test('stacked detail articles keep their spacing and the horizontal Glimmer identity', async () => {

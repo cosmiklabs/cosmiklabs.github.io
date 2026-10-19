@@ -24,7 +24,7 @@ test('public policies preserve all approved paragraphs and exclude review-only c
     const text = html.replace(/<[^>]*>/g, '');
     for (const entry of legalCopy[key]) assert.ok(text.includes(escape(entry.text)), `${route}: ${entry.text}`);
     assert.doesNotMatch(html, /\[publication date\]|Review notes|Confirm before publishing|Matthew|Downs|Missouri|@gmail|attorney-reviewed|GDPR compliant/i);
-    assert.match(html, route === 'legal' ? /Last updated: 15 October 2026/ : /Last updated: 8 October 2026/);
+    assert.match(html, route === 'legal' ? /Last updated: 19 October 2026/ : /Last updated: 8 October 2026/);
     assert.match(html, /href="mailto:legal@cosmiklabs.org"/);
   }
   assert.match(legalPage('privacy'), /Correspondence may be retained indefinitely; there is no routine deletion schedule\./);
@@ -64,7 +64,7 @@ test('HPLX prominently states the retail install, asset boundary and free-use co
     assert.match(page, /respective rights holders/);
   }
   assert.match(html, /makes creating custom stories for Amnesia: The Dark Descent/);
-  assert.match(html, /paused while HPLX focuses on The Dark Descent’s editor/);
+  assert.doesNotMatch(html, /paused|campaign|Penumbra|A Machine for Pigs/i);
   assert.match(legalPage('legal'), /GPLv3/);
   assert.match(legalPage('legal'), /does not transfer ownership/);
 });
