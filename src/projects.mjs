@@ -1,7 +1,6 @@
 /** Areas of work; family destinations remain independent of homepage emphasis. */
 export const pillars = [
   {id:'stories', name:'Story creation', summary:'Tools for making playable stories.'},
-  {id:'structures', name:'Structural authoring', summary:'Tools for shaping designed spaces.'},
 ];
 
 /** Family destinations are stable. Featured work is an independent editorial choice. */
@@ -30,17 +29,6 @@ export const families = [
     future: [
       { id: 'amfp', name: 'Amnesia: A Machine for Pigs', detail: 'A reimplementation was started. It’s paused while HPLX focuses on The Dark Descent’s editor.' },
       { id: 'penumbra', name: 'Penumbra', detail: 'Early work on Penumbra: Overture is paused for the same reason.' },
-    ],
-  },
-  {
-    id: 'tecton', name: 'Tecton', pillar: 'structures', status: 'In development',
-    summary: 'Design and build 3D structures with an agent, from brief to rendered review.',
-    scope: 'Structural authoring, from initial idea to rendered review',
-    description: 'Tecton brings your idea for a space into focus. Guide an agent through planning, construction and rendered review, with room to refine the result along the way.',
-    groups: [
-      {title: 'Plan', items: 'Describe and refine the place'},
-      {title: 'Build', items: 'Turn the design into structure'},
-      {title: 'Review', items: 'See the result and iterate'},
     ],
   },
 ];

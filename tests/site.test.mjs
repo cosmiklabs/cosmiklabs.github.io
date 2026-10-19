@@ -13,8 +13,8 @@ const files=await walk(root);
 const htmlFiles=files.filter(f=>f.endsWith('.html'));
 const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f).split(path.sep).join('/'),await readFile(f,'utf8')])));
 
-test('the complete build preserves original routes and adds public policies',()=>{
- assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html','projects/tecton/index.html'].sort());
+test('the complete build includes published projects and public policies',()=>{
+ assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html'].sort());
 });
 
 test('every local link, stylesheet, font and fragment resolves',async()=>{
@@ -135,3 +135,13 @@ test('Pages publishes only the generated site without a custom domain or package
  assert.equal(pkg.private,true);assert.ok(!pkg.scripts.deploy);
 });
 
+
+
+test('unpublished product pages and assets are absent from the complete build', async () => {
+ for (const file of files) {
+  assert.doesNotMatch(path.relative(root, file), /tecton/i);
+  if (/\.(html|css|svg|xml|txt|json)$/.test(file)) {
+   assert.doesNotMatch(await readFile(file, 'utf8'), /tecton|structural authoring|AI-assisted authoring/i, file);
+  }
+ }
+});

@@ -44,6 +44,6 @@ test('the existing AMFP route lands on its paused entry', () => {
 test('stacked detail articles keep their spacing and the horizontal Glimmer identity', async () => {
   const css = await readFile(new URL('../assets/site.css', import.meta.url), 'utf8');
   assert.match(css, /\.game-detail\+\.game-detail\{[^}]*margin-top:var\(--c-space-12\)[^}]*border-top:1px solid var\(--c-divider\)/);
-  assert.match(css, /\.family-identity,\.tecton-identity\{display:grid;grid-template-columns:1.35em minmax\(0,1fr\)/);
-  assert.match(html, /site\.css\?v=20261017-family-lockups/);
+  assert.match(css, /\.family-identity\{display:grid;grid-template-columns:1.35em minmax\(0,1fr\)/);
+  assert.match(html, /site\.css\?v=20261019-projects/);
 });

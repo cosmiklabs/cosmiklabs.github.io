@@ -4,11 +4,6 @@
  * become production assets merely because they exist in the brand repository.
  */
 export const familyThemes = {
-  tecton: {
-    state: 'approved-for-website',
-    stylesheet: 'assets/families/tecton/theme.css',
-    logo: 'assets/families/tecton/tecton-latch-dark.svg',
-  },
   hplx: {
     // Owner selected this kit for the private website; Glimmer was approved as the official HPLX symbol on 17 October.
     state: 'approved-for-website',

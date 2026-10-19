@@ -41,7 +41,7 @@ The owner approved the existing HPLX warm theme for this website on 7 October. T
 
 ### HPLX Glimmer symbol
 
-Glimmer is the official HPLX symbol, approved on 17 October 2026. The family header uses the exact transparent amber master; the homepage and Projects listings use its neutral white variant. Both preserve the approved two-path geometry and square 64 × 64 viewBox. Both family heroes share a responsive horizontal lockup: the symbol sits to the left of the live product name, with the endorsement below the name. Hero symbols scale with the display type at 1.35em; listing symbols are 32 × 32. Decorative image alternatives avoid repeating adjacent live text. Cosmik’s global identity and Tecton’s Latch remain unchanged.
+Glimmer is the official HPLX symbol, approved on 17 October 2026. The family header uses the exact transparent amber master; the homepage and Projects listings use its neutral white variant. Both preserve the approved two-path geometry and square 64 × 64 viewBox. The HPLX family hero uses a responsive horizontal lockup: the symbol sits to the left of the live product name, with the endorsement below the name. Hero symbols scale with the display type at 1.35em; listing symbols are 32 × 32. Decorative image alternatives avoid repeating adjacent live text. Cosmik’s global identity remains unchanged.
 
 Canonical source: [cosmiklabs/brand at cba2b2e](https://github.com/cosmiklabs/brand/tree/cba2b2e266a71fd7041f49cd621916fe2b83f376/assets/hplx). Historical Ember files are retained for provenance but no active template uses them. No glow, crop or reconstructed wordmark is added.
 
@@ -71,12 +71,8 @@ The HPLX page prominently states the owner’s retail-install requirement, never
 Steam, GOG and Epic product/package listings were verified on 8 October 2026. The Humble destinations are taken from the official [TDD site](https://www.amnesiagame.com/) and [AMFP purchase page](https://aamfp.com/buy); the current Humble listings could not be independently retrieved. Links make no price, regional availability or HPLX store-build compatibility claim. The notice explains that local PC files are needed and console purchases do not provide them.
 
 
-## October 17 family refresh
+## Public project directory
 
-The umbrella now describes an independent software workshop. The previous Reimagine / Extend / Create pillars are retired. HPLX stays featured; the stable directory now has HPLX and Tecton, with a dedicated Tecton destination. Tecton’s marketing leads with the authoring workflow and creative outcomes. Public copy describes the customer experience without implementation or commercial-model detail. No paid-only, free-tier, credit, pricing, signup, download, or launch promise is made.
+The umbrella describes an independent software workshop. HPLX is the featured work and current public project family. Only listed public families generate pages; assets for removed families are not published. The existing legal and privacy text is unchanged.
 
-Tecton's approved mineral-teal roles are mapped from [brand commit d9726b6](https://github.com/cosmiklabs/brand/commit/d9726b6431cdf11d6fcb5e903f8b1711aa87534f), `tokens/tecton/tecton.css`, to explicit dark/light declarations compatible with the existing site. Its typography inherits Inter and IBM Plex Mono. The approved angle-only Latch symbol sits beside the live product name. A neutral white symbol identifies Tecton in the monochrome family directory. Navigation and footer remain monochrome. No private showcase assets or implementation material are published by this draft.
-
-The existing legal and privacy text is unchanged: the free-use commitment already applies specifically to HPLX, licensing is project-specific, and this informational website still has no accounts, payments or uploads. A future operational SaaS would need its own reviewed terms and privacy disclosures.
-
-Validation for this draft: 48 automated tests pass in preview and publication metadata modes. Tests cover internal links, fragments, theme scope, role resolution, text contrast, visible focus styles, retained HPLX identity and unchanged policy text. Chromium rendering was attempted but could not start because the sandbox rejected its process socket. No visual, keyboard, zoom or screen-reader acceptance is claimed for this revision. The owner approved publication on 17 October 2026. Pushes to main publish automatically through the existing Pages workflow.
+Pushes to main publish automatically through the existing Pages workflow. Run `npm run check` in preview and publication metadata modes before publishing.

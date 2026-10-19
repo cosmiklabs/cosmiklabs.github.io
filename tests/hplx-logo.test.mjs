@@ -36,7 +36,7 @@ test('Glimmer remains inside the family identity without changing Cosmik brandin
 
 test('the logo preserves aspect ratio, responsive width and surrounding space',async()=>{
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
- const style=css.match(/\.family-logo,\.tecton-logo\{([^}]+)\}/)[1];
+ const style=css.match(/\.family-logo\{([^}]+)\}/)[1];
  assert.match(style,/width:1.35em/);assert.match(style,/height:1.35em/);
  assert.doesNotMatch(style,/transform|filter|clip|object-fit:cover|max-height/);
  assert.equal(64/64,64/64);
@@ -47,9 +47,9 @@ test('Glimmer, the live title and endorsement share one shared horizontal identi
  const html=familyPage(families[0]);
  assert.match(html,/<p class="eyebrow">[^<]+<\/p><div class="family-identity"><img class="family-logo"[^>]+><h1>HPLX<\/h1><p class="endorsement">A Cosmik project<\/p><\/div>/);
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
- const identity=css.match(/\.family-identity,\.tecton-identity\{([^}]+)\}/)[1];
+ const identity=css.match(/\.family-identity\{([^}]+)\}/)[1];
  assert.match(identity,/display:grid/);assert.match(identity,/grid-template-columns:1.35em minmax\(0,1fr\)/);assert.match(identity,/align-items:center/);
- assert.match(css,/\.family-identity \.endorsement,\.tecton-identity \.endorsement\{grid-column:2/);
+ assert.match(css,/\.family-identity \.endorsement\{grid-column:2/);
  for(const page of [home(),catalog(),about(),notFound()])assert.doesNotMatch(page,/class="family-identity"/);
 });
 

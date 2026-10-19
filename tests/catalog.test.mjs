@@ -5,7 +5,7 @@ import { home, catalog, familyList, escape } from '../src/templates.mjs';
 
 test('the catalog contains families, not an equal list of games, tools and repositories', () => {
   validateContent();
-  assert.deepEqual(families.map(f => f.id), ['hplx', 'tecton']);
+  assert.deepEqual(families.map(f => f.id), ['hplx']);
   const hplx = families[0];
   assert.equal(hplx.name, 'HPLX');
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
@@ -15,7 +15,7 @@ test('the catalog contains families, not an equal list of games, tools and repos
 });
 
 test('feature can change without changing family destinations or navigation', () => {
-  const next = { ...families[0], id: 'sample', name: 'Sample', pillar: 'structures', scope: 'Original games', summary: 'A different family.' };
+  const next = { ...families[0], id: 'sample', name: 'Sample', pillar: 'stories', scope: 'Original games', summary: 'A different family.' };
   const all = [...families, next];
   const feature = { ...featuredWork, familyId: 'sample', heading: 'A new feature.', description: 'New work.', focusTitle: 'New game', focusDescription: 'An experiment.' };
   validateContent(all, feature);
@@ -24,10 +24,10 @@ test('feature can change without changing family destinations or navigation', ()
   assert.match(featured, /data-featured-family="sample"/);
   assert.match(featured, /Explore Sample/);
   assert.doesNotMatch(featured, /HPLX|Dark Descent/);
-  assert.match(featured, /Featured work · Structural authoring/);
+  assert.match(featured, /Featured work · Story creation/);
   for (const id of ['hplx', 'sample']) assert.match(html, new RegExp(`projects/${id}/`));
   const index = catalog(all);
-  assert.equal((index.match(/class="family-row"/g) || []).length, 3);
+  assert.equal((index.match(/class="family-row"/g) || []).length, 2);
 });
 
 test('feature and family validation rejects broken or duplicate destinations', () => {
