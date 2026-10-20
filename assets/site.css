@@ -3,7 +3,7 @@
 @font-face{font-family:Inter;src:url('fonts/Inter-SemiBold.woff2') format('woff2');font-style:normal;font-weight:600;font-display:swap}
 @font-face{font-family:'IBM Plex Mono';src:url('fonts/IBMPlexMono-Regular.woff2') format('woff2'),url('fonts/IBMPlexMono-Regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:var(--c-space-8)}
+html{scrollbar-gutter:stable;scroll-behavior:smooth;scroll-padding-top:var(--c-space-8)}
 body{margin:0;background:var(--c-bg);color:var(--c-text);font-family:var(--c-type-body-font-family),sans-serif;font-size:var(--c-type-body-font-size);line-height:var(--c-type-body-line-height);font-weight:var(--c-type-body-font-weight)}
 [data-theme]{background:var(--c-bg);color:var(--c-text)}
 a{color:var(--c-link);text-underline-offset:.22em;text-decoration-thickness:1px}

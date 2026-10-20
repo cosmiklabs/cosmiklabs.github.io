@@ -47,6 +47,7 @@ test('family themes cannot introduce typography, geometry or layout differences'
  assert.doesNotMatch(css, /\[data-family=|volsyn-heading|hplx-heading/);
  assert.match(css, /\.family-heading\{display:grid;grid-template-columns:minmax\(0,1fr\) minmax\(0,1.25fr\)/);
  assert.match(css, /\.family-heading \.family-identity h1\{margin:0\}/);
+ assert.match(css, /html\{scrollbar-gutter:stable;/); // Long and short pages keep identical horizontal origins.
  assert.match(css, /@media\(max-width:720px\)/);
  assert.doesNotMatch(css, /\.family-heading[^{}]*\{[^}]*\b(?:height|min-height):/);
 });
