@@ -41,7 +41,7 @@ ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))
 <link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
 <link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
 <link rel="preload" href="${url('assets/fonts/Inter-Regular.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css?v=20261019-projects')}">
+<link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css?v=20261020-volsyn-alignment')}">
 <link rel="stylesheet" href="${url('assets/family-themes.css')}">
 ${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` : ''}
 </head>
