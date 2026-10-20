@@ -4,6 +4,11 @@
  * become production assets merely because they exist in the brand repository.
  */
 export const familyThemes = {
+  volsyn: {
+    state: 'approved-for-website',
+    stylesheet: 'assets/families/volsyn/theme.css',
+    logo: 'assets/families/volsyn/volsyn-latch-dark.svg',
+  },
   hplx: {
     // Owner selected this kit for the private website; Glimmer was approved as the official HPLX symbol on 17 October.
     state: 'approved-for-website',

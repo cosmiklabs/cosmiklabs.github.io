@@ -16,7 +16,7 @@ test('Volsyn has a restrained listing and minimal development page', () => {
   assert.match(html, /<h1>Volsyn<\/h1>/);
   assert.match(html, /Volsyn is a tool for designing and refining 3D structures with AI assistance\./);
   assert.match(html, /In development/);
-  assert.match(html, /data-family="volsyn" data-family-theme="baseline"/);
+  assert.match(html, /data-family="volsyn" data-family-theme="approved-for-website"/);
   const main = html.match(/<main[\s\S]*?<\/main>/)[0];
   assert.match(main, /assets\/families\/volsyn\/volsyn-latch-dark\.svg/);
   assert.doesNotMatch(main, /agent|pipeline|MCP|SaaS|pricing|signup|beta|roadmap|Tecton|HPLX|Frictional/i);
