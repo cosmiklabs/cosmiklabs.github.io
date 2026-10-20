@@ -33,7 +33,7 @@ Public links are restricted to the Cosmik organization and brand repository. Ori
 
 ## Brand provenance and approvals
 
-Pinned to [cosmiklabs/brand at af89b8c](https://github.com/cosmiklabs/brand/tree/af89b8c2dd4f4426379d8b2af3b65ac4c13d21bf), the approved 7 October 2026 baseline. `assets/brand-tokens.css` is the exact generated baseline; the HPLX theme starts with that commit's generated family CSS. Preserve the unmodified emblem and the bundled Inter, IBM Plex Mono and Spectral SIL Open Font License notices. Tests check the pinned assets.
+Pinned to [cosmiklabs/brand at af89b8c](https://github.com/cosmiklabs/brand/tree/af89b8c2dd4f4426379d8b2af3b65ac4c13d21bf), the approved 7 October 2026 baseline. `assets/brand-tokens.css` is the exact generated baseline; the HPLX palette is adapted from that commit's generated family CSS, with typography delegated to the shared website pattern. Preserve the unmodified emblem and the bundled Inter, IBM Plex Mono and Spectral SIL Open Font License notices. Tests check the pinned assets.
 
 The owner approved the existing HPLX warm theme for this website on 7 October. This does not change the brand kit's proposed family status. The HPLX page now pairs the owner-approved Glimmer symbol with an ordinary live HPLX name. Family overrides stay inside their `data-family` boundary and explicit dark/light modes; shared navigation, layout, interactions and interface type stay consistent. The Cosmik home, Projects, About, header and footer use the baseline.
 
@@ -74,3 +74,29 @@ Steam, GOG and Epic product listings were verified on 8 October 2026. The Humble
 The umbrella describes an independent software workshop. HPLX is the featured work and current public project family. Only listed public families generate pages; assets for removed families are not published. The existing legal and privacy text is unchanged.
 
 Pushes to main publish automatically through the existing Pages workflow. Run `npm run check` in preview and publication metadata modes before publishing.
+
+## Product-family page pattern
+
+Every entry in `families` renders through `familyPage()` and `familyHeading()`.
+Add the name, pillar, heading lines, description and status in `src/projects.mjs`;
+register approved artwork and palette in `src/themes.mjs`. Do not create a
+family-specific hero, generic `page-heading` fallback, or per-family layout CSS.
+
+The shared pattern owns the breadcrumb, two-column hero, logo-left/name-right
+identity with endorsement below the name, heading typography, description and
+status spacing, section grid and return link. At 720px it stacks into one column;
+the logo and title scale together. Keep content at its natural height. Optional
+sections may differ, but must use the shared `section-grid` spacing. Do not add
+filler, fixed heights or family-specific offsets to make pages appear equal.
+
+Family theme files may change colors only. The HPLX amber palette and Volsyn
+mineral-teal palette retain their approved values; both use shared Inter headings.
+The global header and footer remain outside the theme boundary. Approved SVG
+geometry is never altered to correct layout. Missing logos retain the identity
+column without inventing artwork.
+
+CSS URLs use content hashes from `src/assets.mjs`, so every CSS change invalidates
+its own cached URL automatically. Run `npm run check` and
+`SITE_URL=https://cosmiklabs.org npm run check`, then visually compare both pages
+at desktop and narrow widths. Tests enforce the shared structure for existing
+and future families, color-only themes, and content-addressed stylesheets.

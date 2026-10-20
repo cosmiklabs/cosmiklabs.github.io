@@ -36,8 +36,8 @@ test('Volsyn preserves the approved two-path Latch geometry and colors', async (
 test('Volsyn lockup removes inherited heading margin and loads its current stylesheet', async () => {
  const {readFile}=await import('node:fs/promises');
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
- assert.match(css,/\.volsyn-heading \.family-identity h1\{margin:0\}/);
+ assert.match(css,/\.family-heading \.family-identity h1\{margin:0\}/);
  const html=familyPage(families.find(f=>f.id==='volsyn'));
- assert.match(html,/site\.css\?v=20261020-volsyn-alignment/);
+ assert.match(html,/site\.css\?v=[a-f0-9]{12}/);
  assert.match(html,/<div class="family-identity"><img[^>]+><h1>Volsyn<\/h1><p class="endorsement">/);
 });

@@ -46,26 +46,6 @@
   --c-primitive-blue-600: #3B66AB;
   --c-primitive-blue-800: #1F3F73;
   --c-primitive-blue-950: #151D2B;
-  --c-type-display-font-family: "Spectral";
-  --c-type-display-font-weight: 600;
-  --c-type-display-font-size: 3rem;
-  --c-type-display-line-height: 1.1;
-  --c-type-display-letter-spacing: 0;
-  --c-type-display-small-font-family: "Spectral";
-  --c-type-display-small-font-weight: 600;
-  --c-type-display-small-font-size: 2.125rem;
-  --c-type-display-small-line-height: 1.15;
-  --c-type-display-small-letter-spacing: 0;
-  --c-type-section-font-family: "Spectral";
-  --c-type-section-font-weight: 600;
-  --c-type-section-font-size: 1.875rem;
-  --c-type-section-line-height: 1.2;
-  --c-type-section-letter-spacing: 0;
-  --c-type-card-font-family: "Spectral";
-  --c-type-card-font-weight: 600;
-  --c-type-card-font-size: 1.375rem;
-  --c-type-card-line-height: 1.3;
-  --c-type-card-letter-spacing: 0;
 }
 
 [data-family="hplx"], [data-family="hplx"][data-theme="dark"], [data-family="hplx"] [data-theme="dark"] {
@@ -121,11 +101,8 @@
   --c-status-info-bg: var(--c-primitive-blue-950);
   --c-status-info-border: var(--c-primitive-blue-400);
   --c-elevation-1-surface: var(--c-primitive-hplx-raised);
-  --c-elevation-1-shadow: 0px 1px 2px 0px var(--c-primitive-shadow-dark);
   --c-elevation-2-surface: var(--c-primitive-hplx-raised);
-  --c-elevation-2-shadow: 0px 4px 12px 0px var(--c-primitive-shadow-dark);
   --c-elevation-3-surface: var(--c-primitive-hplx-raised);
-  --c-elevation-3-shadow: 0px 12px 32px 0px var(--c-primitive-shadow-dark);
 }
 
 [data-family="hplx"][data-theme="light"], [data-family="hplx"] [data-theme="light"], [data-theme="light"] [data-family="hplx"] {
@@ -181,24 +158,14 @@
   --c-status-info-bg: var(--c-primitive-blue-50);
   --c-status-info-border: var(--c-primitive-blue-600);
   --c-elevation-1-surface: var(--c-primitive-hplx-parchment);
-  --c-elevation-1-shadow: 0px 1px 2px 0px var(--c-primitive-shadow-light);
   --c-elevation-2-surface: var(--c-primitive-hplx-parchment);
-  --c-elevation-2-shadow: 0px 4px 12px 0px var(--c-primitive-shadow-light);
   --c-elevation-3-surface: var(--c-primitive-hplx-parchment);
-  --c-elevation-3-shadow: 0px 12px 32px 0px var(--c-primitive-shadow-light);
 }
 
 /* Website application: selected for this private site on 7 October 2026.
  * The source kit retains its proposal status; no public brand approval is implied.
- * Its exact generated token block is preserved above.
+ * Its approved palette is preserved; typography belongs to the shared family template.
  */
-@font-face {
-  font-family: 'Spectral';
-  src: url('../../fonts/Spectral-SemiBold.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-}
 [data-family="hplx"] .family-heading h1,
 [data-family="hplx"] .eyebrow,
 [data-family="hplx"] .family-nav a,

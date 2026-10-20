@@ -1,3 +1,4 @@
+import { assetUrl } from './assets.mjs';
 import { retailGames } from './retail-links.mjs';
 import { legalCopy } from './legal-copy.mjs';
 import { families, featuredWork, pillars } from './projects.mjs';
@@ -41,9 +42,9 @@ ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))
 <link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
 <link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
 <link rel="preload" href="${url('assets/fonts/Inter-Regular.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${url('assets/brand-tokens.css')}"><link rel="stylesheet" href="${url('assets/site.css?v=20261020-volsyn-alignment')}">
-<link rel="stylesheet" href="${url('assets/family-themes.css')}">
-${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` : ''}
+<link rel="stylesheet" href="${assetUrl(root, 'assets/brand-tokens.css')}"><link rel="stylesheet" href="${assetUrl(root, 'assets/site.css')}">
+<link rel="stylesheet" href="${assetUrl(root, 'assets/family-themes.css')}">
+${theme?.stylesheet ? `<link rel="stylesheet" href="${assetUrl(root, theme.stylesheet)}">` : ''}
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -86,22 +87,30 @@ export function retailLinks(id) {
   return `<p class="retail-links"><strong>${escape(game.label)}:</strong> ${game.stores.map(store => `<a href="${escape(store.url)}" aria-label="${escape(game.name)} on ${escape(store.name)}">${escape(store.name)}</a>`).join(' · ')}</p>`;
 }
 
+/** Every family uses this shell; only its content sections are optional. */
 export function familyPage(family) {
-  if (family.id === 'volsyn') return shell({ title: `${family.name} — Cosmik`, description: `${family.description} In development.`, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
-<div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav></div>
-<section class="page-heading wrap volsyn-heading">${label('3D tools')}<div class="family-identity"><img class="family-logo" src="${root}assets/families/volsyn/volsyn-latch-dark.svg" width="64" height="64" alt=""><h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div><p>${escape(family.description)}</p>${status(family.status)}</section>
-<div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All project families</a></div>` });
   const theme = resolveFamilyTheme(family.id);
   return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav>
-<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} family`)}${theme.logo ? `<div class="family-identity"><img class="family-logo" src="${root}${theme.logo}" width="64" height="64" alt="">` : ''}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p>${theme.logo ? '</div>' : ''}</div><div><h2>Build a story.<br>Play it as you build.</h2><p>${escape(family.description)}</p>${status(family.status)}</div></header>
+${familyHeading(family, theme, root)}</div>
+${family.id === 'hplx' ? hplxSections(family, root) : ''}
+<div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All project families</a>${family.legalNote ? `<p class="legal-note">${escape(family.legalNote)}</p>` : ''}</div>` });
+}
+
+export function familyHeading(family, theme, root) {
+  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} family`)}<div class="family-identity">${theme.logo ? `<img class="family-logo" src="${root}${theme.logo}" width="64" height="64" alt="">` : '<span class="family-logo" aria-hidden="true"></span>'}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br>')}</h2><p>${escape(family.description)}</p>${status(family.status)}</div></header>`;
+}
+
+function hplxSections(family, root) {
+ return `<div class="wrap">
 <section class="family-tools section-grid" aria-labelledby="requirements-title"><div>${label('Before you start')}<h2 id="requirements-title">Your game.<br>Your story.</h2></div><div class="legal-copy"><p>HPLX requires a legitimately obtained local retail installation of the original game. Original game assets are never bundled or distributed with HPLX.</p><p>Cosmik Labs does not, and never will, require payment to use HPLX. The original retail game is separate and may cost money.</p><p>The storefront links below are for the original PC game. HPLX needs local PC game files; a console copy does not provide them. Individual store builds have not all been tested with HPLX.</p><p>Cosmik Labs and HPLX are independent and unofficial. They are not affiliated with, sponsored by, or endorsed by <a href="https://frictionalgames.com/">Frictional Games</a>. The original engines, games, source code and assets remain the property of Frictional Games and their respective rights holders. <a href="${root}legal/">Read Legal &amp; Licenses</a>.</p></div></section>
 <nav class="family-nav" aria-label="On this page"><a href="#make">The editor</a><a href="#game">Built-in playtesting</a><a href="#development">Development</a></nav></div>
 <section class="family-games" data-theme="light" id="make" aria-labelledby="make-title"><div class="wrap section-grid"><div>${label('01 / The editor')}<h2 id="make-title">Build it.<br>Playtest it.<br>Keep creating.</h2></div><div>${family.tools.filter(tool => tool.progress).map(tool => `<article class="game-detail" id="${escape(tool.id)}">${status(tool.status)}<h3>${escape(tool.name)}</h3><p>${escape(tool.description)}</p><details><summary>Where it stands ${arrow}</summary><div class="disclosure-body"><p>${escape(tool.progress)}</p></div></details></article>`).join('')}</div></div></section>
 <section class="family-tools wrap section-grid" id="game" aria-labelledby="game-title"><div>${label('02 / Built-in playtesting')}<h2 id="game-title">The Dark Descent,<br>underneath.</h2></div><div>${family.games.map(game => `<article class="game-detail" id="${escape(game.id)}">${status(game.status)}<h3>${escape(game.name)}</h3><p>${escape(game.description)}</p>${retailLinks(game.id)}</article>`).join('')}<div class="tool-list">${family.tools.filter(tool => !tool.progress).map(tool => `<article class="tool-row" id="${escape(tool.id)}"><div class="tool-title"><h3>${escape(tool.name)}</h3>${status(tool.status)}</div><p>${escape(tool.description)}</p></article>`).join('')}</div></section>
 <section class="family-development" data-theme="light" id="development" aria-labelledby="development-title"><div class="wrap section-grid"><div>${label('03 / Development')}<h2 id="development-title">Where things stand.</h2></div><div class="development-copy"><p class="development-lead">HPLX is in active development. There’s no public release or download yet.</p><p>The editor and its reimplementation are being developed together, entirely around creating custom stories for the original Amnesia: The Dark Descent. The focus is making that process easier and better.</p><p>No release date has been announced.</p></div></div></section>
-<div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All project families</a><p class="legal-note">An independent editor and reimplementation, unaffiliated with the original creators. Original game content is not distributed here. Game names, assets and credits belong to their respective owners; code and assets retain their own licenses.</p></div>` });
+`;
 }
+
 
 export function about() {
   return shell({ title: 'About — Cosmik', description: 'Cosmik is an independent software workshop making creative tools.', route: 'about', current: 'about', body: root => `

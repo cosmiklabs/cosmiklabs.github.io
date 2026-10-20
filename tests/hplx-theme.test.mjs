@@ -17,8 +17,8 @@ const luminance=hex=>{assert.match(hex,/^#[\da-f]{6}$/i);const c=[1,3,5].map(i=>
 const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);};
 function modeValues(mode){return {...baseBlocks[0].declarations,...baseBlocks.find(b=>mode==='dark'?b.selectors.startsWith(':root,'):b.selectors==='[data-theme="light"]').declarations,...familyBlocks[0].declarations,...familyBlocks[mode==='dark'?1:2].declarations};}
 
-test('HPLX token source and Spectral font are exact pinned brand assets',async()=>{
- assert.equal(gitHash(Buffer.from(source)),'9aacb02511cf645951bd840d81330c6b20938bc4');
+test('HPLX approved color tokens and retained font assets preserve provenance',async()=>{
+ assert.doesNotMatch(source, /--c-type-/); // All heading roles now inherit the shared baseline.
  assert.equal(gitHash(await readFile(path.join(root,'assets/fonts/Spectral-SemiBold.woff2'))),'0cac894251e09cd624c0a891de11c673162a22c3');
  const license=await readFile(path.join(root,'assets/fonts/Spectral-OFL.txt'));assert.equal(gitHash(license),'163d3a50c1666a69aac8b9f78dfc7142fb319a27');assert.match(license.toString(),/SIL OPEN FONT LICENSE/);
  assert.match(source,/PROPOSED/);assert.match(theme,/selected for this private site/);
@@ -33,10 +33,10 @@ test('every HPLX styling selector is isolated to family content',()=>{
  for(const block of familyBlocks)for(const name of Object.keys(block.declarations))assert.doesNotMatch(name,/^--c-(space|layout|motion|radius|breakpoint)-|^--c-type-(body|control|label|identity-label)-/);
 });
 
-test('light and dark HPLX modes retain interface type and change heading type',()=>{
+test('light and dark HPLX modes retain shared heading and interface type',()=>{
  for(const mode of ['dark','light']){
   const values=modeValues(mode);
-  for(const role of ['display','display-small','section','card'])assert.equal(resolve(`--c-type-${role}-font-family`,values),'"Spectral"');
+  for(const role of ['display','display-small','section','card'])assert.equal(resolve(`--c-type-${role}-font-family`,values),'"Inter"');
   for(const role of ['body','control','identity-label'])assert.equal(resolve(`--c-type-${role}-font-family`,values),'"Inter"');
   assert.equal(resolve('--c-type-label-font-family',values),'"IBM Plex Mono"');
  }
@@ -63,5 +63,5 @@ test('all applied text, accent, control and focus pairs meet contrast targets in
 test('family fonts resolve locally without external requests',async()=>{
  for(const [,url] of theme.matchAll(/url\('([^']+)'\)/g))assert.ok((await stat(path.resolve(root,'assets/families/hplx',url))).size>0);
  assert.doesNotMatch(theme,/https?:\/\/|@import/);
- assert.match(theme,/font-family: 'Spectral'/);assert.match(theme,/font-weight: 600/);assert.match(theme,/font-display: swap/);
+ assert.doesNotMatch(theme, /@font-face|--c-type-/);
 });

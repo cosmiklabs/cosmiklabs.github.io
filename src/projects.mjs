@@ -7,6 +7,8 @@ export const pillars = [
 /** Family destinations are stable. Featured work is an independent editorial choice. */
 export const families = [
   {
+    heading: ['Build a story.', 'Play it as you build.'],
+    legalNote: 'An independent editor and reimplementation, unaffiliated with the original creators. Original game content is not distributed here. Game names, assets and credits belong to their respective owners; code and assets retain their own licenses.',
     id: 'hplx', name: 'HPLX', pillar: 'stories', status: 'In development',
     summary: 'An easier way to create custom stories for the original Amnesia: The Dark Descent.',
     scope: 'An editor for Amnesia: The Dark Descent’s custom stories',
@@ -28,6 +30,7 @@ export const families = [
     ],
   },
   {
+    heading: ['Design and refine', '3D structures.'],
     id: 'volsyn', name: 'Volsyn', pillar: 'structures', status: 'In development',
     scope: '3D structures',
     summary: 'Design and refine 3D structures with AI assistance.',
@@ -56,6 +59,7 @@ export function validateContent(catalog = families, feature = featuredWork) {
   const ids = new Set();
   for (const family of catalog) {
     if (!/^[a-z0-9-]+$/.test(family.id) || ids.has(family.id)) throw new Error('Family IDs must be unique URL-safe names.');
+    if (!family.description || !Array.isArray(family.heading) || !family.heading.length || family.heading.some(line => typeof line !== 'string' || !line.trim())) throw new Error('Each family needs a description and heading lines for the shared template.');
     if (!family.name || !family.summary || !family.status) throw new Error('Each family needs a name, summary and status.');
     if (!pillars.some(p => p.id === family.pillar)) throw new Error('Each family needs a known pillar.');
     ids.add(family.id);
