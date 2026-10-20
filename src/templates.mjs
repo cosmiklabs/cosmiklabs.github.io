@@ -87,6 +87,10 @@ export function retailLinks(id) {
 }
 
 export function familyPage(family) {
+  if (family.id === 'volsyn') return shell({ title: `${family.name} — Cosmik`, description: `${family.description} In development.`, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
+<div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav></div>
+<section class="page-heading wrap">${label('A Cosmik project')}<h1>${escape(family.name)}</h1><p>${escape(family.description)}</p>${status(family.status)}</section>
+<div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All project families</a></div>` });
   const theme = resolveFamilyTheme(family.id);
   return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav>

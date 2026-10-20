@@ -1,5 +1,6 @@
 /** Areas of work; family destinations remain independent of homepage emphasis. */
 export const pillars = [
+  {id:'structures', name:'3D tools', summary:'Tools for creating 3D structures.'},
   {id:'stories', name:'Story creation', summary:'Tools for making playable stories.'},
 ];
 
@@ -25,6 +26,12 @@ export const families = [
       { id: 'editor', name: 'HPLX Editor', status: 'In development', description: 'Place props, lights and script areas, then press one key to play your story from where you’re looking, and Esc to keep building. The goal is a smoother workflow for making custom stories for the original game.', progress: 'The editor is built and being tested: placing and editing, playing your story inside it, checks for scripts and text, and a view of where darkness drains sanity. It isn’t released yet.' },
       { id: 'engine', name: 'HPLX Engine', status: 'In development', description: 'The foundation for the editor’s playtesting: The Dark Descent’s file formats and systems, rebuilt in Rust.' },
     ],
+  },
+  {
+    id: 'volsyn', name: 'Volsyn', pillar: 'structures', status: 'In development',
+    scope: '3D structures',
+    summary: 'A tool for creating 3D structures.',
+    description: 'Volsyn is a tool for creating 3D structures.',
   },
 ];
 

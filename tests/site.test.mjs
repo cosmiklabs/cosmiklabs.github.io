@@ -14,7 +14,7 @@ const htmlFiles=files.filter(f=>f.endsWith('.html'));
 const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f).split(path.sep).join('/'),await readFile(f,'utf8')])));
 
 test('the complete build includes published projects and public policies',()=>{
- assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html'].sort());
+ assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html','projects/volsyn/index.html'].sort());
 });
 
 test('every local link, stylesheet, font and fragment resolves',async()=>{

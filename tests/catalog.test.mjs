@@ -5,7 +5,7 @@ import { home, catalog, familyList, escape } from '../src/templates.mjs';
 
 test('the catalog contains families, not an equal list of games, tools and repositories', () => {
   validateContent();
-  assert.deepEqual(families.map(f => f.id), ['hplx']);
+  assert.deepEqual(families.map(f => f.id), ['hplx', 'volsyn']);
   const hplx = families[0];
   assert.equal(hplx.name, 'HPLX');
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
@@ -27,7 +27,7 @@ test('feature can change without changing family destinations or navigation', ()
   assert.match(featured, /Featured work · Story creation/);
   for (const id of ['hplx', 'sample']) assert.match(html, new RegExp(`projects/${id}/`));
   const index = catalog(all);
-  assert.equal((index.match(/class="family-row"/g) || []).length, 2);
+  assert.equal((index.match(/class="family-row"/g) || []).length, all.length);
 });
 
 test('feature and family validation rejects broken or duplicate destinations', () => {
