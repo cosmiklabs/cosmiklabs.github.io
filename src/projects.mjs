@@ -30,8 +30,8 @@ export const families = [
   {
     id: 'volsyn', name: 'Volsyn', pillar: 'structures', status: 'In development',
     scope: '3D structures',
-    summary: 'A tool for creating 3D structures.',
-    description: 'Volsyn is a tool for creating 3D structures.',
+    summary: 'Design and refine 3D structures with AI assistance.',
+    description: 'Volsyn is a tool for designing and refining 3D structures with AI assistance. Bring an idea for a structure into focus through design, iteration and visual review.',
   },
 ];
 

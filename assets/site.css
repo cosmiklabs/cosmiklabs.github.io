@@ -190,3 +190,6 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 
 /* Compact Glimmer uses a square listing symbol. */
 .family-row-symbol-hplx{width:2rem;height:2rem}
+
+/* Volsyn shares the established symbol-and-name lockup. */
+.volsyn-heading .family-identity h1{margin:0}

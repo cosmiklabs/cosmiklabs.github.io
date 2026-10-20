@@ -57,7 +57,7 @@ ${theme?.stylesheet ? `<link rel="stylesheet" href="${url(theme.stylesheet)}">` 
 }
 
 export function familyList(root, catalog = families) {
-  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-glimmer-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
+  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-glimmer-white.svg" width="32" height="32" alt="">` : family.id === 'volsyn' ? `<img class="family-row-symbol" src="${root}assets/families/volsyn/volsyn-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
 export function home(catalog = families, feature = featuredWork) {
@@ -89,7 +89,7 @@ export function retailLinks(id) {
 export function familyPage(family) {
   if (family.id === 'volsyn') return shell({ title: `${family.name} — Cosmik`, description: `${family.description} In development.`, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav></div>
-<section class="page-heading wrap">${label('A Cosmik project')}<h1>${escape(family.name)}</h1><p>${escape(family.description)}</p>${status(family.status)}</section>
+<section class="page-heading wrap volsyn-heading">${label('3D tools')}<div class="family-identity"><img class="family-logo" src="${root}assets/families/volsyn/volsyn-latch-dark.svg" width="64" height="64" alt=""><h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div><p>${escape(family.description)}</p>${status(family.status)}</section>
 <div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All project families</a></div>` });
   const theme = resolveFamilyTheme(family.id);
   return shell({ title: `${family.name} — Cosmik`, description: family.description, route: `projects/${family.id}`, current: 'family', familyId: family.id, body: root => `
