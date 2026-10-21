@@ -14,7 +14,7 @@ const htmlFiles=files.filter(f=>f.endsWith('.html'));
 const pages=new Map(await Promise.all(htmlFiles.map(async f=>[path.relative(root,f).split(path.sep).join('/'),await readFile(f,'utf8')])));
 
 test('the complete build includes published projects and public policies',()=>{
- assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html','projects/volsyn/index.html'].sort());
+ assert.deepEqual([...pages.keys()].sort(),['404.html','about/index.html','privacy/index.html','legal/index.html','index.html','projects/amfp/index.html','projects/hplx-editor/index.html','projects/hplx/index.html','projects/index.html','projects/tdd/index.html','projects/tectra/index.html','projects/volsyn/index.html'].sort());
 });
 
 test('every local link, stylesheet, font and fragment resolves',async()=>{
@@ -76,9 +76,9 @@ test('HPLX leads with the editor, then built-in playtesting and its engine',()=>
 test('old detail URLs have working redirect targets and readable fallback links',()=>{
  for(const route of legacyRoutes){
   const html=pages.get(`projects/${route.id}/index.html`);
-  const target=`../../projects/${route.familyId}/#${route.fragment}`;
+  const target=`../../projects/${route.familyId}/${route.fragment ? `#${route.fragment}` : ''}`;
   assert.ok(html.includes(`content="0; url=${target}"`));assert.ok(html.includes(`href="${target}"`));
-  assert.match(html,/Part of HPLX/);
+  assert.match(html,route.renamed ? /Continue to Tectra/ : /Part of HPLX/);
  }
 });
 

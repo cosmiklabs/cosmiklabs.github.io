@@ -15,7 +15,7 @@ test('every registered family and future baseline family use the same hero compo
   assert.equal((html.match(/class="family-heading"/g)||[]).length, 1);
   assert.equal((html.match(/class="breadcrumbs"/g)||[]).length, 1);
   assert.equal((html.match(/class="family-bottom wrap"/g)||[]).length, 1);
-  assert.doesNotMatch(html, /volsyn-heading|page-heading|style=/);
+  assert.doesNotMatch(html, /tectra-heading|page-heading|style=/);
   assert.match(hero(html), /family-identity[\s\S]*<h1>[\s\S]*endorsement[\s\S]*family-introduction[\s\S]*<h2>[\s\S]*<p>[\s\S]*class="status"/);
  }
  assert.doesNotMatch(familyPage(future), /Your game|Frictional|family-games/);
@@ -44,7 +44,7 @@ test('family themes cannot introduce typography, geometry or layout differences'
   }
  }
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
- assert.doesNotMatch(css, /\[data-family=|volsyn-heading|hplx-heading/);
+ assert.doesNotMatch(css, /\[data-family=|tectra-heading|hplx-heading/);
  assert.match(css, /\.family-heading\{display:grid;grid-template-columns:minmax\(0,1fr\) minmax\(0,1.25fr\)/);
  assert.match(css, /\.family-heading \.family-identity h1\{margin:0\}/);
  assert.match(css, /html\{scrollbar-gutter:stable;/); // Long and short pages keep identical horizontal origins.

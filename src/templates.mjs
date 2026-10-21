@@ -58,7 +58,7 @@ ${theme?.stylesheet ? `<link rel="stylesheet" href="${assetUrl(root, theme.style
 }
 
 export function familyList(root, catalog = families) {
-  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-glimmer-white.svg" width="32" height="32" alt="">` : family.id === 'volsyn' ? `<img class="family-row-symbol" src="${root}assets/families/volsyn/volsyn-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
+  return `<ul class="family-list">${catalog.map(family => `<li><a class="family-row" href="${familyUrl(root, family)}"><span class="family-row-name">${family.id === 'hplx' ? `<img class="family-row-symbol family-row-symbol-hplx" src="${root}assets/families/hplx/hplx-glimmer-white.svg" width="32" height="32" alt="">` : family.id === 'tectra' ? `<img class="family-row-symbol" src="${root}assets/families/tectra/tectra-latch-white.svg" width="32" height="32" alt="">` : ''}${escape(family.name)}</span><span class="family-row-summary">${escape(family.scope)}<span>${escape(family.summary)}</span></span><span class="family-row-end"><span class="eyebrow">${escape(pillarName(family.pillar))}</span>${status(family.status)}${arrow}</span></a></li>`).join('')}</ul>`;
 }
 
 export function home(catalog = families, feature = featuredWork) {
@@ -120,6 +120,10 @@ export function about() {
 }
 
 export function legacyPage(legacy) {
+  if (legacy.renamed) {
+    const target = `projects/${legacy.familyId}/`;
+    return shell({title: `Continue to ${legacy.name} — Cosmik`, description: `Continue to ${legacy.name}.`, route:`projects/${legacy.id}`, redirect: target, current:'family', familyId:legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Continue to ${escape(legacy.name)}.</h1><p>This project has a new name and address.</p><a class="button" href="${root}${target}">Visit ${escape(legacy.name)} ${arrow}</a></section>`});
+  }
   const target = `projects/${legacy.familyId}/#${legacy.fragment}`;
   return shell({title: `${legacy.name} — HPLX — Cosmik`, description: `${legacy.name} is part of the HPLX family.`, route:`projects/${legacy.id}`, redirect: target, current: 'family', familyId: legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Part of HPLX.</h1><p>${escape(legacy.name)} now lives with the rest of the family.</p><a class="button" href="${root}${target}">Continue to ${escape(legacy.name)} ${arrow}</a></section>`});
 }

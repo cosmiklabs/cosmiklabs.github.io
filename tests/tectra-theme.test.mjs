@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { families } from '../src/projects.mjs';
 import { familyPage, home, catalog, about } from '../src/templates.mjs';
-const theme=await readFile(new URL('../assets/families/volsyn/theme.css', import.meta.url),'utf8');
+const theme=await readFile(new URL('../assets/families/tectra/theme.css', import.meta.url),'utf8');
 const baseline=await readFile(new URL('../assets/brand-tokens.css', import.meta.url),'utf8');
 const blocks=css=>[...css.replace(/\/\*[\s\S]*?\*\//g,'').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([,selectors,body])=>({selectors:selectors.trim(),declarations:Object.fromEntries([...body.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)].map(([,name,value])=>[name,value.trim()]))}));
 const familyBlocks=blocks(theme);
@@ -30,18 +30,18 @@ test('all applied text, accent, control and focus pairs meet contrast targets in
 });
 
 
-test('Volsyn theme is loaded only inside its family content boundary', () => {
- const html=familyPage(families.find(f=>f.id==='volsyn'));
- assert.match(html,/assets\/families\/volsyn\/theme\.css/);
- assert.match(html,/data-family="volsyn" data-family-theme="approved-for-website"/);
+test('Tectra theme is loaded only inside its family content boundary', () => {
+ const html=familyPage(families.find(f=>f.id==='tectra'));
+ assert.match(html,/assets\/families\/tectra\/theme\.css/);
+ assert.match(html,/data-family="tectra" data-family-theme="approved-for-website"/);
  const shell=html.replace(/<main[\s\S]*?<\/main>/,'');
  assert.doesNotMatch(shell,/data-family=/);
- for(const html of [home(),catalog(),about(),familyPage(families[0])])assert.doesNotMatch(html,/volsyn\/theme\.css/);
- for(const block of blocks(theme))for(const selector of block.selectors.split(','))assert.match(selector.trim(),/^\[data-family="volsyn"\]/);
+ for(const html of [home(),catalog(),about(),familyPage(families[0])])assert.doesNotMatch(html,/tectra\/theme\.css/);
+ for(const block of blocks(theme))for(const selector of block.selectors.split(','))assert.match(selector.trim(),/^\[data-family="tectra"\]/);
  for(const block of familyBlocks)for(const name of Object.keys(block.declarations))assert.doesNotMatch(name,/^--c-(space|layout|motion|radius|breakpoint|type)-/);
 });
 
-test('Volsyn retains the approved mineral palette and complete explicit state roles', () => {
+test('Tectra retains the approved mineral palette and complete explicit state roles', () => {
  const dark=modeValues('dark'),light=modeValues('light');
  assert.equal(resolve('--c-bg',dark),'#0F1719');
  assert.equal(resolve('--c-accent',dark),'#71D6C3');

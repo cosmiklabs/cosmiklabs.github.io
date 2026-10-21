@@ -89,7 +89,7 @@ the logo and title scale together. Keep content at its natural height. Optional
 sections may differ, but must use the shared `section-grid` spacing. Do not add
 filler, fixed heights or family-specific offsets to make pages appear equal.
 
-Family theme files may change colors only. The HPLX amber palette and Volsyn
+Family theme files may change colors only. The HPLX amber palette and Tectra
 mineral-teal palette retain their approved values; both use shared Inter headings.
 The global header and footer remain outside the theme boundary. Approved SVG
 geometry is never altered to correct layout. Missing logos retain the identity
@@ -100,3 +100,17 @@ its own cached URL automatically. Run `npm run check` and
 `SITE_URL=https://cosmiklabs.org npm run check`, then visually compare both pages
 at desktop and narrow widths. Tests enforce the shared structure for existing
 and future families, color-only themes, and content-addressed stylesheets.
+
+## Tectra rebrand (21 October 2026)
+
+Tectra replaces deprecated Volsyn at `/projects/tectra/`. The old
+`/projects/volsyn/` address redirects to Tectra and uses its canonical URL.
+Listings and metadata use Tectra; the shared product-family layout is unchanged.
+
+Tectra assets are pinned to [brand commit 67ddcac](https://github.com/cosmiklabs/brand/tree/67ddcacd2b5e7ef0ae8b3234b87c48000e13ff3f/kits/tectra),
+from the reorganized `kits/tectra/assets/` and `kits/tectra/tokens/tectra.css`.
+The dark and white Latch SVGs are copied unchanged. The generated color tokens
+are adapted to explicit dark/light modes to preserve the website's color-only
+family contract; umbrella and HPLX tokens remain independently pinned. The
+brand README advertised v0.6.0, but that remote tag was unavailable when vendored,
+so the exact commit is pinned instead. No unversioned runtime brand fetch occurs.

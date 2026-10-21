@@ -31,10 +31,10 @@ export const families = [
   },
   {
     heading: ['Design and refine', '3D structures.'],
-    id: 'volsyn', name: 'Volsyn', pillar: 'structures', status: 'In development',
+    id: 'tectra', name: 'Tectra', pillar: 'structures', status: 'In development',
     scope: '3D structures',
     summary: 'Design and refine 3D structures with AI assistance.',
-    description: 'Volsyn is a tool for designing and refining 3D structures with AI assistance. Bring an idea for a structure into focus through design, iteration and visual review.',
+    description: 'Tectra is a tool for designing and refining 3D structures with AI assistance. Bring an idea for a structure into focus through design, iteration and visual review.',
   },
 ];
 
@@ -50,6 +50,7 @@ export const featuredWork = {
 /** Old individual-project URLs retain a route into their context in the family. */
 const hplx = families.find(family => family.id === 'hplx');
 export const legacyRoutes = [
+  { id: 'volsyn', familyId: 'tectra', name: 'Tectra', renamed: true },
   { id: 'tdd', familyId: 'hplx', fragment: 'tdd', name: hplx.games.find(game => game.id === 'tdd').shortName },
   { id: 'amfp', familyId: 'hplx', fragment: 'editor', name: 'HPLX story creation' },
   { id: 'hplx-editor', familyId: 'hplx', fragment: 'editor', name: hplx.tools.find(tool => tool.id === 'editor').name },

@@ -5,7 +5,7 @@ import { home, catalog, familyList, escape } from '../src/templates.mjs';
 
 test('the catalog contains families, not an equal list of games, tools and repositories', () => {
   validateContent();
-  assert.deepEqual(families.map(f => f.id), ['hplx', 'volsyn']);
+  assert.deepEqual(families.map(f => f.id), ['hplx', 'tectra']);
   const hplx = families[0];
   assert.equal(hplx.name, 'HPLX');
   assert.equal(hplx.games[0].name, 'Amnesia: The Dark Descent');
@@ -40,8 +40,8 @@ test('feature and family validation rejects broken or duplicate destinations', (
 });
 
 test('old project destinations lead to the right context within HPLX', () => {
-  assert.deepEqual(legacyRoutes.map(({id,fragment}) => [id,fragment]), [['tdd','tdd'],['amfp','editor'],['hplx-editor','editor']]);
-  assert.ok(legacyRoutes.every(route => route.familyId === 'hplx'));
+  assert.deepEqual(legacyRoutes.filter(route=>!route.renamed).map(({id,fragment}) => [id,fragment]), [['tdd','tdd'],['amfp','editor'],['hplx-editor','editor']]);
+  assert.ok(legacyRoutes.filter(route=>!route.renamed).every(route => route.familyId === 'hplx'));
 });
 
 test('text data is escaped wherever family listings and featured copy render', () => {
