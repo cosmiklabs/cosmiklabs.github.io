@@ -68,16 +68,16 @@ export function home(catalog = families, feature = featuredWork) {
 <section class="home-intro wrap">${label('Independent software workshop')}<div><h1>Tools for stories.<br>Room to create.</h1><p>Cosmik makes creative software. Explore HPLX for creating custom stories for the original Amnesia: The Dark Descent.</p></div></section>
 <section class="featured-work" data-theme="light" aria-labelledby="featured-title" data-featured-family="${escape(family.id)}"><div class="wrap feature-layout">
 <div class="feature-main">${label(`Featured work · ${pillarName(family.pillar)}`)}<h2 id="featured-title">${escape(family.name)}</h2><p class="feature-heading">${escape(feature.heading)}</p><p class="feature-description">${escape(feature.description)}</p><a class="button" href="${familyUrl(root, family)}">Explore ${escape(family.name)} ${arrow}</a></div>
-<div class="feature-context"><div class="feature-status">${status(family.status)}<span class="eyebrow">A Cosmik project</span></div><div class="family-outline" role="group" aria-label="${escape(family.name)} family overview">${family.groups.map(group => `<div><span class="outline-label">${escape(group.title)}</span><span>${escape(group.items)}</span></div>`).join('')}</div><div class="current-focus">${label(feature.focusLabel)}<h3>${escape(feature.focusTitle)}</h3><p>${escape(feature.focusDescription)}</p></div></div>
+<div class="feature-context"><div class="feature-status">${status(family.status)}<span class="eyebrow">A Cosmik project</span></div><div class="family-outline" role="group" aria-label="${escape(family.name)} project overview">${family.groups.map(group => `<div><span class="outline-label">${escape(group.title)}</span><span>${escape(group.items)}</span></div>`).join('')}</div><div class="current-focus">${label(feature.focusLabel)}<h3>${escape(feature.focusTitle)}</h3><p>${escape(feature.focusDescription)}</p></div></div>
 </div></section>
-<section class="family-section wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Project families</h2><a class="text-link" href="${root}projects/">View all projects ${arrow}</a></div>${familyList(root, catalog)}</section>
+<section class="family-section wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Projects</h2><a class="text-link" href="${root}projects/">View all projects ${arrow}</a></div>${familyList(root, catalog)}</section>
 <section class="home-about wrap"><p>An independent workshop.<br>Different tools, each with a purpose.</p><a class="text-link" href="${root}about/">About Cosmik ${arrow}</a></section>` });
 }
 
 export function catalog(catalog = families) {
   return shell({ title: 'Projects — Cosmik', description: 'Explore HPLX for creating custom stories for the original Amnesia: The Dark Descent.', route: 'projects', current: 'projects', body: root => `
-<section class="page-heading wrap">${label('Projects')}<h1>Find your way in.</h1><p>Each family has its own purpose, tools and direction.</p></section>
-<section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Project families</h2>${familyList(root, catalog)}</section>
+<section class="page-heading wrap">${label('Projects')}<h1>Find your way in.</h1><p>Each project has its own purpose, tools and direction.</p></section>
+<section class="family-section directory-section wrap" aria-labelledby="families-title"><h2 class="section-label" id="families-title">Projects</h2>${familyList(root, catalog)}</section>
 <section class="directory-note wrap"><p>HPLX is in development. Its page explains what exists today and what is planned.</p></section>` });
 }
 
@@ -94,11 +94,11 @@ export function familyPage(family) {
 <div class="wrap"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="${root}projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">${escape(family.name)}</span></nav>
 ${familyHeading(family, theme, root)}</div>
 ${family.id === 'hplx' ? hplxSections(family, root) : ''}
-<div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All project families</a>${family.legalNote ? `<p class="legal-note">${escape(family.legalNote)}</p>` : ''}</div>` });
+<div class="family-bottom wrap"><a class="text-link" href="${root}projects/">${arrow} All projects</a>${family.legalNote ? `<p class="legal-note">${escape(family.legalNote)}</p>` : ''}</div>` });
 }
 
 export function familyHeading(family, theme, root) {
-  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} family`)}<div class="family-identity">${theme.logo ? `<img class="family-logo" src="${root}${theme.logo}" width="64" height="64" alt="">` : '<span class="family-logo" aria-hidden="true"></span>'}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br>')}</h2><p>${escape(family.description)}</p>${status(family.status)}</div></header>`;
+  return `<header class="family-heading"><div>${label(`${pillarName(family.pillar)} · The ${family.name} project`)}<div class="family-identity">${theme.logo ? `<img class="family-logo" src="${root}${theme.logo}" width="64" height="64" alt="">` : '<span class="family-logo" aria-hidden="true"></span>'}<h1>${escape(family.name)}</h1><p class="endorsement">A Cosmik project</p></div></div><div class="family-introduction"><h2>${family.heading.map(escape).join('<br>')}</h2><p>${escape(family.description)}</p>${status(family.status)}</div></header>`;
 }
 
 function hplxSections(family, root) {
@@ -115,7 +115,7 @@ function hplxSections(family, root) {
 export function about() {
   return shell({ title: 'About — Cosmik', description: 'Cosmik is an independent software workshop making creative tools.', route: 'about', current: 'about', body: root => `
 <section class="page-heading wrap">${label('About Cosmik')}<h1>An independent<br>software workshop.</h1><p>Creative tools, with room for different approaches.</p></section>
-<section class="about-content" data-theme="light"><div class="wrap section-grid"><h2>Each project has a purpose.</h2><div><p class="about-lead">Cosmik develops creative software that helps people make things.</p><p>HPLX is an editor for Amnesia: The Dark Descent’s custom stories.</p><p>HPLX is in development. Its family page explains the direction of the work and where it stands.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
+<section class="about-content" data-theme="light"><div class="wrap section-grid"><h2>Each project has a purpose.</h2><div><p class="about-lead">Cosmik develops creative software that helps people make things.</p><p>HPLX is an editor for Amnesia: The Dark Descent’s custom stories.</p><p>HPLX is in development. Its project page explains the direction of the work and where it stands.</p><a class="text-link" href="${root}projects/">Explore the projects ${arrow}</a></div></div></section>
 <section class="about-links wrap"><p>Public work and brand resources.</p><a class="text-link" href="https://github.com/cosmiklabs">Cosmik on GitHub ${external}</a></section>` });
 }
 
@@ -125,7 +125,7 @@ export function legacyPage(legacy) {
     return shell({title: `Continue to ${legacy.name} — Cosmik`, description: `Continue to ${legacy.name}.`, route:`projects/${legacy.id}`, redirect: target, current:'family', familyId:legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Continue to ${escape(legacy.name)}.</h1><p>This project has a new name and address.</p><a class="button" href="${root}${target}">Visit ${escape(legacy.name)} ${arrow}</a></section>`});
   }
   const target = `projects/${legacy.familyId}/#${legacy.fragment}`;
-  return shell({title: `${legacy.name} — HPLX — Cosmik`, description: `${legacy.name} is part of the HPLX family.`, route:`projects/${legacy.id}`, redirect: target, current: 'family', familyId: legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Part of HPLX.</h1><p>${escape(legacy.name)} now lives with the rest of the family.</p><a class="button" href="${root}${target}">Continue to ${escape(legacy.name)} ${arrow}</a></section>`});
+  return shell({title: `${legacy.name} — HPLX — Cosmik`, description: `${legacy.name} is part of the HPLX project.`, route:`projects/${legacy.id}`, redirect: target, current: 'family', familyId: legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Part of HPLX.</h1><p>${escape(legacy.name)} now lives on the HPLX project page.</p><a class="button" href="${root}${target}">Continue to ${escape(legacy.name)} ${arrow}</a></section>`});
 }
 
 export function notFound() {

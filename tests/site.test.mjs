@@ -65,7 +65,7 @@ test('HPLX leads with the editor, then built-in playtesting and its engine',()=>
  for(const id of ['make','editor','game','tdd','engine','development'])assert.match(html,new RegExp(`id="${id}"`));
  assert.doesNotMatch(html,/id="app"|desktop app/i);
  assert.ok(html.indexOf('id="make"') < html.indexOf('id="game"'));
- assert.match(html,/The HPLX family/);assert.match(html,/The editor is built and being tested/);
+ assert.match(html,/The HPLX project/);assert.match(html,/The editor is built and being tested/);
  assert.doesNotMatch(html,/paused|campaign|Penumbra|A Machine for Pigs/i);assert.match(html,/No release date/);
  assert.doesNotMatch(html,/only platform verified/);assert.match(html,/no public release or download yet/);
  assert.match(html,/unaffiliated with the original creators/);
