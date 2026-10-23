@@ -114,3 +114,7 @@ are adapted to explicit dark/light modes to preserve the website's color-only
 family contract; umbrella and HPLX tokens remain independently pinned. The
 brand README advertised v0.6.0, but that remote tag was unavailable when vendored,
 so the exact commit is pinned instead. No unversioned runtime brand fetch occurs.
+
+## Standalone Tectra website draft
+
+`tectra.app/` is a self-contained product website draft intended to move to its own repository. Its source is public here, but it is **not included in this site's generated output** and has no deployment or DNS configuration. Root checks target only root tests; run `cd tectra.app && npm run check` separately for the product-site draft. See its README for content boundaries, placeholder-image replacement and review limitations.
