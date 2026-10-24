@@ -30,21 +30,27 @@ export const families = [
     ],
   },
   {
-    heading: ['Design and refine', '3D structures.'],
+    heading: ['Create structures for', 'worlds real or imagined.'],
+    slogan: 'Describe the space. Shape what comes next.',
     id: 'tectra', name: 'Tectra', pillar: 'structures', status: 'In development',
     scope: '3D structures',
     summary: 'Design and refine 3D structures with AI assistance.',
-    description: 'Tectra is a tool for designing and refining 3D structures with AI assistance. Bring an idea for a structure into focus through design, iteration and visual review.',
+    description: 'Bring an idea and develop it with Tectra’s AI. Shape a structure through connected parts, relationships and rules it can check as the design evolves.',
+    groups: [
+      { title: 'Describe', items: 'Begin with an idea for a space' },
+      { title: 'Shape', items: 'Develop connected parts and relationships' },
+      { title: 'Refine', items: 'Check rules as the design evolves' },
+    ],
   },
 ];
 
 export const featuredWork = {
-  familyId: 'hplx',
-  heading: 'Build a story. Play it as you build.',
-  description: 'An editor for Amnesia: The Dark Descent’s custom stories, with the game built in, so you can play your story without leaving it.',
-  focusLabel: 'Current focus',
-  focusTitle: 'The HPLX Editor',
-  focusDescription: 'Building and testing a better custom-story workflow for the original Amnesia: The Dark Descent.',
+  familyId: 'tectra',
+  heading: 'Create structures for worlds real or imagined.',
+  description: 'Bring an idea and develop it with Tectra’s AI. Shape a structure through connected parts, relationships and rules it can check as the design evolves.',
+  focusLabel: 'The idea',
+  focusTitle: 'Describe the space. Shape what comes next.',
+  focusDescription: 'A tool for developing 3D structures, from the first idea through each revision.',
 };
 
 /** Old individual-project URLs retain a route into their context in the family. */

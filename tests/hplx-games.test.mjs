@@ -24,8 +24,9 @@ test('progress copy does not present the editor or the game as finished', () => 
   assert.match(html, /No release date has been announced/);
 });
 
-test('homepage, family directory, About and legal scope consistently present the editor', () => {
-  assert.equal(featuredWork.focusTitle, 'The HPLX Editor');
+test('HPLX remains an editor project when Tectra is featured', () => {
+  assert.equal(featuredWork.familyId, 'tectra');
+  assert.match(home(), /projects\/hplx\//);
   assert.match(catalog(), /editor for (?:Amnesia: )?The Dark Descent’s custom stories/);
   assert.match(about(), /editor for (?:Amnesia: )?The Dark Descent’s custom stories/);
   assert.match(legalPage('legal'), /independent editor for Amnesia: The Dark Descent’s custom stories/);

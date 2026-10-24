@@ -5,16 +5,18 @@ import { home, catalog, familyPage } from '../src/templates.mjs';
 
 test('Tectra has a restrained listing and minimal development page', () => {
   const tectra = families.find(family => family.id === 'tectra');
-  assert.equal(tectra.description, 'Tectra is a tool for designing and refining 3D structures with AI assistance. Bring an idea for a structure into focus through design, iteration and visual review.');
+  assert.equal(tectra.description, 'Bring an idea and develop it with Tectra’s AI. Shape a structure through connected parts, relationships and rules it can check as the design evolves.');
   assert.equal(tectra.status, 'In development');
-  assert.equal(featuredWork.familyId, 'hplx');
+  assert.equal(featuredWork.familyId, 'tectra');
   for (const html of [home(), catalog()]) {
     assert.match(html, /href="(?:\.\/|\.\.\/)?projects\/tectra\/"/);
     assert.match(html, /Design and refine 3D structures with AI assistance\./);
   }
   const html = familyPage(tectra);
   assert.match(html, /<h1>Tectra<\/h1>/);
-  assert.match(html, /Tectra is a tool for designing and refining 3D structures with AI assistance\./);
+  assert.match(html, /Create structures for<br>worlds real or imagined\./);
+  assert.match(html, /Describe the space\. Shape what comes next\./);
+  assert.match(html, /connected parts, relationships and rules it can check as the design evolves/);
   assert.match(html, /In development/);
   assert.match(html, /data-family="tectra" data-family-theme="approved-for-website"/);
   const main = html.match(/<main[\s\S]*?<\/main>/)[0];
@@ -65,4 +67,18 @@ test('Tectra symbols are byte-identical to the pinned reorganized brand kit', as
   const data=await readFile(new URL(`../assets/families/tectra/tectra-latch-${variant}.svg`,import.meta.url));
   assert.equal(createHash('sha256').update(data).digest('hex'),hash);
  }
+});
+
+
+test('the studio homepage features Tectra first without hiding HPLX or overstating availability', () => {
+  const html = home();
+  assert.match(html, /Independent software studio/);
+  assert.match(html, /data-featured-family="tectra"/);
+  const rows = [...html.matchAll(/class="family-row" href="[^"]*projects\/([^/]+)\/"/g)].map(match => match[1]);
+  assert.deepEqual(rows, ['tectra', 'hplx']);
+  const hplx = familyPage(families.find(project => project.id === 'hplx'));
+  assert.match(hplx, /intended to be open source/);
+  assert.match(hplx, /product repositories are not public yet/);
+  const tectra = familyPage(families.find(project => project.id === 'tectra'));
+  assert.doesNotMatch(tectra, /pricing|chapel|subscription|launch date|better than/i);
 });

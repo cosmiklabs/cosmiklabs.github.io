@@ -48,6 +48,6 @@ test('text data is escaped wherever family listings and featured copy render', (
   assert.equal(escape('<b title="x">&\'</b>'), '&lt;b title=&quot;x&quot;&gt;&amp;&#39;&lt;/b&gt;');
   const sample = {...families[0], name:'<unsafe>', scope:'"scope"', summary:'<script>alert(1)</script>'};
   assert.doesNotMatch(familyList('./',[sample]), /<unsafe>|<script>/);
-  const html=home([sample],{...featuredWork, heading:'<unsafe>', description:'<script>alert(1)</script>'});
+  const html=home([sample],{...featuredWork, familyId:sample.id, heading:'<unsafe>', description:'<script>alert(1)</script>'});
   assert.doesNotMatch(html, /<unsafe>|<script>/);
 });

@@ -33,7 +33,7 @@ Public links are restricted to the Cosmik organization and brand repository. Ori
 
 ## Brand provenance and approvals
 
-Pinned to [cosmiklabs/brand at af89b8c](https://github.com/cosmiklabs/brand/tree/af89b8c2dd4f4426379d8b2af3b65ac4c13d21bf), the approved 7 October 2026 baseline. `assets/brand-tokens.css` is the exact generated baseline; the HPLX palette is adapted from that commit's generated family CSS, with typography delegated to the shared website pattern. Preserve the unmodified emblem and the bundled Inter, IBM Plex Mono and Spectral SIL Open Font License notices. Tests check the pinned assets.
+Pinned to [cosmiklabs/brand at 6bf3c86](https://github.com/cosmiklabs/brand/tree/6bf3c8608a42b7859c9022d3adbc8ebc6edb8fd7), the merged v0.7.0 baseline. `assets/brand-tokens.css` is byte-identical to `kits/cosmik/tokens/cosmik.css`. `brand-provenance.json` records source and vendored hashes. The project palettes are retained color-only adaptations of their kit CSS. HPLX deliberately keeps shared Inter interface/headline typography rather than adopting the kit’s Spectral headline role. Logos, fonts and palette values are unchanged. Preserve all bundled font license notices.
 
 The owner approved the existing HPLX warm theme for this website on 7 October. This does not change the brand kit's proposed family status. The HPLX page now pairs the owner-approved Glimmer symbol with an ordinary live HPLX name. Family overrides stay inside their `data-family` boundary and explicit dark/light modes; shared navigation, layout, interactions and interface type stay consistent. The Cosmik home, Projects, About, header and footer use the baseline.
 
@@ -118,3 +118,9 @@ so the exact commit is pinned instead. No unversioned runtime brand fetch occurs
 ## Product websites
 
 Product websites live in their own repositories. The Tectra website draft for `tectra.app` is [cosmiklabs/tectra-website](https://github.com/cosmiklabs/tectra-website).
+
+## Review-only brand refresh
+
+The current draft features Tectra while retaining HPLX as a separate project. Motion defaults to System; a page-local Motion selector offers Reduce and Full without saving tracking/storage data. CSS resolves the effective brand duration and responds to OS changes live. Explicit scoped overrides follow the nearest data-motion boundary. Content and navigation work without JavaScript; the optional selector stays hidden until enhanced. Scrolling is immediate in all modes.
+
+Run `npm run check` and `SITE_URL=https://cosmiklabs.org npm run check`. Review-branch changes must not be merged into main until live publication is approved.
