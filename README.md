@@ -16,8 +16,9 @@ Requires Node.js 22 or later. No third-party build dependencies or install step.
 - `npm run build` generates `site/`.
 - `npm run preview` serves the current build.
 - `npm run check` rebuilds and runs all automated tests.
+- `npm run brand:verify` checks the vendored brand releases; see [Updating the brand](#updating-the-brand).
 
-Rebuild after source edits. `PORT` changes the preview port. The development server binds only to localhost. Generated pages also work as local files, except for the root-absolute 404 navigation used by root-level hosting.
+Rebuild after source edits. `PORT` changes the preview port; `CHECK_PORT` changes the port `scripts/check-browser.mjs` serves on. The development server binds only to localhost. Generated pages also work as local files, except for the root-absolute 404 navigation used by root-level hosting.
 
 ## Editing
 
@@ -33,7 +34,75 @@ Public links are restricted to the Cosmik organization and brand repository. Ori
 
 ## Brand provenance and approvals
 
-Pinned to [cosmiklabs/brand at 6bf3c86](https://github.com/cosmiklabs/brand/tree/6bf3c8608a42b7859c9022d3adbc8ebc6edb8fd7), the merged v0.7.0 baseline. `assets/brand-tokens.css` is byte-identical to `kits/cosmik/tokens/cosmik.css`. `brand-provenance.json` records source and vendored hashes. The project palettes are retained color-only adaptations of their kit CSS. HPLX deliberately keeps shared Inter interface/headline typography rather than adopting the kit’s Spectral headline role. Logos, fonts and palette values are unchanged. Preserve all bundled font license notices.
+Brand files are vendored from three tagged releases, each with a lock that records
+its repository, tag, commit and the SHA-256 of every file:
+
+| Directory | Release | Lock |
+| --- | --- | --- |
+| `vendor/brand/` | [cosmiklabs/brand](https://github.com/cosmiklabs/brand) v0.9.1, the Cosmik foundation | `vendor/brand/brand.lock.json` |
+| `vendor/brand-tectra/` | [cosmiklabs/brand-tectra](https://github.com/cosmiklabs/brand-tectra) v0.2.1 | `vendor/brand-tectra/brand-tectra.lock.json` |
+| `vendor/brand-hplx/` | [cosmiklabs/brand-hplx](https://github.com/cosmiklabs/brand-hplx) v0.1.0 | `vendor/brand-hplx/brand-hplx.lock.json` |
+
+Never edit anything under `vendor/`. Each product brand carries the foundation it
+was built on under its own `vendor/brand/`; all three copies are brand v0.9.1, byte
+for byte, and pages load the baseline once, from `vendor/brand/`.
+
+`brand-provenance.json` names the locks and maps every published brand file to its
+vendored source. The build copies only those files into `site/`: the baseline
+`cosmik.css`, the shared `controls.css`, Inter and IBM Plex Mono with their notices,
+each family's colour roles, and the Latch and Glimmer marks the pages show. Ember,
+Spectral and the other kit files stay in `vendor/` and are not published. The Cosmik
+emblem and icons are not part of the brand distribution, so they stay committed in
+`assets/`; `brand-provenance.json` records their source paths and hashes at brand
+v0.9.1. Preserve all bundled font license notices.
+
+Stylesheets load in the order the brand's consumer guide gives: `cosmik.css`, the
+family's `tokens.css` on family pages, `controls.css`, then the site's own
+`site.css`, `family-themes.css` and the family's `theme.css`.
+
+### Family colours and explicit modes
+
+The page root is always `data-theme="dark"`, and some sections set
+`data-theme="light"`. The vendored family CSS sets each colour role once with
+`light-dark()` on `[data-family]` and `[data-family] [data-theme]`, and the baseline
+sets `color-scheme` on every `data-theme`. So the nearest explicit theme picks the
+family's dark or light value, with the same results as the earlier hand-written
+dark and light blocks: every resolved colour role is unchanged in both modes.
+
+Family pages keep the site's color-only family contract. The build publishes each
+family's `tokens.css` from its vendored tokens through `colourRoles()` in
+`src/brand.mjs`, which keeps every colour declaration line unchanged and removes
+typography roles and shadow geometry. That removes HPLX's Spectral heading roles, so
+HPLX keeps the shared Inter headings, as decided for this site. Any other kind of
+declaration in a future release fails the build until it is reviewed. The family's
+`theme.css` is this site's own colour application: where the accent appears.
+
+### Shared controls
+
+Calls to action use `c-button c-button--primary`, with the site's `.button` adding
+only its layout. Links in running text use `c-link`. The Motion selector uses
+`c-select`. Global link hover and active colours have zero specificity, so control
+classes keep their own colours. The site's global `:focus-visible` ring matches the
+controls' ring and still covers navigation links, disclosures and other elements.
+Status labels keep the site's `.status` style.
+
+### Updating the brand
+
+Check out the new tags of `cosmiklabs/brand`, `cosmiklabs/brand-tectra` and
+`cosmiklabs/brand-hplx`, clean and exactly at each tag, then:
+
+```sh
+npm run brand:sync -- --brand ../brand --brand-tectra ../brand-tectra --brand-hplx ../brand-hplx
+npm run brand:verify -- --brand ../brand --brand-tectra ../brand-tectra --brand-hplx ../brand-hplx
+npm run check
+```
+
+`brand:sync` runs each release's own vendor tool and rewrites the locks.
+`brand:verify` checks every vendored file against its lock, and with checkouts also
+proves each lock against its release tag. Both fail if the product brands were built
+on a different foundation release from `vendor/brand/`. Without checkouts,
+`npm run brand:verify` checks the files against the locks; the tests run the same
+check. Read the brand changelogs, then compare the pages in both modes.
 
 The owner approved the existing HPLX warm theme for this website on 7 October. This does not change the brand kit's proposed family status. The HPLX page now pairs the owner-approved Glimmer symbol with an ordinary live HPLX name. Family overrides stay inside their `data-family` boundary and explicit dark/light modes; shared navigation, layout, interactions and interface type stay consistent. The Cosmik home, Projects, About, header and footer use the baseline.
 
@@ -41,7 +110,7 @@ The owner approved the existing HPLX warm theme for this website on 7 October. T
 
 Glimmer is the official HPLX symbol, approved on 17 October 2026. The family header uses the exact transparent amber master; the homepage and Projects listings use its neutral white variant. Both preserve the approved two-path geometry and square 64 × 64 viewBox. The HPLX family hero uses a responsive horizontal lockup: the symbol sits to the left of the live product name, with the endorsement below the name. Hero symbols scale with the display type at 1.35em; listing symbols are 32 × 32. Decorative image alternatives avoid repeating adjacent live text. Cosmik’s global identity remains unchanged.
 
-Canonical source: [cosmiklabs/brand at cba2b2e](https://github.com/cosmiklabs/brand/tree/cba2b2e266a71fd7041f49cd621916fe2b83f376/assets/hplx). Historical Ember files are retained for provenance but no active template uses them. No glow, crop or reconstructed wordmark is added.
+Canonical source: `vendor/brand-hplx/assets/` from brand-hplx v0.1.0. Ember is retained there for provenance; no active template uses it and it is not published. No glow, crop or reconstructed wordmark is added.
 
 ## Remaining review
 
@@ -89,7 +158,7 @@ the logo and title scale together. Keep content at its natural height. Optional
 sections may differ, but must use the shared `section-grid` spacing. Do not add
 filler, fixed heights or family-specific offsets to make pages appear equal.
 
-Family theme files may change colors only. The HPLX amber palette and Tectra
+Family stylesheets may change colors only. The HPLX amber palette and Tectra
 mineral-teal palette retain their approved values; both use shared Inter headings.
 The global header and footer remain outside the theme boundary. Approved SVG
 geometry is never altered to correct layout. Missing logos retain the identity
@@ -107,17 +176,12 @@ Tectra replaces deprecated Volsyn at `/projects/tectra/`. The old
 `/projects/volsyn/` address redirects to Tectra and uses its canonical URL.
 Listings and metadata use Tectra; the shared product-family layout is unchanged.
 
-Tectra assets are pinned to [brand commit 67ddcac](https://github.com/cosmiklabs/brand/tree/67ddcacd2b5e7ef0ae8b3234b87c48000e13ff3f/kits/tectra),
-from the reorganized `kits/tectra/assets/` and `kits/tectra/tokens/tectra.css`.
-The dark and white Latch SVGs are copied unchanged. The generated color tokens
-are adapted to explicit dark/light modes to preserve the website's color-only
-family contract; umbrella and HPLX tokens remain independently pinned. The
-brand README advertised v0.6.0, but that remote tag was unavailable when vendored,
-so the exact commit is pinned instead. No unversioned runtime brand fetch occurs.
+Tectra's palette and Latch symbols come from `vendor/brand-tectra/` (brand-tectra
+v0.2.1). The dark and white Latch SVGs are published unchanged.
 
 ## Product websites
 
-Product websites live in their own repositories. The Tectra website draft for `tectra.app` is [cosmiklabs/tectra-website](https://github.com/cosmiklabs/tectra-website).
+Product websites live in their own repositories. The Tectra website draft for `tectra.app` is [cosmiklabs/website-tectra](https://github.com/cosmiklabs/website-tectra), renamed from `cosmiklabs/tectra-website`. The product brands are [cosmiklabs/brand-tectra](https://github.com/cosmiklabs/brand-tectra) and [cosmiklabs/brand-hplx](https://github.com/cosmiklabs/brand-hplx).
 
 ## Featured project and motion
 

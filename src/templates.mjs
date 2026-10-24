@@ -26,6 +26,14 @@ export function shareMetadata({title, description, route, redirect, canonical = 
   return `<meta property="og:type" content="website"><meta property="og:site_name" content="Cosmik"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${escape(description)}"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#000000">${urls}`;
 }
 
+/**
+ * Brand load order: the baseline once, the family's colour roles, the shared
+ * controls, then this site's CSS and the family's colour application.
+ */
+export function stylesheets(theme) {
+  return ['assets/brand/cosmik.css', theme?.tokens, 'assets/brand/controls.css', 'assets/site.css', 'assets/family-themes.css', theme?.stylesheet].filter(Boolean);
+}
+
 export function shell({ title, description, route, body, current = '', rootOverride = null, redirect = null, familyId = null, canonical = true }) {
   const depth = route.split('/').filter(Boolean).length;
   const root = rootOverride ?? (depth ? '../'.repeat(depth) : './');
@@ -42,9 +50,7 @@ ${redirect ? `<meta http-equiv="refresh" content="0; url=${escape(url(redirect))
 <link rel="icon" href="${url('assets/cosmik.ico')}" sizes="any">
 <link rel="apple-touch-icon" href="${url('assets/cosmik-apple-touch-180.png')}">
 <link rel="preload" href="${url('assets/fonts/Inter-Regular.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${assetUrl(root, 'assets/brand-tokens.css')}"><link rel="stylesheet" href="${assetUrl(root, 'assets/site.css')}">
-<link rel="stylesheet" href="${assetUrl(root, 'assets/family-themes.css')}">
-${theme?.stylesheet ? `<link rel="stylesheet" href="${assetUrl(root, theme.stylesheet)}">` : ''}
+${stylesheets(theme).map(path => `<link rel="stylesheet" href="${assetUrl(root, path)}">`).join('')}
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -53,7 +59,7 @@ ${theme?.stylesheet ? `<link rel="stylesheet" href="${assetUrl(root, theme.style
 <nav aria-label="Main navigation"><a href="${url('projects/')}"${current === 'projects' ? ' aria-current="page"' : current === 'family' ? ' aria-current="location"' : ''}>Projects</a><a href="${url('about/')}"${current === 'about' ? ' aria-current="page"' : ''}>About</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a></nav>
 </header>
 <main id="main" tabindex="-1">${theme ? `<div class="family-content" data-family="${escape(theme.id)}" data-family-theme="${theme.state}">${body(root)}</div>` : body(root)}</main>
-<footer class="site-footer wrap"><label class="motion-preference" hidden>Motion <select aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></label><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent software studio</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
+<footer class="site-footer wrap"><label class="motion-preference" hidden>Motion <span class="c-select"><select aria-label="Motion preference"><option value="system">System</option><option value="reduce">Reduce</option><option value="full">Full</option></select></span></label><p>Cosmik<span class="footer-separator" aria-hidden="true"> / </span><span>Independent software studio</span></p><div><a href="${url('privacy/')}">Privacy</a><a href="${url('legal/')}">Legal &amp; Licenses</a><a href="https://github.com/cosmiklabs">GitHub ${external}</a><a href="https://github.com/cosmiklabs/brand">Brand ${external}</a></div></footer>
 <script type="module" src="${assetUrl(root, 'assets/preferences.mjs')}"></script>
 </body></html>`;
 }
@@ -68,7 +74,7 @@ export function home(catalog = families, feature = featuredWork) {
   return shell({ title: 'Cosmik — Independent software studio', description: 'Cosmik is an independent software studio. Explore Tectra for creating 3D structures and HPLX for creating custom stories.', route: '', body: root => `
 <section class="home-intro wrap">${label('Independent software studio')}<div><h1>Independent projects.<br>Room to create.</h1><p>Cosmik is an independent software studio, home to projects with their own purpose and direction. Explore Tectra for creating structures and HPLX for creating custom stories.</p></div></section>
 <section class="featured-work" data-theme="light" aria-labelledby="featured-title" data-featured-family="${escape(family.id)}"><div class="wrap feature-layout">
-<div class="feature-main">${label(`Featured work · ${pillarName(family.pillar)}`)}<h2 id="featured-title">${escape(family.name)}</h2><p class="feature-heading">${escape(feature.heading)}</p><p class="feature-description">${escape(feature.description)}</p><a class="button" href="${familyUrl(root, family)}">Explore ${escape(family.name)} ${arrow}</a></div>
+<div class="feature-main">${label(`Featured work · ${pillarName(family.pillar)}`)}<h2 id="featured-title">${escape(family.name)}</h2><p class="feature-heading">${escape(feature.heading)}</p><p class="feature-description">${escape(feature.description)}</p><a class="c-button c-button--primary button" href="${familyUrl(root, family)}">Explore ${escape(family.name)} ${arrow}</a></div>
 <div class="feature-context"><div class="feature-status">${status(family.status)}<span class="eyebrow">A Cosmik project</span></div><div class="family-outline" role="group" aria-label="${escape(family.name)} project overview">${(family.groups ?? []).map(group => `<div><span class="outline-label">${escape(group.title)}</span><span>${escape(group.items)}</span></div>`).join('')}</div><div class="current-focus">${label(feature.focusLabel)}<h3>${escape(feature.focusTitle)}</h3><p>${escape(feature.focusDescription)}</p></div></div>
 </div></section>
 <section class="family-section wrap" id="projects" aria-labelledby="families-title"><div class="section-heading"><h2 id="families-title">Projects</h2><a class="text-link" href="${root}projects/">View all projects ${arrow}</a></div>${familyList(root, [family, ...catalog.filter(item => item.id !== family.id)])}</section>
@@ -85,7 +91,7 @@ export function catalog(catalog = families) {
 export function retailLinks(id) {
   const game = retailGames[id];
   if (!game) return '';
-  return `<p class="retail-links"><strong>${escape(game.label)}:</strong> ${game.stores.map(store => `<a href="${escape(store.url)}" aria-label="${escape(game.name)} on ${escape(store.name)}">${escape(store.name)}</a>`).join(' · ')}</p>`;
+  return `<p class="retail-links"><strong>${escape(game.label)}:</strong> ${game.stores.map(store => `<a class="c-link" href="${escape(store.url)}" aria-label="${escape(game.name)} on ${escape(store.name)}">${escape(store.name)}</a>`).join(' · ')}</p>`;
 }
 
 /** Every family uses this shell; only its content sections are optional. */
@@ -104,7 +110,7 @@ export function familyHeading(family, theme, root) {
 
 function hplxSections(family, root) {
  return `<div class="wrap">
-<section class="family-tools section-grid" aria-labelledby="requirements-title"><div>${label('Before you start')}<h2 id="requirements-title">Your game.<br>Your story.</h2></div><div class="legal-copy"><p>HPLX requires a legitimately obtained local retail installation of the original game. Original game assets are never bundled or distributed with HPLX.</p><p>Cosmik Labs does not, and never will, require payment to use HPLX. The original retail game is separate and may cost money.</p><p>The storefront links below are for the original PC game. HPLX needs local PC game files; a console copy does not provide them. Individual store builds have not all been tested with HPLX.</p><p>Cosmik Labs and HPLX are independent and unofficial. They are not affiliated with, sponsored by, or endorsed by <a href="https://frictionalgames.com/">Frictional Games</a>. The original engines, games, source code and assets remain the property of Frictional Games and their respective rights holders. <a href="${root}legal/">Read Legal &amp; Licenses</a>.</p></div></section>
+<section class="family-tools section-grid" aria-labelledby="requirements-title"><div>${label('Before you start')}<h2 id="requirements-title">Your game.<br>Your story.</h2></div><div class="legal-copy"><p>HPLX requires a legitimately obtained local retail installation of the original game. Original game assets are never bundled or distributed with HPLX.</p><p>Cosmik Labs does not, and never will, require payment to use HPLX. The original retail game is separate and may cost money.</p><p>The storefront links below are for the original PC game. HPLX needs local PC game files; a console copy does not provide them. Individual store builds have not all been tested with HPLX.</p><p>Cosmik Labs and HPLX are independent and unofficial. They are not affiliated with, sponsored by, or endorsed by <a class="c-link" href="https://frictionalgames.com/">Frictional Games</a>. The original engines, games, source code and assets remain the property of Frictional Games and their respective rights holders. <a class="c-link" href="${root}legal/">Read Legal &amp; Licenses</a>.</p></div></section>
 <nav class="family-nav" aria-label="On this page"><a href="#make">The editor</a><a href="#game">Built-in playtesting</a><a href="#development">Development</a></nav></div>
 <section class="family-games" data-theme="light" id="make" aria-labelledby="make-title"><div class="wrap section-grid"><div>${label('01 / The editor')}<h2 id="make-title">Build it.<br>Playtest it.<br>Keep creating.</h2></div><div>${family.tools.filter(tool => tool.progress).map(tool => `<article class="game-detail" id="${escape(tool.id)}">${status(tool.status)}<h3>${escape(tool.name)}</h3><p>${escape(tool.description)}</p><details><summary>Where it stands ${arrow}</summary><div class="disclosure-body"><p>${escape(tool.progress)}</p></div></details></article>`).join('')}</div></div></section>
 <section class="family-tools wrap section-grid" id="game" aria-labelledby="game-title"><div>${label('02 / Built-in playtesting')}<h2 id="game-title">The Dark Descent,<br>underneath.</h2></div><div>${family.games.map(game => `<article class="game-detail" id="${escape(game.id)}">${status(game.status)}<h3>${escape(game.name)}</h3><p>${escape(game.description)}</p>${retailLinks(game.id)}</article>`).join('')}<div class="tool-list">${family.tools.filter(tool => !tool.progress).map(tool => `<article class="tool-row" id="${escape(tool.id)}"><div class="tool-title"><h3>${escape(tool.name)}</h3>${status(tool.status)}</div><p>${escape(tool.description)}</p></article>`).join('')}</div></section>
@@ -123,14 +129,14 @@ export function about() {
 export function legacyPage(legacy) {
   if (legacy.renamed) {
     const target = `projects/${legacy.familyId}/`;
-    return shell({title: `Continue to ${legacy.name} — Cosmik`, description: `Continue to ${legacy.name}.`, route:`projects/${legacy.id}`, redirect: target, current:'family', familyId:legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Continue to ${escape(legacy.name)}.</h1><p>This project has a new name and address.</p><a class="button" href="${root}${target}">Visit ${escape(legacy.name)} ${arrow}</a></section>`});
+    return shell({title: `Continue to ${legacy.name} — Cosmik`, description: `Continue to ${legacy.name}.`, route:`projects/${legacy.id}`, redirect: target, current:'family', familyId:legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Continue to ${escape(legacy.name)}.</h1><p>This project has a new name and address.</p><a class="c-button c-button--primary button" href="${root}${target}">Visit ${escape(legacy.name)} ${arrow}</a></section>`});
   }
   const target = `projects/${legacy.familyId}/#${legacy.fragment}`;
-  return shell({title: `${legacy.name} — HPLX — Cosmik`, description: `${legacy.name} is part of the HPLX project.`, route:`projects/${legacy.id}`, redirect: target, current: 'family', familyId: legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Part of HPLX.</h1><p>${escape(legacy.name)} now lives on the HPLX project page.</p><a class="button" href="${root}${target}">Continue to ${escape(legacy.name)} ${arrow}</a></section>`});
+  return shell({title: `${legacy.name} — HPLX — Cosmik`, description: `${legacy.name} is part of the HPLX project.`, route:`projects/${legacy.id}`, redirect: target, current: 'family', familyId: legacy.familyId, body: root => `<section class="page-heading wrap"><h1>Part of HPLX.</h1><p>${escape(legacy.name)} now lives on the HPLX project page.</p><a class="c-button c-button--primary button" href="${root}${target}">Continue to ${escape(legacy.name)} ${arrow}</a></section>`});
 }
 
 export function notFound() {
-  return shell({title:'Page not found — Cosmik', description:'This page could not be found.', route:'', rootOverride:'/', canonical:false, body: root => `<section class="page-heading wrap not-found">${label('404')}<h1>Page not found.</h1><p>The address may have changed. You can find the current work in Projects.</p><a class="button" href="${root}projects/">Explore projects ${arrow}</a></section>`});
+  return shell({title:'Page not found — Cosmik', description:'This page could not be found.', route:'', rootOverride:'/', canonical:false, body: root => `<section class="page-heading wrap not-found">${label('404')}<h1>Page not found.</h1><p>The address may have changed. You can find the current work in Projects.</p><a class="c-button c-button--primary button" href="${root}projects/">Explore projects ${arrow}</a></section>`});
 }
 
 
@@ -142,11 +148,11 @@ export function legalPage(kind) {
   const renderEntry = entry => {
     if (entry.style === 'Heading 2') return `<h2>${escape(entry.text)}</h2>`;
     let text = escape(entry.text);
-    for (const link of entry.links) text = text.replace(escape(link.text), `<a href="${escape(link.url)}">${escape(link.text)}</a>`);
-    text = text.replaceAll('legal@cosmiklabs.org', '<a href="mailto:legal@cosmiklabs.org">legal@cosmiklabs.org</a>');
+    for (const link of entry.links) text = text.replace(escape(link.text), `<a class="c-link" href="${escape(link.url)}">${escape(link.text)}</a>`);
+    text = text.replaceAll('legal@cosmiklabs.org', '<a class="c-link" href="mailto:legal@cosmiklabs.org">legal@cosmiklabs.org</a>');
     return `<p>${text}</p>`;
   };
   return shell({ title: `${title} — Cosmik`, description, route: kind, body: () => `
 <article class="legal-page wrap"><header class="page-heading">${label('Cosmik')}<h1>${escape(title)}</h1><p>${escape(entries[0].text)}</p></header>
-<div class="legal-copy">${entries.slice(1).map(renderEntry).join('\n')}${privacy ? '' : '<p><a href="https://github.com/cosmiklabs/brand/blob/main/LICENSE.md">Brand licensing and usage terms</a></p>'}</div></article>` });
+<div class="legal-copy">${entries.slice(1).map(renderEntry).join('\n')}${privacy ? '' : '<p><a class="c-link" href="https://github.com/cosmiklabs/brand/blob/main/LICENSE.md">Brand licensing and usage terms</a></p>'}</div></article>` });
 }

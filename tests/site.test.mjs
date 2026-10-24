@@ -95,28 +95,19 @@ test('private source, download and external service links are absent',()=>{
  }
 });
 
-test('approved baseline tokens, unchanged emblems and fonts are pinned',async()=>{
- const gitHash=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
- const expected={
-  'brand-tokens.css':'08b9f09d0e22c0b19855cc4b60f551d113a34dcc',
-  'emblem.svg':'5519818f64e11a3dc1f0fdbd3aacc563451e8541',
-  'cosmik-512.png':'e022596fa2c583da56c01f7536e8d44306b0dae7',
-  'cosmik.ico':'4521a86f042673f72c1ed99365fb4964a44a199c',
-  'cosmik-apple-touch-180.png':'9cbc0683f24f7564a88fabe6a649f7990d54c066',
-  'fonts/Inter-Regular.woff2':'2bcd222ecfae996d035ff72bf70672305cc29261',
-  'fonts/Inter-Medium.woff2':'fdfdcc699fc1e19eb1943c2896e8d66e17b538ff',
-  'fonts/Inter-SemiBold.woff2':'fbae113d2855e22c06376495bd2dfe5f02411272',
-  'fonts/IBMPlexMono-Regular.woff2':'b62779f207175f77b7a736f94ac57437171f9586',
- };
- for(const [name,sha] of Object.entries(expected))assert.equal(gitHash(await readFile(path.join(root,'assets',name))),sha,name);
+test('published brand files, emblems and fonts match their releases, with notices and nothing unused',async()=>{
+ const {provenance,publishedBytes}=await import('../src/brand.mjs');
+ for(const target of Object.keys(provenance.published))assert.ok((await readFile(path.join(root,target))).equals(publishedBytes(target)),target);
+ for(const [target,{sha256}] of Object.entries(provenance.outsideDistribution.files))assert.equal(createHash('sha256').update(await readFile(path.join(root,target))).digest('hex'),sha256,target);
  for(const name of ['Inter-OFL.txt','IBM-Plex-OFL.txt'])assert.match(await readFile(path.join(root,'assets/fonts',name),'utf8'),/SIL OPEN FONT LICENSE/);
- const tokens=await readFile(path.join(root,'assets/brand-tokens.css'),'utf8');assert.match(tokens,/APPROVED/);assert.doesNotMatch(tokens,/Spectral|hplx-amber/);
+ const tokens=await readFile(path.join(root,'assets/brand/cosmik.css'),'utf8');assert.match(tokens,/APPROVED/);assert.doesNotMatch(tokens,/Spectral|hplx-amber/);
+ assert.ok(!files.some(f=>/Spectral|ember|lockup|\.lock\.json|vendor/i.test(path.relative(root,f))),'only files pages use are published');
  for(const html of pages.values()){assert.match(html,/width="48" height="48" alt=""><span>Cosmik<\/span>/);assert.doesNotMatch(html,/<span>COSMIK<\/span>/);}
 });
 
 test('site CSS uses defined semantic roles, visible focus, responsive layout and reduced motion',async()=>{
  const css=await readFile(path.join(root,'assets/site.css'),'utf8');
- const tokens=await readFile(path.join(root,'assets/brand-tokens.css'),'utf8');
+ const tokens=await readFile(path.join(root,'assets/brand/cosmik.css'),'utf8');
  for(const [,token] of css.matchAll(/var\((--c-[\w-]+)/g))assert.ok(tokens.includes(`${token}:`),`undefined token ${token}`);
  assert.doesNotMatch(css,/#(?:[0-9a-f]{3}){1,2}\b|rgba?\(|hsla?\(|var\(--c-primitive-|@import|https?:\/\//i);
  assert.match(css,/:focus-visible/);assert.match(css,/max-width:720px/);assert.match(css,/max-width:380px/);

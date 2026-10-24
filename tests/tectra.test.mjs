@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { families, featuredWork } from '../src/projects.mjs';
 import { home, catalog, familyPage } from '../src/templates.mjs';
+import { assetBytes } from '../src/assets.mjs';
 
 test('Tectra has a restrained listing and minimal development page', () => {
   const tectra = families.find(family => family.id === 'tectra');
@@ -27,7 +28,7 @@ test('Tectra has a restrained listing and minimal development page', () => {
 test('Tectra preserves the approved two-path Latch geometry and colors', async () => {
   const { readFile } = await import('node:fs/promises');
   for (const [variant, color] of [['dark', '#71D6C3'], ['white', '#FFFFFF']]) {
-    const svg = await readFile(new URL(`../assets/families/tectra/tectra-latch-${variant}.svg`, import.meta.url), 'utf8');
+    const svg = assetBytes(`assets/families/tectra/tectra-latch-${variant}.svg`).toString('utf8');
     assert.match(svg, /viewBox="0 0 64 64"/);
     assert.match(svg, /d="M8 12H36L24 24H20V40L8 52Z"/);
     assert.match(svg, /d="M56 12L44 24V40H40L28 52H56Z"/);
@@ -59,12 +60,12 @@ test('deprecated Volsyn address redirects to Tectra without obsolete product con
 });
 
 
-test('Tectra symbols are byte-identical to the pinned reorganized brand kit', async () => {
+test('Tectra symbols are byte-identical to the approved Latch masters', async () => {
  const {readFile}=await import('node:fs/promises');
  const {createHash}=await import('node:crypto');
  const expected={"dark": "7cd0e0eb53e3c92b2f141264401528dacadb7d6ab2698f506cdaf4e711c0cd67", "white": "621a1ac71204c3a9f9fa76d7c164fcf71285b062e31d93dcd4e0a3155cdeb6f9"};
  for(const [variant, hash] of Object.entries(expected)) {
-  const data=await readFile(new URL(`../assets/families/tectra/tectra-latch-${variant}.svg`,import.meta.url));
+  const data=assetBytes(`assets/families/tectra/tectra-latch-${variant}.svg`);
   assert.equal(createHash('sha256').update(data).digest('hex'),hash);
  }
 });

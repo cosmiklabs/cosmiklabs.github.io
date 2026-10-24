@@ -1,0 +1,35 @@
+# Colour and themes
+
+**The identity is black and warm off-white.** The baseline has no accent colour: hierarchy comes from type, space and structure, and status from words. Paper matches the accepted emblem's fill. The palette is sRGB; no universal CMYK or Pantone match is specified.
+
+## Use roles, not colours
+
+Product code reads **semantic roles** (`bg`, `surface`, `raised`, `text`, `muted`, `border`, `focus`, the action, input, disabled and status roles), never raw colours or primitives. Every role exists in both a dark and a light mode. The values, and the full list, are in the [tokens](../kits/README.md).
+
+- **Switch a whole mode together.** Never change text without its surfaces, or put a dark-only colour on a light surface.
+- **Choosing a mode is the product's decision.** `data-theme` sets one on a page or section; without it the page follows the operating system's light or dark preference.
+- **Essential boundaries use `border`.** `divider`, `divider-strong` and the ornament greys are decorative and must never be the only cue.
+
+## Contrast
+
+Required text meets at least 4.5:1 against its background; essential control boundaries, focus indicators and selected states meet at least 3:1. `npm run check` checks every defined pair in every kit. Decorative separators are exempt only when they carry no information. These checks are evidence for the kit, not certification of a product built with it.
+
+## Compositing and overlays
+
+Keep essential text and controls on surfaces with a known contrast relationship.
+An attractive translucent panel over a screenshot or 3D viewport is not guaranteed
+to retain that relationship as the content changes. Use a sufficiently solid
+semantic surface and a functional boundary; do not count a decorative shadow as
+the boundary. Check actual backgrounds in both themes.
+
+Portalled overlays must receive the same theme and family context as their trigger.
+Use the [consumer integration contract](../kits/README.md#themes-scopes-and-motion)
+and the [interface layering rules](interface.md#menus-popovers-and-dialogs).
+
+## Print
+
+Use the original paper colour, test black coverage, and approve a physical proof for each print process and stock.
+
+## Product families
+
+A product family may bring colour of its own (an accent, tinted surfaces, status hues) through a family kit, under rules the build enforces. See [Product families](families.md).
