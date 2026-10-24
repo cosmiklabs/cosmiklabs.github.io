@@ -3,7 +3,7 @@
 @font-face{font-family:Inter;src:url('fonts/Inter-SemiBold.woff2') format('woff2');font-style:normal;font-weight:600;font-display:swap}
 @font-face{font-family:'IBM Plex Mono';src:url('fonts/IBMPlexMono-Regular.woff2') format('woff2'),url('fonts/IBMPlexMono-Regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 *{box-sizing:border-box}
-html{scrollbar-gutter:stable;scroll-behavior:smooth;scroll-padding-top:var(--c-space-8)}
+html{scrollbar-gutter:stable;scroll-behavior:auto;scroll-padding-top:var(--c-space-8)}
 body{margin:0;background:var(--c-bg);color:var(--c-text);font-family:var(--c-type-body-font-family),sans-serif;font-size:var(--c-type-body-font-size);line-height:var(--c-type-body-line-height);font-weight:var(--c-type-body-font-weight)}
 [data-theme]{background:var(--c-bg);color:var(--c-text)}
 a{color:var(--c-link);text-underline-offset:.22em;text-decoration-thickness:1px}
@@ -167,7 +167,7 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
  .about-links{align-items:flex-start;flex-direction:column;gap:var(--c-space-2);padding-bottom:var(--c-space-12)}
 }
 @media(max-width:380px){.wrap{width:calc(100% - var(--c-space-4)*2)}.family-row-end{gap:var(--c-space-2)}.family-row-end .status{font-size:.75rem}.family-nav{gap:var(--c-space-2)}.family-nav a{font-size:.875rem}.feature-status{gap:var(--c-space-2)}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:var(--c-motion-reduced-duration)!important;animation-duration:var(--c-motion-reduced-duration)!important}}
+/* Effective motion duration comes from the pinned brand policy, including scoped overrides. */
 
 
 /* Readable, responsive public policy pages. */
@@ -189,3 +189,8 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 
 /* Compact Glimmer uses a square listing symbol. */
 .family-row-symbol-hplx{width:2rem;height:2rem}
+
+.motion-preference{display:flex;align-items:center;gap:var(--c-space-2);font-size:var(--c-type-control-font-size)}
+.motion-preference[hidden]{display:none}
+.motion-preference select{min-height:var(--c-layout-control-min);font:inherit;color:var(--c-text);background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--c-layout-radius);padding:var(--c-space-2)}
+.motion-preference select:focus-visible{outline:var(--c-layout-focus-width) solid var(--c-focus);outline-offset:var(--c-layout-focus-offset)}

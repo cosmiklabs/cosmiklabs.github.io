@@ -1,0 +1,27 @@
+{
+  "repository": "cosmiklabs/brand",
+  "commit": "6bf3c8608a42b7859c9022d3adbc8ebc6edb8fd7",
+  "files": [
+    {
+      "target": "assets/brand-tokens.css",
+      "source": "kits/cosmik/tokens/cosmik.css",
+      "mode": "exact",
+      "sourceSha256": "4eac5f6a397d2f95e30258fe9dca24df9837d8372fcf26df75eba289ab2b1abd",
+      "vendoredSha256": "4eac5f6a397d2f95e30258fe9dca24df9837d8372fcf26df75eba289ab2b1abd"
+    },
+    {
+      "target": "assets/families/tectra/theme.css",
+      "source": "kits/tectra/tokens/tectra.css",
+      "mode": "color-only adaptation, explicit website modes",
+      "sourceSha256": "eaff95e1c539de8cead93a3670a38d6e7d560bcdfebdaef2d3d161f89578c26d",
+      "vendoredSha256": "e221cface7fe8540a98062237bf9d9b7434cedb05e270b51c5aff5b48cb48d02"
+    },
+    {
+      "target": "assets/families/hplx/theme.css",
+      "source": "kits/hplx/tokens/hplx.css",
+      "mode": "color-only adaptation, shared Inter type",
+      "sourceSha256": "04e19c786c2e9f375739e57156c7b36a56eae57ea741cae672debe87f7253055",
+      "vendoredSha256": "cd50321d3b641e4c2371ee49adf033100eb823d56f8baae71c37b92072b6b031"
+    }
+  ]
+}

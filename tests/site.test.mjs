@@ -40,7 +40,9 @@ test('all pages have a unique title, one h1, landmarks, labels and no JavaScript
   assert.match(html,/<main id="main" tabindex="-1">/);assert.match(html,/<a class="skip-link" href="#main">/);
   assert.match(html,/<nav aria-label="Main navigation">/);assert.match(html,/<meta name="description"/);
   assert.match(html,/<meta name="viewport" content="width=device-width, initial-scale=1">/);
-  assert.doesNotMatch(html,/<script|onclick=|javascript:/i);
+  assert.doesNotMatch(html,/onclick=|javascript:/i);
+  assert.equal((html.match(/<script /g)||[]).length,1);
+  assert.match(html, /assets\/preferences\.mjs\?v=/);
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length,`${name} duplicate IDs`);
   for(const [img] of html.matchAll(/<img\b[^>]*>/g))assert.match(img,/alt="[^"]*"/);
   for(const [svg] of html.matchAll(/<svg\b[^>]*>/g))assert.match(svg,/aria-hidden="true"/);
@@ -53,7 +55,7 @@ test('homepage feature and stable family list are separate, without repeated pro
  const html=pages.get('index.html');
  assert.equal((html.match(/class="featured-work"/g)||[]).length,1);
  assert.equal((html.match(/class="family-row"/g)||[]).length,families.length);
- assert.match(html,/data-featured-family="hplx"/);
+ assert.match(html,/data-featured-family="tectra"/);
  assert.doesNotMatch(html,/directory-controls|project-card|project-grid|assets\/art\//);
  const index=pages.get('projects/index.html');
  assert.equal((index.match(/class="family-row"/g)||[]).length,families.length);
@@ -96,7 +98,7 @@ test('private source, download and external service links are absent',()=>{
 test('approved baseline tokens, unchanged emblems and fonts are pinned',async()=>{
  const gitHash=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
  const expected={
-  'brand-tokens.css':'3033047a35e29cb543a1fbdff73396524630240f',
+  'brand-tokens.css':'08b9f09d0e22c0b19855cc4b60f551d113a34dcc',
   'emblem.svg':'5519818f64e11a3dc1f0fdbd3aacc563451e8541',
   'cosmik-512.png':'e022596fa2c583da56c01f7536e8d44306b0dae7',
   'cosmik.ico':'4521a86f042673f72c1ed99365fb4964a44a199c',
@@ -118,7 +120,7 @@ test('site CSS uses defined semantic roles, visible focus, responsive layout and
  for(const [,token] of css.matchAll(/var\((--c-[\w-]+)/g))assert.ok(tokens.includes(`${token}:`),`undefined token ${token}`);
  assert.doesNotMatch(css,/#(?:[0-9a-f]{3}){1,2}\b|rgba?\(|hsla?\(|var\(--c-primitive-|@import|https?:\/\//i);
  assert.match(css,/:focus-visible/);assert.match(css,/max-width:720px/);assert.match(css,/max-width:380px/);
- assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);assert.match(css,/scroll-behavior:auto/);
+ assert.match(tokens,/@media \(prefers-reduced-motion: reduce\)/);assert.match(css,/scroll-behavior:auto/);
  assert.match(css,/--c-layout-control-min/);assert.match(css,/flex-wrap:wrap/);
  assert.doesNotMatch(css,/overflow-x:hidden|text-overflow:ellipsis|line-clamp/);
 });
