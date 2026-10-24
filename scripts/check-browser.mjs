@@ -30,6 +30,8 @@ try{
    const scoped=await page.evaluate(()=>{const outer=document.createElement('div');outer.dataset.motion='full';const inner=document.createElement('div');inner.dataset.motion='system';outer.append(inner);document.body.append(outer);const values=[outer,inner].map(el=>getComputedStyle(el).getPropertyValue('--c-motion-duration').trim());outer.remove();return values;});
    assert.deepEqual(scoped,['140ms','0ms']);await pref.selectOption('reduce');
    if(name==='tectra')assert.equal(await page.locator('[data-reveal-pending]').count(),0);
+   for(const img of await page.locator('img').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());assert.ok(await img.evaluate(el=>el.naturalWidth>0),`${name} image loaded`);}
+   await page.evaluate(()=>window.scrollTo(0,0));
    await page.screenshot({path:`review-screenshots/${name}-${width}.png`,fullPage:true});
    assert.deepEqual(errors,[],`${name} JS errors`);results.push({name,width,overflow,errors,motion:'system/reduce/full and nested scope passed'});await page.close();
   }
