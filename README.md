@@ -39,12 +39,12 @@ its repository, tag, commit and the SHA-256 of every file:
 
 | Directory | Release | Lock |
 | --- | --- | --- |
-| `vendor/brand/` | [cosmiklabs/brand](https://github.com/cosmiklabs/brand) v0.9.1, the Cosmik foundation | `vendor/brand/brand.lock.json` |
-| `vendor/brand-tectra/` | [cosmiklabs/brand-tectra](https://github.com/cosmiklabs/brand-tectra) v0.2.1 | `vendor/brand-tectra/brand-tectra.lock.json` |
-| `vendor/brand-hplx/` | [cosmiklabs/brand-hplx](https://github.com/cosmiklabs/brand-hplx) v0.1.0 | `vendor/brand-hplx/brand-hplx.lock.json` |
+| `vendor/brand/` | [cosmiklabs/brand](https://github.com/cosmiklabs/brand) v0.10.0, the Cosmik foundation | `vendor/brand/brand.lock.json` |
+| `vendor/brand-tectra/` | [cosmiklabs/brand-tectra](https://github.com/cosmiklabs/brand-tectra) v0.2.2 | `vendor/brand-tectra/brand-tectra.lock.json` |
+| `vendor/brand-hplx/` | [cosmiklabs/brand-hplx](https://github.com/cosmiklabs/brand-hplx) v0.1.1 | `vendor/brand-hplx/brand-hplx.lock.json` |
 
 Never edit anything under `vendor/`. Each product brand carries the foundation it
-was built on under its own `vendor/brand/`; all three copies are brand v0.9.1, byte
+was built on under its own `vendor/brand/`; all three copies are brand v0.10.0, byte
 for byte, and pages load the baseline once, from `vendor/brand/`.
 
 `brand-provenance.json` names the locks and maps every published brand file to its
@@ -81,10 +81,13 @@ declaration in a future release fails the build until it is reviewed. The family
 
 Calls to action use `c-button c-button--primary`, with the site's `.button` adding
 only its layout. Links in running text use `c-link`. The Motion selector uses
-`c-select`. Global link hover and active colours have zero specificity, so control
+`c-select c-select--dense`, which returns to the standard target and body size on
+touch so focusing it never zooms. Global link hover and active colours have zero specificity, so control
 classes keep their own colours. The site's global `:focus-visible` ring matches the
 controls' ring and still covers navigation links, disclosures and other elements.
-Status labels keep the site's `.status` style.
+Status labels use `c-status` (the label type in a pill, with no control
+affordance); the site's `.status` adds only wrapping and the smaller label step in
+the home page's project rows.
 
 ### Updating the brand
 
@@ -110,7 +113,7 @@ The owner approved the existing HPLX warm theme for this website on 7 October. T
 
 Glimmer is the official HPLX symbol, approved on 17 October 2026. The family header uses the exact transparent amber master; the homepage and Projects listings use its neutral white variant. Both preserve the approved two-path geometry and square 64 × 64 viewBox. The HPLX family hero uses a responsive horizontal lockup: the symbol sits to the left of the live product name, with the endorsement below the name. Hero symbols scale with the display type at 1.35em; listing symbols are 32 × 32. Decorative image alternatives avoid repeating adjacent live text. Cosmik’s global identity remains unchanged.
 
-Canonical source: `vendor/brand-hplx/assets/` from brand-hplx v0.1.0. Ember is retained there for provenance; no active template uses it and it is not published. No glow, crop or reconstructed wordmark is added.
+Canonical source: `vendor/brand-hplx/assets/` from brand-hplx v0.1.1. Ember is retained there for provenance; no active template uses it and it is not published. No glow, crop or reconstructed wordmark is added.
 
 ## Remaining review
 
@@ -177,7 +180,7 @@ Tectra replaces deprecated Volsyn at `/projects/tectra/`. The old
 Listings and metadata use Tectra; the shared product-family layout is unchanged.
 
 Tectra's palette and Latch symbols come from `vendor/brand-tectra/` (brand-tectra
-v0.2.1). The dark and white Latch SVGs are published unchanged.
+v0.2.2). The dark and white Latch SVGs are published unchanged.
 
 ## Product websites
 

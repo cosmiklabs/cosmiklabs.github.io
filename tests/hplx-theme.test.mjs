@@ -9,7 +9,7 @@ const vendored=readFileSync(new URL('../vendor/brand-hplx/tokens/hplx.css',impor
 test('HPLX publishes its approved colour roles without the kit\'s Spectral headings',()=>{
  assert.match(vendored,/--c-type-display-font-family: "Spectral"/); // The kit's choice, recorded unchanged in vendor/.
  assert.doesNotMatch(tokens,/--c-type-|Spectral|@font-face/); // The website keeps shared Inter headings.
- assert.match(tokens,/Colour roles of vendor\/brand-hplx\/tokens\/hplx\.css \(cosmiklabs\/brand-hplx v0\.1\.0\)/);
+ assert.match(tokens,/Colour roles of vendor\/brand-hplx\/tokens\/hplx\.css \(cosmiklabs\/brand-hplx v0\.1\.1\)/);
  assert.match(theme,/Selected for this site on 7 October 2026/);
 });
 

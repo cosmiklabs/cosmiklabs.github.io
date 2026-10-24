@@ -3,6 +3,19 @@
 The Tectra family's version is `version` in `tokens/family.json`; this repository's
 `package.json` and `asset-manifest.json` carry the same version. Newest first.
 
+## 0.2.2 · 24 October 2026
+
+- **Foundation `cosmiklabs/brand` v0.10.0** (commit
+  `c3bf1a7b2e34ff764a069e96c5c86ff29316f7b4`), synced with its `vendor.mjs`. Its
+  shared controls change: `c-status` now reads as a label (the `label` type role, a
+  pill shape, no interaction affordance); `c-select--dense` and `c-input--dense`
+  add dense fields that return to the standard target and body size on touch; and
+  `c-button--large` adds a taller call-to-action button. See the foundation's
+  changelog at `vendor/brand/CHANGELOG.md`.
+- No Tectra token value or mark changes. Generated tokens differ only in the
+  version and the provenance header; the baseline token version is still 0.7.0, so
+  `extends` is unchanged.
+
 ## 0.2.1 · 24 October 2026
 
 - **Consumers sync this repository with one tool.** Products run

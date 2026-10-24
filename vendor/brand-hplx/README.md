@@ -2,7 +2,7 @@
 
 This repository is the HPLX family of the Cosmik brand: the HPLX tokens, the Glimmer
 symbol and lockups, the historical Ember artwork and icons, and Spectral for HPLX
-headings. It builds on [`cosmiklabs/brand`](https://github.com/cosmiklabs/brand) v0.9.1,
+headings. It builds on [`cosmiklabs/brand`](https://github.com/cosmiklabs/brand) v0.10.0,
 vendored at `vendor/brand/` and pinned by `vendor/brand/brand.lock.json`. See
 [Building on the Cosmik foundation](#building-on-the-cosmik-foundation).
 
@@ -34,7 +34,7 @@ HPLX does not imply official affiliation with a game's original owner or one lic
 
 ## Interface use
 
-Use the [consumer guide](https://github.com/cosmiklabs/brand/blob/v0.9.1/kits/README.md) for theme, font and scope integration.
+Use the [consumer guide](https://github.com/cosmiklabs/brand/blob/v0.10.0/kits/README.md) for theme, font and scope integration.
 HPLX heading roles may use Spectral; navigation, forms and utility text stay Inter.
 Status tones supplement explicit words. Follow shared [interface](vendor/brand/guide/interface.md),
 [motion](vendor/brand/guide/motion.md) and [quality review](vendor/brand/guide/quality.md) guidance
@@ -77,7 +77,7 @@ node scripts/build.mjs --check   # rebuild from a clean commit; fail on any drif
 ### Updating the foundation
 
 1. Check out `cosmiklabs/brand` at the new release tag, with a clean tree, and read
-   its [changelog](https://github.com/cosmiklabs/brand/blob/v0.9.1/CHANGELOG.md).
+   its [changelog](https://github.com/cosmiklabs/brand/blob/v0.10.0/CHANGELOG.md).
 2. `node <brand>/scripts/vendor.mjs sync --from <brand> --into vendor/brand`
    replaces `vendor/brand/` and its lock.
 3. If the baseline token version changed, update `extends` in `tokens/family.json`.

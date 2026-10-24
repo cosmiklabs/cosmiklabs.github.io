@@ -18,7 +18,7 @@ test('every registered family and future baseline family use the same hero compo
   assert.equal((html.match(/class="breadcrumbs"/g)||[]).length, 1);
   assert.equal((html.match(/class="family-bottom wrap"/g)||[]).length, 1);
   assert.doesNotMatch(html, /tectra-heading|page-heading|style=/);
-  assert.match(hero(html), /family-identity[\s\S]*<h1>[\s\S]*endorsement[\s\S]*family-introduction[\s\S]*<h2>[\s\S]*<p>[\s\S]*class="status"/);
+  assert.match(hero(html), /family-identity[\s\S]*<h1>[\s\S]*endorsement[\s\S]*family-introduction[\s\S]*<h2>[\s\S]*<p>[\s\S]*class="status c-status"/);
  }
  assert.doesNotMatch(familyPage(future), /Your game|Frictional|family-games/);
 });

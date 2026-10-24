@@ -1,6 +1,6 @@
 {
   "name": "Cosmik · HPLX",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "status": "Approved (owner, 2026-10-15)",
   "family": "hplx",
   "extends": "Cosmik baseline 0.7.0",
