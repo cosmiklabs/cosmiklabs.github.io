@@ -2,7 +2,7 @@
 
 > **Names.** Cosmik Labs (long form), CosmikLabs (full name), `cosmiklabs` (GitHub handle) and Cosmik (short form) all name the same personal GitHub organisation. It is not a company or other legal entity: copyright stays with the contributors, and the Cosmik marks are held by the organisation's owner.
 
-These terms are those of [`cosmiklabs/brand`](https://github.com/cosmiklabs/brand/blob/v0.9.1/LICENSE.md), applied to this repository's contents. Until v0.8.0 the Tectra kit lived in that repository under the same terms. This repository mixes four kinds of material with different rights. Each part is covered separately; a licence for one part says nothing about the others.
+These terms are those of [`cosmiklabs/brand`](https://github.com/cosmiklabs/brand/blob/v0.10.0/LICENSE.md), applied to this repository's contents. Until v0.8.0 the Tectra kit lived in that repository under the same terms. This repository mixes four kinds of material with different rights. Each part is covered separately; a licence for one part says nothing about the others.
 
 ## 1. Tooling, token data and written guidance: MIT
 

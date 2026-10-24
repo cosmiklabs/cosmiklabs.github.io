@@ -2,7 +2,7 @@
 
 This repository is the Tectra family of the Cosmik brand: its tokens, the Latch
 marks, the offline review board and this guide. It builds on the Cosmik foundation
-from [`cosmiklabs/brand`](https://github.com/cosmiklabs/brand) **v0.9.1**, vendored
+from [`cosmiklabs/brand`](https://github.com/cosmiklabs/brand) **v0.10.0**, vendored
 unchanged at `vendor/brand/` and pinned by `vendor/brand/brand.lock.json` (tag,
 commit and SHA-256 of every file). The family's tokens are generated and checked by
 the vendored `vendor/brand/scripts/family.mjs`, so the family contract, baseline
@@ -54,8 +54,8 @@ Follow the shared [interface](vendor/brand/guide/interface.md), [motion](vendor/
 ## Deliverables and pending assets
 
 - [Offline review board](specimen.html): two-mode visual direction and illustrative applications.
-- [Component reference](https://github.com/cosmiklabs/brand/blob/v0.9.1/specimens/components.html) in `cosmiklabs/brand`: the shared controls Tectra inherits. Load `tokens/tectra.css` and apply `data-family="tectra"` to inspect them in Tectra.
-- Generated CSS, JSON, DTCG and Rust under [tokens/](tokens/); use the [consumer guide](https://github.com/cosmiklabs/brand/blob/v0.9.1/kits/README.md) for integration.
+- [Component reference](https://github.com/cosmiklabs/brand/blob/v0.10.0/specimens/components.html) in `cosmiklabs/brand`: the shared controls Tectra inherits. Load `tokens/tectra.css` and apply `data-family="tectra"` to inspect them in Tectra.
+- Generated CSS, JSON, DTCG and Rust under [tokens/](tokens/); use the [consumer guide](https://github.com/cosmiklabs/brand/blob/v0.10.0/kits/README.md) for integration.
 - [Validation record](validation.md).
 
 The symbol and supplied horizontal lockup are approved for integration. Platform icons, banners, identity animation and an optical small-size redraw remain separate future deliverables. Generate canonical variants with `node scripts/build-assets.mjs` (or `npm run build`); Inter's existing font notice continues to apply.

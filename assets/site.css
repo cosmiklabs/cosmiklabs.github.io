@@ -48,7 +48,10 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .feature-context{border-left:1px solid var(--c-divider-strong);padding-left:var(--c-space-12)}
 .feature-status{display:flex;flex-wrap:wrap;gap:var(--c-space-4);align-items:center;justify-content:space-between}
 .feature-status>.eyebrow{text-transform:none;letter-spacing:0;font-family:var(--c-type-body-font-family),sans-serif}
-.status{display:inline-block;font-size:var(--c-type-label-font-size);line-height:1.5;font-weight:500;color:var(--c-status-fg);padding:var(--c-space-base) var(--c-space-2);border:1px solid var(--c-status-border);border-radius:var(--c-radius-sm);white-space:normal;overflow-wrap:anywhere;background:var(--c-status-bg)}
+/* Status labels are the kit's c-status; only wrapping is local, plus the smaller
+   label step in the dense project rows. */
+.status{overflow-wrap:anywhere}
+.family-row-end .status{font-size:var(--c-type-ui-small-font-size)}
 .family-outline{margin-block:var(--c-space-8);border-top:1px solid var(--c-divider-strong)}
 .family-outline>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--c-space-4);align-items:baseline;padding-block:var(--c-space-4);border-bottom:1px solid var(--c-divider-strong)}
 .outline-label{font:var(--c-type-label-font-size)/1.5 var(--c-type-label-font-family),monospace;color:var(--c-muted)}
@@ -92,7 +95,7 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .family-nav a:hover{text-decoration:underline}
 .section-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:var(--c-space-16);padding-block:var(--c-space-16)}
 .section-grid .eyebrow{margin-bottom:var(--c-space-6)}
-.game-detail+.game-detail{margin-top:var(--c-space-12);padding-top:var(--c-space-12);border-top:1px solid var(--c-divider)}
+.game-detail+.game-detail,.game-detail+.tool-list{margin-top:var(--c-space-12);padding-top:var(--c-space-12);border-top:1px solid var(--c-divider)}
 .game-detail h3{margin-block:var(--c-space-6) var(--c-space-4)}
 .game-detail>p{max-width:var(--c-layout-line)}
 details{margin-top:var(--c-space-8);border-block:1px solid var(--c-border)}
@@ -166,7 +169,7 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
  .about-approach article+article{border-top:1px solid var(--c-divider);padding-top:var(--c-space-8)}
  .about-links{align-items:flex-start;flex-direction:column;gap:var(--c-space-2);padding-bottom:var(--c-space-12)}
 }
-@media(max-width:380px){.wrap{width:calc(100% - var(--c-space-4)*2)}.family-row-end{gap:var(--c-space-2)}.family-row-end .status{font-size:.75rem}.family-nav{gap:var(--c-space-2)}.family-nav a{font-size:.875rem}.feature-status{gap:var(--c-space-2)}}
+@media(max-width:380px){.wrap{width:calc(100% - var(--c-space-4)*2)}.family-row-end{gap:var(--c-space-2)}.family-nav{gap:var(--c-space-2)}.family-nav a{font-size:.875rem}.feature-status{gap:var(--c-space-2)}}
 /* Effective motion duration comes from the pinned brand policy, including scoped overrides. */
 
 

@@ -1,6 +1,6 @@
 {
   "name": "Cosmik · Tectra",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "status": "Approved — 17 October 2026; angle-only Latch approved",
   "family": "tectra",
   "extends": "Cosmik baseline 0.7.0",
