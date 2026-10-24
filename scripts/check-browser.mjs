@@ -1,4 +1,4 @@
-// Review-only CI validation; never publishes either site.
+// Review-only CI validation; never publishes the site.
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -11,12 +11,12 @@ async function serve(script,port){
  await new Promise((resolve,reject)=>{child.stdout.once('data',resolve);child.once('error',reject);child.once('exit',code=>reject(new Error(`Server exited ${code}`)));});
 }
 try{
- await serve('scripts/serve.mjs',4173);await serve('tectra.app/scripts/serve.mjs',4174);
+ await serve('scripts/serve.mjs',4173);
  browser=await chromium.launch({executablePath:process.env.BROWSER_PATH || '/usr/bin/google-chrome',headless:true});
  await mkdir('review-screenshots',{recursive:true});
  for(const width of [1440,390,320]){
   const context=await browser.newContext({viewport:{width,height:960},reducedMotion:'reduce'});
-  for(const [name,url] of [['org','http://127.0.0.1:4173/'],['org-tectra','http://127.0.0.1:4173/projects/tectra/'],['org-hplx','http://127.0.0.1:4173/projects/hplx/'],['tectra','http://127.0.0.1:4174/']]){
+  for(const [name,url] of [['org','http://127.0.0.1:4173/'],['org-tectra','http://127.0.0.1:4173/projects/tectra/'],['org-hplx','http://127.0.0.1:4173/projects/hplx/']]){
    const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await page.evaluate(()=>document.fonts.ready);
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);assert.equal(overflow,false,`${name} ${width} horizontal overflow`);
    const nav=page.locator('nav[aria-label="Main navigation"] a');for(const link of await nav.all())assert.ok(await link.isVisible(),`${name} mobile nav link visible`);
@@ -29,7 +29,6 @@ try{
    await pref.selectOption('full');
    const scoped=await page.evaluate(()=>{const outer=document.createElement('div');outer.dataset.motion='full';const inner=document.createElement('div');inner.dataset.motion='system';outer.append(inner);document.body.append(outer);const values=[outer,inner].map(el=>getComputedStyle(el).getPropertyValue('--c-motion-duration').trim());outer.remove();return values;});
    assert.deepEqual(scoped,['140ms','0ms']);await pref.selectOption('reduce');
-   if(name==='tectra')assert.equal(await page.locator('[data-reveal-pending]').count(),0);
    for(const img of await page.locator('img').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());assert.ok(await img.evaluate(el=>el.naturalWidth>0),`${name} image loaded`);}
    await page.evaluate(()=>window.scrollTo(0,0));
    await page.screenshot({path:`review-screenshots/${name}-${width}.png`,fullPage:true});
@@ -38,6 +37,6 @@ try{
   await context.close();
  }
  const noJs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844},reducedMotion:'reduce'});
- for(const url of ['http://127.0.0.1:4173/','http://127.0.0.1:4174/']){const page=await noJs.newPage();await page.goto(url);assert.ok(await page.locator('h1').isVisible());assert.equal(await page.getByLabel('Motion preference').isVisible(),false);for(const link of await page.locator('nav a').all())assert.ok(await link.isVisible());await page.close();}
+ for(const url of ['http://127.0.0.1:4173/']){const page=await noJs.newPage();await page.goto(url);assert.ok(await page.locator('h1').isVisible());assert.equal(await page.getByLabel('Motion preference').isVisible(),false);for(const link of await page.locator('nav a').all())assert.ok(await link.isVisible());await page.close();}
  await noJs.close();await writeFile('review-screenshots/results.json',JSON.stringify(results,null,2));console.log(`Browser checks passed: ${results.length} desktop/mobile page cases plus no-JS checks.`);
 }finally{await browser?.close();for(const server of servers)server.kill();}

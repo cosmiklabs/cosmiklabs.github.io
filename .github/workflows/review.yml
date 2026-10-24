@@ -18,8 +18,6 @@ jobs:
       - run: npm run check
         env:
           SITE_URL: https://cosmiklabs.org
-      - run: npm run check
-        working-directory: tectra.app
       - name: Install isolated browser test driver
         run: npm install --prefix "$RUNNER_TEMP/browser-qa" --ignore-scripts --no-audit --no-fund playwright-core@1.56.1
       - name: Check desktop, mobile and motion behavior

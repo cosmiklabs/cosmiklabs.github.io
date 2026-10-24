@@ -123,4 +123,4 @@ Product websites live in their own repositories. The Tectra website draft for `t
 
 The current draft features Tectra while retaining HPLX as a separate project. Motion defaults to System; a page-local Motion selector offers Reduce and Full without saving tracking/storage data. CSS resolves the effective brand duration and responds to OS changes live. Explicit scoped overrides follow the nearest data-motion boundary. Content and navigation work without JavaScript; the optional selector stays hidden until enhanced. Scrolling is immediate in all modes.
 
-Run `npm run check`, `SITE_URL=https://cosmiklabs.org npm run check`, and `cd tectra.app && npm run check`. The dedicated draft remains excluded from the organization build. Review-branch changes must not be merged into main until live publication is approved.
+Run `npm run check` and `SITE_URL=https://cosmiklabs.org npm run check`. Review-branch changes must not be merged into main until live publication is approved.
