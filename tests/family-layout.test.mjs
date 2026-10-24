@@ -5,6 +5,8 @@ import { createHash } from 'node:crypto';
 import { families, validateContent, featuredWork } from '../src/projects.mjs';
 import { familyPage, familyHeading } from '../src/templates.mjs';
 import { resolveFamilyTheme } from '../src/themes.mjs';
+import { assetBytes } from '../src/assets.mjs';
+import { colourValue } from '../src/brand.mjs';
 
 const hero = html => html.match(/<header class="family-heading">[\s\S]*?<\/header>/)?.[0];
 test('every registered family and future baseline family use the same hero component', () => {
@@ -31,17 +33,18 @@ test('shared family content requirements and escaping are enforced', () => {
 
 test('family themes cannot introduce typography, geometry or layout differences', async () => {
  for (const family of families) {
-  const stylesheet=resolveFamilyTheme(family.id).stylesheet;
-  if (!stylesheet) continue;
-  const css = (await readFile(new URL(`../${stylesheet}`, import.meta.url),'utf8')).replace(/\/\*[\s\S]*?\*\//g,'');
+  const theme=resolveFamilyTheme(family.id);
+ for (const stylesheet of [theme.tokens, theme.stylesheet].filter(Boolean)) {
+  const css = assetBytes(stylesheet).toString('utf8').replace(/\/\*[\s\S]*?\*\//g,'');
   assert.doesNotMatch(css, /--c-(?:type|space|layout|motion|radius|breakpoint)-|@font-face|@media|@import/);
   for (const [,body] of css.matchAll(/\{([^{}]*)\}/g)) {
    for (const declaration of body.split(';').map(x=>x.trim()).filter(Boolean)) {
     const name=declaration.slice(0,declaration.indexOf(':')).trim();
-    if (name.startsWith('--c-')) assert.match(declaration.slice(declaration.indexOf(':')+1).trim(), /^(?:#[a-f0-9]{6}(?:[a-f0-9]{2})?|var\(--c-[a-z0-9-]+\))$/i, `${family.id}: non-color token ${name}`);
-    assert.ok(name.startsWith('--c-') || ['color','color-scheme','border-top-color'].includes(name), `${family.id}: ${name}`);
+    if (name.startsWith('--c-')) assert.match(declaration.slice(declaration.indexOf(':')+1).trim(), colourValue, `${family.id}: non-color token ${name}`);
+    assert.ok(name.startsWith('--c-') || ['color','border-top-color'].includes(name), `${family.id}: ${name}`);
    }
   }
+ }
  }
  const css=await readFile(new URL('../assets/site.css',import.meta.url),'utf8');
  assert.doesNotMatch(css, /\[data-family=|tectra-heading|hplx-heading/);
@@ -56,9 +59,9 @@ test('all CSS links have content-derived cache keys, including family overrides'
  for (const family of families) {
   const html=familyPage(family);
   for (const [,path,hash] of html.matchAll(/href="\.\.\/\.\.\/(assets\/[^"?]+\.css)\?v=([a-f0-9]{12})"/g)) {
-   const bytes=await readFile(new URL(`../${path}`,import.meta.url));
+   const bytes=assetBytes(path);
    assert.equal(hash,createHash('sha256').update(bytes).digest('hex').slice(0,12));
   }
-  assert.equal((html.match(/\.css\?v=[a-f0-9]{12}/g)||[]).length,resolveFamilyTheme(family.id).stylesheet ? 4 : 3);
+  assert.equal((html.match(/\.css\?v=[a-f0-9]{12}/g)||[]).length,resolveFamilyTheme(family.id).stylesheet ? 6 : 4);
  }
 });

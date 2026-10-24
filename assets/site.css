@@ -7,8 +7,9 @@ html{scrollbar-gutter:stable;scroll-behavior:auto;scroll-padding-top:var(--c-spa
 body{margin:0;background:var(--c-bg);color:var(--c-text);font-family:var(--c-type-body-font-family),sans-serif;font-size:var(--c-type-body-font-size);line-height:var(--c-type-body-line-height);font-weight:var(--c-type-body-font-weight)}
 [data-theme]{background:var(--c-bg);color:var(--c-text)}
 a{color:var(--c-link);text-underline-offset:.22em;text-decoration-thickness:1px}
-a:hover{color:var(--c-link-hover)}
-a:active{color:var(--c-link-active)}
+/* Zero-specificity link states, so shared control classes keep their own colours. */
+a:where(:hover){color:var(--c-link-hover)}
+a:where(:active){color:var(--c-link-active)}
 a,summary{-webkit-tap-highlight-color:var(--c-scrim)}
 :focus-visible{outline:var(--c-layout-focus-width) solid var(--c-focus);outline-offset:var(--c-layout-focus-offset)}
 :target{scroll-margin-top:var(--c-space-8)}
@@ -42,9 +43,8 @@ h3{font-family:var(--c-type-card-font-family),sans-serif;font-weight:var(--c-typ
 .feature-main h2{font-size:var(--c-type-display-font-size);line-height:var(--c-type-display-line-height);margin-block:var(--c-space-6) var(--c-space-4)}
 .feature-heading{font-weight:500;font-size:var(--c-type-card-font-size);line-height:var(--c-type-card-line-height)}
 .feature-description{max-width:43ch;margin-top:var(--c-space-4);color:var(--c-muted)}
-.button{display:inline-flex;max-width:100%;overflow-wrap:anywhere;align-items:center;justify-content:space-between;gap:min(var(--c-space-8),6vw);min-height:var(--c-layout-control-min);padding:12px var(--c-space-6);margin-top:var(--c-space-8);border:1px solid var(--c-action-primary);border-radius:var(--c-layout-radius);background:var(--c-action-primary);color:var(--c-action-primary-fg);font-size:var(--c-type-control-font-size);font-weight:var(--c-type-control-font-weight);text-decoration:none;transition:background-color var(--c-motion-duration) var(--c-motion-easing)}
-.button:hover{background:var(--c-action-primary-hover);color:var(--c-action-primary-fg)}
-.button:active{background:var(--c-action-primary-active)}
+/* Colours, states, type and focus come from the shared c-button; this sets the call-to-action layout. */
+.button{max-width:100%;overflow-wrap:anywhere;justify-content:space-between;gap:min(var(--c-space-8),6vw);padding:12px var(--c-space-6);margin-top:var(--c-space-8)}
 .feature-context{border-left:1px solid var(--c-divider-strong);padding-left:var(--c-space-12)}
 .feature-status{display:flex;flex-wrap:wrap;gap:var(--c-space-4);align-items:center;justify-content:space-between}
 .feature-status>.eyebrow{text-transform:none;letter-spacing:0;font-family:var(--c-type-body-font-family),sans-serif}
@@ -175,7 +175,6 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 .legal-copy{max-width:70ch;overflow-wrap:anywhere}
 .legal-copy h2{font-size:var(--c-type-card-font-size);margin-block:var(--c-space-12) var(--c-space-4)}
 .legal-copy p{margin-block:var(--c-space-4);line-height:1.75}
-.legal-copy a{text-decoration:underline;text-underline-offset:.2em}
 
 
 /* Symbols are decorative beside live product names, never replacement text. */
@@ -192,5 +191,3 @@ details[open]>summary>.arrow{transform:rotate(-90deg)}
 
 .motion-preference{display:flex;align-items:center;gap:var(--c-space-2);font-size:var(--c-type-control-font-size)}
 .motion-preference[hidden]{display:none}
-.motion-preference select{min-height:var(--c-layout-control-min);font:inherit;color:var(--c-text);background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--c-layout-radius);padding:var(--c-space-2)}
-.motion-preference select:focus-visible{outline:var(--c-layout-focus-width) solid var(--c-focus);outline-offset:var(--c-layout-focus-offset)}

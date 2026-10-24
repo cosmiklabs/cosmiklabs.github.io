@@ -5,10 +5,10 @@ import { createHash } from 'node:crypto';
 import { families } from '../src/projects.mjs';
 import { familyPage, home, catalog, about, notFound } from '../src/templates.mjs';
 import { resolveFamilyTheme } from '../src/themes.mjs';
-const asset=new URL('../assets/families/hplx/hplx-glimmer-dark.svg',import.meta.url);
+import { assetBytes } from '../src/assets.mjs';
 
 test('Glimmer SVG is the exact selected primary master, without recreation',async()=>{
- const bytes=await readFile(asset);
+ const bytes=assetBytes('assets/families/hplx/hplx-glimmer-dark.svg');
  const sha=createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
  assert.equal(sha,'2ce7d0590b6826f759952b1ffded6c71bb7b62ed');
  const svg=bytes.toString();assert.match(svg,/viewBox="0 0 64 64"/);assert.match(svg,/fill="#E0A53A"/);

@@ -1,4 +1,5 @@
 # Preserve the exact bytes of pinned brand text assets on every platform.
 *.css text eol=lf
 *.svg text eol=lf
-assets/fonts/*-OFL.txt -text
+# Vendored brand releases are verified byte for byte against their locks.
+vendor/** -text

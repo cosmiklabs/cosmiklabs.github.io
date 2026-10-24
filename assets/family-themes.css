@@ -3,8 +3,11 @@
  * remain outside it. Families without a selected website theme inherit
  * the exact Cosmik baseline. Theme and separate logo decisions are independent.
  *
- * Owner-selected family files are registered in src/themes.mjs and must scope every
- * override to [data-family="<id>"], including [data-theme="light"] descendants.
+ * Each selected family loads two files, registered in src/themes.mjs:
+ * tokens.css, the colour roles of its vendored brand tokens, and theme.css,
+ * where this site applies the accent. Both scope every rule to
+ * [data-family="<id>"]. Family colours use light-dark(), so the nearest
+ * data-theme (dark on the page, light on sections that set it) picks the mode.
  * Only color roles may change. All typography, layout,
  * controls, focus behavior, spacing and motion remain in the shared site CSS.
  */

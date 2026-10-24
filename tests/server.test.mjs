@@ -27,7 +27,8 @@ test('local server serves routes, normalizes trailing slashes and handles errors
    const res=await fetch(base+'/assets/'+asset);assert.equal(res.status,200);assert.equal(res.headers.get('content-type'),type);assert.ok((await res.arrayBuffer()).byteLength>0);
   }
   assert.equal(css.headers.get('cache-control'),'no-store');
-  const spectral=await fetch(base+'/assets/fonts/Spectral-SemiBold.woff2');assert.equal(spectral.status,200);assert.equal(spectral.headers.get('content-type'),'font/woff2');
-  const theme=await fetch(base+'/assets/families/hplx/theme.css');assert.equal(theme.status,200);assert.match(await theme.text(),/--c-primitive-hplx-amber: #E0A53A/);
+  const spectral=await fetch(base+'/assets/fonts/Spectral-SemiBold.woff2');assert.equal(spectral.status,404); // The website keeps Inter headings.
+  const tokens=await fetch(base+'/assets/families/hplx/tokens.css');assert.equal(tokens.status,200);assert.match(await tokens.text(),/--c-primitive-hplx-amber: #E0A53A/);
+  const controls=await fetch(base+'/assets/brand/controls.css');assert.equal(controls.status,200);assert.match(await controls.text(),/\.c-button/);
  } finally { child.kill(); }
 });
